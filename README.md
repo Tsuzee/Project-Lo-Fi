@@ -1,4 +1,12 @@
 Project-Lo-Fi
 =============
 
-Top Down Adventure Game
+Group Game Project
+
+Group Lead - Darren Farr
+
+Architecture - Jesse Cooper
+
+Interface - Phillip Fowler
+
+Design - Aliaksandr Shumski
