@@ -11,6 +11,22 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Project_LoFi
 {
+    //Enum for Game States
+    public enum GameState
+    {
+        Intro,
+        Menu,
+        Playing,
+        Won,
+        GameOver
+    }
+
+    //Enum for seperate states that run along side game states
+    public enum CoState
+    {
+
+    }
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -19,6 +35,13 @@ namespace Project_LoFi
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameVariables gameVars;
+
+        //Game State
+        GameState currentState;
+
+        //Keyboard states to track keys
+        KeyboardState keyState;
+        KeyboardState previousKeySate;
 
         public Game1()
         {
