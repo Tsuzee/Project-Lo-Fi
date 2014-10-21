@@ -23,8 +23,22 @@ namespace Project_LoFi
         }
         
         //add images, fonts, music, sounds, and other content here.
+        /// --  Fonts  --
         public SpriteFont Font1;
         public SpriteFont Font1Bold;
+
+        /// -- Images --
+        public Texture2D Logo;
+
+
+
+
+        //set Images
+        public void setImages()
+        {
+            Logo = myContent.Load<Texture2D>("logo");
+        }
+
 
         //set font
         public void setFont()

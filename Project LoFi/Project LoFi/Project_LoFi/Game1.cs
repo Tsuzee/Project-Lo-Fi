@@ -41,7 +41,7 @@ namespace Project_LoFi
 
         //Keyboard states to track keys
         KeyboardState keyState;
-        KeyboardState previousKeySate;
+        KeyboardState previousKeyState;
 
         public Game1()
         {
@@ -53,7 +53,11 @@ namespace Project_LoFi
             //set content directory
             Content.RootDirectory = "Content";
 
-            gameVars = new GameVariables(Content);
+            //setup variable storage class
+            gameVars = new GameVariables(this.Content);
+
+            //set initial game state
+            currentState = GameState.Intro;
         }
 
         /// <summary>
@@ -79,6 +83,9 @@ namespace Project_LoFi
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            //load images
+            gameVars.setImages();
+
             //load fonts
             gameVars.setFont();
         }
@@ -104,7 +111,90 @@ namespace Project_LoFi
                 this.Exit();
 
             // TODO: Add your update logic here
+            //get current keyboard state
+            keyState = Keyboard.GetState();
 
+            //update certian elements based on gamestate
+            switch (currentState)
+            {
+                case GameState.Intro:
+                    {
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+                                currentState = GameState.Playing;
+                            }
+                        }
+                        if (keyState.IsKeyDown(Keys.Escape))
+                        {
+                            currentState = GameState.Menu;
+                        }
+                        break;
+                    }
+                case GameState.Menu:
+                    {
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+                                currentState = GameState.Playing;
+                            }
+                        }
+                        if (keyState.IsKeyDown(Keys.Escape))
+                        {
+                            Exit();
+                        }
+                        break;
+                    }
+                case GameState.Playing:
+                    {
+
+                        if (keyState.IsKeyDown(Keys.Escape))
+                        {
+                            Exit();
+                        }
+                        break;
+                    }
+                case GameState.Won:
+                    {
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+
+                                currentState = GameState.Menu;
+                            }
+                        }
+                        if (keyState.IsKeyDown(Keys.Escape))
+                        {
+                            Exit();
+                        }
+                        break;
+                    }
+                case GameState.GameOver:
+                    {
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+                                
+                                currentState = GameState.Menu;
+                            }
+                        }
+                        if (keyState.IsKeyDown(Keys.Escape))
+                        {
+                            Exit();
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }//end gamestate switch
+
+            previousKeyState = keyState;//set previous state for next update
             base.Update(gameTime);
         }
 
@@ -131,5 +221,25 @@ namespace Project_LoFi
             spriteBatch.End();
             base.Draw(gameTime);
         }
-    }
+
+
+        /// <summary>
+        /// check to see if a key has been pressed only once
+        /// </summary>
+        /// <param name="current"></param>
+        /// <param name="previous"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        protected bool SingleKeyPress(KeyboardState current, KeyboardState previous, Keys key)
+        {
+            if (current.IsKeyDown(key) && previousKeyState.IsKeyUp(key))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }//end class
 }
