@@ -23,6 +23,11 @@ namespace Project_LoFi
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            //set window size(need to settle on a size)
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+
+            //set content directory
             Content.RootDirectory = "Content";
 
             gameVars = new GameVariables(Content);
