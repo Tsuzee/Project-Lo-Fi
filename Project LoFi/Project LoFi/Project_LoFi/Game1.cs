@@ -18,13 +18,14 @@ namespace Project_LoFi
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont Font1;
-        SpriteFont Font1Bold;
+        GameVariables gameVars;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            gameVars = new GameVariables(Content);
         }
 
         /// <summary>
@@ -50,8 +51,8 @@ namespace Project_LoFi
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            Font1 = Content.Load<SpriteFont>("Font1");
-            Font1Bold = Content.Load<SpriteFont>("Font1Bold");
+            //load fonts
+            gameVars.setFont();
         }
 
         /// <summary>
@@ -90,13 +91,13 @@ namespace Project_LoFi
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(Font1Bold, "Try Again Studios Presents",
+            spriteBatch.DrawString(gameVars.Font1Bold, "Try Again Studios Presents",
                             new Vector2((GraphicsDevice.Viewport.Width / 2) - 390, (GraphicsDevice.Viewport.Height / 2) - 150), Color.DarkRed, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
 
-            spriteBatch.DrawString(Font1Bold, "presents",
+            spriteBatch.DrawString(gameVars.Font1Bold, "presents",
                             new Vector2((GraphicsDevice.Viewport.Width / 2) - 180, (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
 
-            spriteBatch.DrawString(Font1Bold, "PROJECT LO-FI",
+            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI",
                             new Vector2((GraphicsDevice.Viewport.Width / 2) - 375, (GraphicsDevice.Viewport.Height / 2)), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
 
             spriteBatch.End();
