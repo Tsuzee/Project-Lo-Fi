@@ -17,6 +17,34 @@ namespace Project_LoFi
 {
     public class EnemyUnit : MovableGridOccupant
     {
+        /// --  Instance Variables  --
+        private int expDrop;                    // Variable to track how much experience an enemy gives upon death
+                                                // We can also handle this with methods, if we change a couple things
+        /// --  End of Instance Variables   --
+
+
+
+        /// --  Properties  --
+        public int ExpDrop
+        {
+            set { expDrop = value; }
+            get { return expDrop; }
+        }
+        /// --  End of Properties   --
+
+
+
+        /// --  Constructors    --
+        public void EnemyUnit() { }         // Skeleton no argument constructor
+                                            // Get it? Skeleton? Because the enemies are. . .nevermind.
+        /// -- End of Constructors  --
+
+
+
+        /// --  Methods    --
+        
+        /// -- End of Methods  --
+
 
     }//End of EnemyUnit class
 }
