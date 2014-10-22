@@ -299,6 +299,7 @@ namespace Project_LoFi
         /// </summary>
         protected void SetupLevel()
         {
+            //setup test level
             createLevel.AddTextureToTheList(gameVars.grassTexture);
             createLevel.AddTextureToTheList(gameVars.sandTexture);
         }//end setup level
