@@ -1,3 +1,5 @@
+// Grass and Sand textures where taking from http://opengameart.org/textures/ just for testing purposes.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +37,36 @@ namespace Project_LoFi
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameVariables gameVars;
+        
+        // Level map 
+       public int[,] level1 = new int[,]
+        {
+            
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,1,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+            {0,1,0,0,0,0,0,0,0,1,1,0},
+
+        };
+
+        // Creating Level
+       Level createLevel;
 
         //Game State
         GameState currentState;
@@ -58,6 +90,9 @@ namespace Project_LoFi
 
             //set initial game state
             currentState = GameState.Intro;
+
+            //set the map
+            createLevel = new Level(level1);
         }
 
         /// <summary>
@@ -70,6 +105,7 @@ namespace Project_LoFi
         {
             // TODO: Add your initialization logic here
 
+            
             base.Initialize();
         }
 
@@ -88,6 +124,9 @@ namespace Project_LoFi
 
             //load fonts
             gameVars.setFont();
+
+            createLevel.AddTextureToTheList(gameVars.grassTexture);
+            createLevel.AddTextureToTheList(gameVars.sandTexture);
         }
 
         /// <summary>
@@ -209,6 +248,9 @@ namespace Project_LoFi
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
+            switch(currentState)
+            {
+                case GameState.Intro:
             spriteBatch.DrawString(gameVars.Font1Bold, "Try Again Studios Presents",
                             new Vector2((GraphicsDevice.Viewport.Width / 2) - 390, (GraphicsDevice.Viewport.Height / 2) - 150), Color.DarkRed, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
 
@@ -217,7 +259,11 @@ namespace Project_LoFi
 
             spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI",
                             new Vector2((GraphicsDevice.Viewport.Width / 2) - 375, (GraphicsDevice.Viewport.Height / 2)), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-
+                break;
+                case GameState.Playing:
+                    createLevel.Draw(spriteBatch);
+                    break;
+            }
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Grass and Sand textures where taking from http://opengameart.org/textures/ just for testing purposes.
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -16,6 +19,7 @@ namespace Project_LoFi
     {
         
         private ContentManager myContent;
+    
 
         public GameVariables(ContentManager content)
         {
@@ -29,14 +33,18 @@ namespace Project_LoFi
 
         /// -- Images --
         public Texture2D Logo;
-
-
+        public Texture2D grassTexture;
+        public Texture2D sandTexture;
+       
 
 
         //set Images
         public void setImages()
         {
             Logo = myContent.Load<Texture2D>("logo");
+            grassTexture = myContent.Load<Texture2D>("Textures\\grass");
+            sandTexture = myContent.Load<Texture2D>("Textures\\sand");
+       
         }
 
 
