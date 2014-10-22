@@ -13,15 +13,12 @@ namespace Project_LoFi
     public class Level
     {
 
-        
-        
-        
         List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
 
 
-        int textureHeight = 64; // used to keep the size of the texture
-        int textureWidth = 64; // // used to keep the size of the texture
+        int textureHeight = 48; // used to keep the size of the texture
+        int textureWidth = 48; // // used to keep the size of the texture
 
 
         /// <summary>
@@ -89,8 +86,6 @@ namespace Project_LoFi
                 }
             }
         }
-
-
 
     }//End of Level class
 }
