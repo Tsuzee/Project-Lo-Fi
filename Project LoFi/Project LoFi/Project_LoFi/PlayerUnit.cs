@@ -17,6 +17,44 @@ namespace Project_LoFi
 {
     public class PlayerUnit : MovableGridOccupant
     {
+        /// --  Instance Variables  --
+        private int currentExp;                    // Variable to track how much experience a unit has gained
+        /// --  End of Instance Variables   --
+
+
+
+        /// --  Properties  --
+        public int ExpDrop
+        {
+            set { currentExp = value; }
+            get { return currentExp; }
+        }
+        /// --  End of Properties   --
+
+
+
+        /// --  Constructors    --
+        public void PlayerUnit() { }         // Skeleton no argument constructor
+        /// -- End of Constructors  --
+
+
+
+        /// --  Methods    --
+        
+        /// <summary>
+        /// Overwrites MovableGridOccupant's Attack method. Whatever object called this method should
+        /// call target.IsDead() immediately after, so it can call target.RemoveCorpse() if necessary
+        /// </summary>
+        /// <param name="target"></param>
+        public void Attack(MovableGridOccupant target)
+        {
+            EnemyUnit holder = (EnemyUnit)target;
+            holder.TakeDamage(this.AttackModifier);
+            if (holder.IsDead() == true)
+                this.currentExp += holder.ExpDrop;      //If the player killed the enemy, give them exp
+        }
+        /// -- End of Methods  --
+
 
     }//End of PlayerUnit class
 }
