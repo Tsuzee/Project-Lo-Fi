@@ -469,6 +469,23 @@ namespace Project_LoFi
             }//end right key
         }//end move cursor
 
+
+        protected void UseItem()
+        {
+
+        }//end use item
+
+        protected void OpenInventory()
+        {
+
+        }//end open inventory
+
+
+        protected void OpenCharacterSheet()
+        {
+
+        }//end open character sheet
+
         /// <summary>
         /// calls the approiate attack method and pass it something to attack
         /// </summary>
@@ -477,6 +494,6 @@ namespace Project_LoFi
         protected void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
         {
             attacker.Attack(defender);
-        }
+        }//end combat
     }//end class
 }
