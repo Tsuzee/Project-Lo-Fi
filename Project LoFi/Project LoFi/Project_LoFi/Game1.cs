@@ -222,7 +222,7 @@ namespace Project_LoFi
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
 
-                                currentState = GameState.Menu;
+                                currentState = GameState.Credits;
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
@@ -292,6 +292,14 @@ namespace Project_LoFi
                         createLevel.Draw(spriteBatch);
                         break;
                     }
+                case GameState.Credits:
+                    {   //stubs for menu code, will need graphics and such here
+                        GraphicsDevice.Clear(Color.Black);
+
+                        DrawCredits(); //draws the game menu
+
+                        break;
+                    }
             }
             spriteBatch.End();
             base.Draw(gameTime);
@@ -312,7 +320,49 @@ namespace Project_LoFi
 
 
 
+        protected void DrawCredits()
+        {
+            string output;
+            Vector2 FontOrigin;
 
+            output = "Credits";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 10;
+            spriteBatch.DrawString(gameVars.Font1Bold, output, new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 10), 
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+
+            output = "Design - Aliaksandr Shumski";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 100;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            
+
+
+            output = "Architecture - Jesse Cooper";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 200;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+            output = "Interface - Phillip Fowler";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 300;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+
+            output = "Group Lead - Darren Farr";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 400;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+        }
 
 
         /// <summary>
