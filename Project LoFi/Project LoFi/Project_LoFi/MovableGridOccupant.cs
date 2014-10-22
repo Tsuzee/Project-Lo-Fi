@@ -194,7 +194,7 @@ namespace Project_LoFi
         /// <param name="map"> The main game map. </param>
         /// <param name="dir"> The direction the unit is trying to move.
         ///                     0 --> up, 1 --> down, 2 --> left, 3 --> right </param>
-        /// <returns> a boolean representing whether or notthe move was successful. Completely optional to implement. </returns>
+        /// <returns> a boolean representing whether or not the move was successful. Completely optional to implement. </returns>
         public bool Move(GridOccupant[][] map, int dir)
         {
             bool resultFlag = false;        // Assume the move will fail
