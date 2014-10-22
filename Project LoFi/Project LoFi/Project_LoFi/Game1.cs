@@ -1,8 +1,10 @@
 // Grass and Sand textures where taking from http://opengameart.org/textures/ just for testing purposes.
+// Logo by Phillip Fowler
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -20,6 +22,7 @@ namespace Project_LoFi
         Menu,
         Playing,
         Won,
+        Credits,
         GameOver
     }
 
@@ -38,6 +41,8 @@ namespace Project_LoFi
         SpriteBatch spriteBatch;
         GameVariables gameVars;
         
+        ////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////TEST CODE///////////////////////////////////////////
         // Level map 
        public int[,] level1 = new int[,]
         {
@@ -67,6 +72,7 @@ namespace Project_LoFi
 
         // Creating Level
        Level createLevel;
+        ///////////////////////////////////////////////////////////////////////////////////////
 
         //Game State
         GameState currentState;
@@ -74,6 +80,9 @@ namespace Project_LoFi
         //Keyboard states to track keys
         KeyboardState keyState;
         KeyboardState previousKeyState;
+
+        //first run variables
+        bool gamesFirstRun = true;
 
         public Game1()
         {
@@ -125,8 +134,7 @@ namespace Project_LoFi
             //load fonts
             gameVars.setFont();
 
-            createLevel.AddTextureToTheList(gameVars.grassTexture);
-            createLevel.AddTextureToTheList(gameVars.sandTexture);
+            
         }
 
         /// <summary>
@@ -158,7 +166,7 @@ namespace Project_LoFi
             {
                 case GameState.Intro:
                     {
-                        if (keyState.IsKeyDown(Keys.Enter))
+                        if (keyState.IsKeyDown(Keys.Enter)) //if enter is pressed move to playing state
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
@@ -180,7 +188,7 @@ namespace Project_LoFi
                                 currentState = GameState.Playing;
                             }
                         }
-                        if (keyState.IsKeyDown(Keys.Escape))
+                        if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
                         }
@@ -188,8 +196,9 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-
-                        if (keyState.IsKeyDown(Keys.Escape))
+                        //setup level
+                        SetupLevel();
+                        if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
                         }
@@ -205,7 +214,7 @@ namespace Project_LoFi
                                 currentState = GameState.Menu;
                             }
                         }
-                        if (keyState.IsKeyDown(Keys.Escape))
+                        if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
                         }
@@ -221,7 +230,7 @@ namespace Project_LoFi
                                 currentState = GameState.Menu;
                             }
                         }
-                        if (keyState.IsKeyDown(Keys.Escape))
+                        if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
                         }
@@ -251,22 +260,49 @@ namespace Project_LoFi
             switch(currentState)
             {
                 case GameState.Intro:
-            spriteBatch.DrawString(gameVars.Font1Bold, "Try Again Studios Presents",
-                            new Vector2((GraphicsDevice.Viewport.Width / 2) - 390, (GraphicsDevice.Viewport.Height / 2) - 150), Color.DarkRed, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
+                    {
+                        if (gamesFirstRun)
+                        {
+                            GraphicsDevice.Clear(Color.White);
+                            spriteBatch.Draw(gameVars.Logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450), (GraphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
+                            
 
-            spriteBatch.DrawString(gameVars.Font1Bold, "presents",
-                            new Vector2((GraphicsDevice.Viewport.Width / 2) - 180, (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                            
 
-            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI",
-                            new Vector2((GraphicsDevice.Viewport.Width / 2) - 375, (GraphicsDevice.Viewport.Height / 2)), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-                break;
+                            //spriteBatch.DrawString(gameVars.Font1Bold, "presents", new Vector2((GraphicsDevice.Viewport.Width / 2) - 180, (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                            //Thread.Sleep(2000);
+
+                            //spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375, (GraphicsDevice.Viewport.Height / 2)), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+                            //Thread.Sleep(3000);
+                            gamesFirstRun = false;
+                        }
+
+                        spriteBatch.DrawString(gameVars.Font1Bold, "Try Again Studios", new Vector2((GraphicsDevice.Viewport.Width / 2) - 390, (GraphicsDevice.Viewport.Height / 2) - 150), Color.DarkRed, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
+                        //Thread.Sleep(2000);
+                        break;
+                    }
                 case GameState.Playing:
-                    createLevel.Draw(spriteBatch);
-                    break;
+                    {
+                        createLevel.Draw(spriteBatch);
+                        break;
+                    }
             }
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+
+
+        /// <summary>
+        /// will need information passed in to determine which level to setup.
+        /// currently only contains test code
+        /// </summary>
+        protected void SetupLevel()
+        {
+            createLevel.AddTextureToTheList(gameVars.grassTexture);
+            createLevel.AddTextureToTheList(gameVars.sandTexture);
+        }//end setup level
+
 
 
         /// <summary>
