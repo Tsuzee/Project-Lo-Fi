@@ -434,26 +434,25 @@ namespace Project_LoFi
 
         protected void MoveCursor()
         {
-            //check key input and move character accordingly, also change texture to simulate walking
+            //check key input and move cursor accordingly, will need code to slow down how fast the cursor moves
             if (keyState.IsKeyDown(Keys.Up))//up
             {
-               
-                
+                   //move cursor up
             }//end up key
 
             if (keyState.IsKeyDown(Keys.Down))//down
             {
-               
+                //move cursor down
             }//end down key
 
             if (keyState.IsKeyDown(Keys.Left))//left
             {
-               
+                //move cursor left
             }//end left key
 
             if (keyState.IsKeyDown(Keys.Right))//right
             {
-                
+                //move cursor right
             }//end right key
         }//end move cursor
 
