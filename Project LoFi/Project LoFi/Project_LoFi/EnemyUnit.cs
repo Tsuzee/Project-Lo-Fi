@@ -35,7 +35,7 @@ namespace Project_LoFi
 
 
         /// --  Constructors    --
-        public void EnemyUnit() { }         // Skeleton no argument constructor
+        public EnemyUnit() { }         // Skeleton no argument constructor
                                             // Get it? Skeleton? Because the enemies are. . .nevermind.
         /// -- End of Constructors  --
 

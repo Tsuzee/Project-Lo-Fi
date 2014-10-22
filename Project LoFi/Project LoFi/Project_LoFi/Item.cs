@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project_LoFi
 {
-    class Item
+    public class Item
     {
 
     }//End of Item class
