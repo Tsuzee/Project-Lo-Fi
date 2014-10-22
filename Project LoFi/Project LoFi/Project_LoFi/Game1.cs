@@ -87,8 +87,8 @@ namespace Project_LoFi
         KeyboardState keyState;
         KeyboardState previousKeyState;
 
-        //first run variables
-        bool gamesFirstRun = true;
+        //keep track of frame for animations
+        int frameNum;
 
         public Game1()
         {
@@ -108,6 +108,9 @@ namespace Project_LoFi
 
             //set the map
             createLevel = new Level(level1);
+
+            //set initial frame to zero
+            frameNum = 0;
         }
 
         /// <summary>
@@ -176,9 +179,8 @@ namespace Project_LoFi
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
-                                currentState = GameState.Playing;
-                                //setup level
-                                SetupLevel();
+                                currentState = GameState.Menu;
+                                
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape))
@@ -194,6 +196,8 @@ namespace Project_LoFi
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
                                 currentState = GameState.Playing;
+                                //setup level
+                                SetupLevel();
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
@@ -263,29 +267,24 @@ namespace Project_LoFi
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            
 
             switch(currentState)
             {
                 case GameState.Intro:
                     {
-                        if (gamesFirstRun)
-                        {
-                            GraphicsDevice.Clear(Color.White);
-                            spriteBatch.Draw(gameVars.Logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450), (GraphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
-                            
+                        GraphicsDevice.Clear(Color.White);
 
-                            
+                        DrawIntro(); //draws the game intro
 
-                            //spriteBatch.DrawString(gameVars.Font1Bold, "presents", new Vector2((GraphicsDevice.Viewport.Width / 2) - 180, (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-                            //Thread.Sleep(2000);
+                        break;
+                    }
+                case GameState.Menu:
+                    {   //stubs for menu code, will need graphics and such here
+                        GraphicsDevice.Clear(Color.Black);
 
-                            //spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375, (GraphicsDevice.Viewport.Height / 2)), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-                            //Thread.Sleep(3000);
-                            gamesFirstRun = false;
-                        }
+                        DrawMenu(); //draws the game menu
 
-                        spriteBatch.DrawString(gameVars.Font1Bold, "Try Again Studios", new Vector2((GraphicsDevice.Viewport.Width / 2) - 390, (GraphicsDevice.Viewport.Height / 2) - 150), Color.DarkRed, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0.0f);
-                        //Thread.Sleep(2000);
                         break;
                     }
                 case GameState.Playing:
@@ -312,6 +311,52 @@ namespace Project_LoFi
         }//end setup level
 
 
+
+
+
+
+        /// <summary>
+        /// draws the game menu
+        /// </summary>
+        protected void DrawMenu()
+        {
+            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375,
+                                (GraphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+
+            spriteBatch.DrawString(gameVars.Font1Bold, "press Enter to play", new Vector2((GraphicsDevice.Viewport.Width / 2) - 350,
+                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+        }//end drawmenu
+
+        /// <summary>
+        /// Draw game intro
+        /// </summary>
+        protected void DrawIntro()
+        {
+            if (frameNum < 100)
+            {
+                spriteBatch.Draw(gameVars.Logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450),
+                    (GraphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
+            }
+
+            if (frameNum > 99 && frameNum < 200)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, "presents", new Vector2((GraphicsDevice.Viewport.Width / 2) - 150,
+                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            }
+
+            if (frameNum > 199)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375,
+                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+            }
+
+            if (frameNum > 399)
+            {
+                frameNum = 0;
+                currentState = GameState.Menu;
+            }
+            frameNum++;
+        }//end drawintro
 
         /// <summary>
         /// check to see if a key has been pressed only once
