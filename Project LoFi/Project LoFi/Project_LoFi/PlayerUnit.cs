@@ -24,7 +24,7 @@ namespace Project_LoFi
 
 
         /// --  Properties  --
-        public int ExpDrop
+        public int CurrentExp
         {
             set { currentExp = value; }
             get { return currentExp; }
@@ -46,7 +46,7 @@ namespace Project_LoFi
         /// call target.IsDead() immediately after, so it can call target.RemoveCorpse() if necessary
         /// </summary>
         /// <param name="target"></param>
-        public void Attack(MovableGridOccupant target)
+        public override void Attack(MovableGridOccupant target)
         {
             EnemyUnit holder = (EnemyUnit)target;
             holder.TakeDamage(this.AttackModifier);

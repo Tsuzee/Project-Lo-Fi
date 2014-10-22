@@ -21,13 +21,17 @@ namespace Project_LoFi
         private int health;
         private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
         private int attackModifier;         // Represents current damage output. Affected by items.
+        //crit chance
         private int level;
+        //stats
+        private Item equippedWeapon;
+        private Item equippedArmor;
         private Terrain occupiedSpace;
         private List<Item> inventory;
         /// --  End of Instance Variables   --
 
             // Do all enemies have stats, by the way? Because if not we should put them in player,
-            // but if not we should put them here.
+            // but if so we should put them here.
 
         /// --  Properties  --
         public int Health
@@ -58,6 +62,18 @@ namespace Project_LoFi
         {
             set { level = value; }
             get { return level; }
+        }
+
+        public Item EquippedWeapon
+        {
+            set { equippedWeapon = value; }
+            get { return equippedWeapon; }
+        }
+
+        public Item EquippedArmor
+        {
+            set { equippedArmor = value; }
+            get { return equippedArmor; }
         }
 
         public Terrain OccupiedSpace
@@ -133,8 +149,42 @@ namespace Project_LoFi
         public bool equipItem(Item equipment)
         {
             bool resultFlag = true;                 //Assume they'll equip successfully
+            if (equipment.ItemType == "weapon")
+            {
+                unequipItem(equipment);
+                EquippedWeapon = equipment;
+                this.AttackModifier += equipment.DmgMod;
+            }
+            else if (equipment.ItemType == "armor")
+            {
+                unequipItem(equipment);
+                EquippedArmor = equipment;
+                //this.DefenseModifier += equipment.AmrMod; // Will implement after Item gets AmrMod
+            }
 
+            return resultFlag;
+        }
 
+        /// <summary>
+        /// Helper method for equipItem() that handles stat changes for unequipping
+        /// </summary>
+        /// <param name="equipment"> The piece of equipment to be removed. </param>
+        /// <returns> A bool representing is the unequip was successful; </returns>
+        private bool unequipItem(Item equipment)
+        {
+            bool resultFlag = false;                                // Assume there will be problems
+            if (equipment == EquippedWeapon)
+            {
+                this.AttackModifier -= EquippedWeapon.DmgMod;
+                EquippedWeapon = null;
+                resultFlag = true;
+            }
+            else if (equipment == EquippedArmor)
+            {
+                //this.DefenseModifier -= EquippedWeapon.AmrMod;    // Will implement after Item get AmrMod
+                EquippedArmor = null;
+                resultFlag = true;
+            }
             return resultFlag;
         }
 
