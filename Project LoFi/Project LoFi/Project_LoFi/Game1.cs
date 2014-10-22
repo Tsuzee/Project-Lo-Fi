@@ -444,6 +444,7 @@ namespace Project_LoFi
             }
         }
 
+
         protected void MoveCursor()
         {
             //check key input and move cursor accordingly, will need code to slow down how fast the cursor moves
@@ -468,6 +469,14 @@ namespace Project_LoFi
             }//end right key
         }//end move cursor
 
-
+        /// <summary>
+        /// calls the approiate attack method and pass it something to attack
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="defender"></param>
+        protected void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
+        {
+            attacker.Attack(defender);
+        }
     }//end class
 }
