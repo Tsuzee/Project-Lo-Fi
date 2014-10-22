@@ -159,7 +159,7 @@ namespace Project_LoFi
             {
                 unequipItem(equipment);
                 EquippedArmor = equipment;
-                //this.DefenseModifier += equipment.AmrMod; // Will implement after Item gets AmrMod
+                this.DefenseModifier += equipment.ArmorMod;
             }
 
             return resultFlag;
@@ -181,7 +181,7 @@ namespace Project_LoFi
             }
             else if (equipment == EquippedArmor)
             {
-                //this.DefenseModifier -= EquippedWeapon.AmrMod;    // Will implement after Item get AmrMod
+                this.DefenseModifier -= EquippedArmor.ArmorMod;
                 EquippedArmor = null;
                 resultFlag = true;
             }

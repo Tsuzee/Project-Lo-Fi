@@ -14,6 +14,34 @@ namespace Project_LoFi
 {
     public class Item
     {
+        private int strengthMod;//affects player stat
+        public int StrengthMod //affects damage with swords
+        {
+            get { return strengthMod; }
+            set { strengthMod = value; }
+        }
+
+        private int dexterityMod;//affects player stat
+        public int DexterityMod //affects crit chance with knives
+        {
+            get { return dexterityMod; }
+            set { dexterityMod = value; }
+        }
+
+        private int magicMod;//affects player stat
+        public int MagicMod //affects staff efficacy
+        {
+            get { return magicMod; }
+            set { magicMod = value; }
+        }
+
+        private int armorMod;//value of item determines
+        public int ArmorMod //damage mitigation
+        {
+            get { return armorMod; }
+            set { armorMod = value; }
+        }
+
         private int dmgMod;//value of item that will modify the
         public int DmgMod //damage that the character can do per attack
         {
