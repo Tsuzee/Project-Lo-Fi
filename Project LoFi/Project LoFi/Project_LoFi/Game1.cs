@@ -470,10 +470,42 @@ namespace Project_LoFi
         }//end move cursor
 
 
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        ///////////Some of the code here may be relocated to other areas to avoid redundence//////////
+        
+
+        protected void EquipItem(Item equipment, MovableGridOccupant character)
+        {
+            character.equipItem(equipment);
+        }
+
+        
+
         protected void UseItem()
         {
 
         }//end use item
+
+        
+
+        /// <summary>
+        /// calls the approiate attack method and pass it something to attack
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="defender"></param>
+        protected void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
+        {
+            attacker.Attack(defender);
+            if(defender.IsDead())
+            {
+                //need something to tell if attacker is a player so xp can be given
+                //defender.RemoveCorpse(currentMap);  This needs the code for map which is a GridOccupant[][]
+            }
+        }//end combat
+        
+        
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         protected void OpenInventory()
         {
@@ -485,15 +517,5 @@ namespace Project_LoFi
         {
 
         }//end open character sheet
-
-        /// <summary>
-        /// calls the approiate attack method and pass it something to attack
-        /// </summary>
-        /// <param name="attacker"></param>
-        /// <param name="defender"></param>
-        protected void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
-        {
-            attacker.Attack(defender);
-        }//end combat
     }//end class
 }
