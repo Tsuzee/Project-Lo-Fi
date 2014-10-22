@@ -29,7 +29,14 @@ namespace Project_LoFi
     //Enum for seperate states that run along side game states
     public enum CoState
     {
+        
+    }
 
+    //Enum for who's turn it is
+    public enum TurnState
+    {
+        Player,
+        NPC
     }
 
     /// <summary>
@@ -80,8 +87,9 @@ namespace Project_LoFi
        Level createLevel;
         ///////////////////////////////////////////////////////////////////////////////////////
 
-        //Game State
+        //States
         GameState currentState;
+        TurnState currentTurn;
 
         //Keyboard states to track keys
         KeyboardState keyState;
@@ -198,6 +206,7 @@ namespace Project_LoFi
                                 currentState = GameState.Playing;
                                 //setup level
                                 SetupLevel();
+                                currentTurn = TurnState.Player;
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
@@ -208,11 +217,14 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                        if (currentTurn == TurnState.Player)
                         {
-                            MoveCursor();
-                        }
 
+                            if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                            {
+                                MoveCursor();
+                            }
+                        }
 
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
