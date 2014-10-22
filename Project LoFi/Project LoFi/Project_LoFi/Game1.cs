@@ -208,7 +208,12 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        
+                        if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                        {
+                            MoveCursor();
+                        }
+
+
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
@@ -300,7 +305,7 @@ namespace Project_LoFi
 
                         break;
                     }
-            }
+            }//end switch
             spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -426,5 +431,32 @@ namespace Project_LoFi
                 return false;
             }
         }
+
+        protected void MoveCursor()
+        {
+            //check key input and move character accordingly, also change texture to simulate walking
+            if (keyState.IsKeyDown(Keys.Up))//up
+            {
+               
+                
+            }//end up key
+
+            if (keyState.IsKeyDown(Keys.Down))//down
+            {
+               
+            }//end down key
+
+            if (keyState.IsKeyDown(Keys.Left))//left
+            {
+               
+            }//end left key
+
+            if (keyState.IsKeyDown(Keys.Right))//right
+            {
+                
+            }//end right key
+        }//end move cursor
+
+
     }//end class
 }
