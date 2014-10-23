@@ -50,7 +50,7 @@ namespace Project_LoFi
 
         // Creating Level
        Level createLevel;
-        ///////////////////////////////////////////////////////////////////////////////////////
+  
 
         //States
         GameState currentState;
@@ -81,10 +81,9 @@ namespace Project_LoFi
 
             //set the map
             createLevel = new Level();
-            createLevel.readMap("map.txt");
+            
 
-            //set initial frame to zero
-            frameNum = 0;
+            
         }
 
         /// <summary>
@@ -96,7 +95,11 @@ namespace Project_LoFi
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            
+            
+            
+            //set initial frame to zero
+            frameNum = 0;
             
             base.Initialize();
         }
@@ -272,7 +275,7 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        createLevel.Draw(spriteBatch);
+                        //createLevel.Draw(spriteBatch);
                         break;
                     }
                 case GameState.Credits:
@@ -297,8 +300,10 @@ namespace Project_LoFi
         protected void SetupLevel()
         {
             //setup test level
-            createLevel.AddTextureToTheList(gameVars.grassTexture);
-            createLevel.AddTextureToTheList(gameVars.sandTexture);
+            createLevel.readMap("map.txt");
+
+            //createLevel.AddTextureToTheList(gameVars.grassTexture);
+            //createLevel.AddTextureToTheList(gameVars.sandTexture);
         }//end setup level
 
 
