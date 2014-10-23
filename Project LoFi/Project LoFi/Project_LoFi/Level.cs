@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
 namespace Project_LoFi
 {
     public class Level
@@ -15,20 +16,14 @@ namespace Project_LoFi
 
         List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
-
+       
+        int[,] twoDArray = new int[25, 14];
 
         int textureHeight = 48; // used to keep the size of the texture
         int textureWidth = 48; // // used to keep the size of the texture
 
 
-        /// <summary>
-        /// Constructor, accepts map
-        /// </summary>
-        /// <param name="map"></param>
-        public Level(int[,] map)
-        {
-            listOfMaps.Add(map);
-        }
+
 
         /// <summary>
         ///  get array height
@@ -49,6 +44,38 @@ namespace Project_LoFi
             get 
             {
                 return listOfMaps[0].GetLength(0);
+            }
+        }
+
+        /// <summary>
+        /// Reading map from the file.
+        /// </summary>
+        /// <param name="mapName"></param>
+        public void readMap(string mapName)
+        {
+            if (File.Exists(mapName))
+            {
+                try
+                {
+                    string[] readAllLines = File.ReadAllLines(mapName);
+                    string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();
+
+                    for (int i = 0; i < jaggedArray.Length; i++)
+                    {
+
+                        for (int y = 0; y < 14; y++)
+                        {
+                            twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
+
+                        }
+
+                    }
+                    listOfMaps.Add(twoDArray);
+                }
+                catch (Exception ex)
+                { 
+                    
+                }
             }
         }
 
