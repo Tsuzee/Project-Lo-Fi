@@ -275,7 +275,7 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        //createLevel.Draw(spriteBatch);
+                        createLevel.Draw(spriteBatch);
                         break;
                     }
                 case GameState.Credits:
@@ -302,8 +302,8 @@ namespace Project_LoFi
             //setup test level
             createLevel.readMap("map.txt");
 
-            //createLevel.AddTextureToTheList(gameVars.grassTexture);
-            //createLevel.AddTextureToTheList(gameVars.sandTexture);
+            createLevel.AddTextureToTheList(gameVars.grassTexture);
+            createLevel.AddTextureToTheList(gameVars.sandTexture);
         }//end setup level
 
 

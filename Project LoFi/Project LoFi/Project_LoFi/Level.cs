@@ -17,7 +17,7 @@ namespace Project_LoFi
         List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
        
-        int[,] twoDArray = new int[25, 14];
+        int[,] twoDArray;
 
         int textureHeight = 48; // used to keep the size of the texture
         int textureWidth = 48; // // used to keep the size of the texture
@@ -53,17 +53,18 @@ namespace Project_LoFi
         /// <param name="mapName"></param>
         public void readMap(string mapName)
         {
-            if (File.Exists(mapName))
-            {
+              if (File.Exists(mapName))
+              {
                 try
                 {
                     string[] readAllLines = File.ReadAllLines(mapName);
                     string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();
+                    twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].Length];
 
                     for (int i = 0; i < jaggedArray.Length; i++)
                     {
 
-                        for (int y = 0; y < 14; y++)
+                        for (int y = 0; y < jaggedArray[i].Length; y++)
                         {
                             twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
 
