@@ -195,7 +195,7 @@ namespace Project_LoFi
         /// <param name="dir"> The direction the unit is trying to move.
         ///                     0 --> up, 1 --> down, 2 --> left, 3 --> right </param>
         /// <returns> a boolean representing whether or not the move was successful. Completely optional to implement. </returns>
-        public bool Move(GridOccupant[][] map, int dir)
+        public bool Move(GridOccupant[ , ] map, int dir)
         {
             bool resultFlag = false;        // Assume the move will fail
             // Create holder variables for testing the array
@@ -211,16 +211,16 @@ namespace Project_LoFi
             else
                 testX += 1;                 // Go right 1
 
-            if (testX >= 0 && testX < map.Length && testY >= 0 && testY < map[0].Length)    //Ensure it's in-bounds
+            if (testX >= 0 && testX < map.Length && testY >= 0 && testY < map.GetLength(0))    //Ensure it's in-bounds
             {
-                if (map[testX][testY].GetType() == occupiedSpace.GetType())     // If it's terrain
+                if (map[testX, testY].GetType() == occupiedSpace.GetType())     // If it's terrain
                 {
-                    Terrain holder = (Terrain)map[testX][testY];            // Casting is lossy, so this might not work
+                    Terrain holder = (Terrain)map[testX, testY];            // Casting is lossy, so this might not work
                     if (holder.Impassable == false)                         // If it isn't a wall
                     {
-                        map[this.X][this.Y] = this.OccupiedSpace;           // Restore the terrain
-                        this.OccupiedSpace = (Terrain)map[testX][testY];    // Store the space you're about to walk into
-                        map[testX][testY] = this;                           // Finally, move the unit
+                        map[this.X, this.Y] = this.OccupiedSpace;           // Restore the terrain
+                        this.OccupiedSpace = (Terrain)map[testX, testY];    // Store the space you're about to walk into
+                        map[testX, testY] = this;                           // Finally, move the unit
 
                         //Update unit info
                         this.X = testX;
@@ -270,7 +270,7 @@ namespace Project_LoFi
         /// Method to remove a unit from the array, if it's dead
         /// </summary>
         /// <param name="map"></param>
-        public virtual void RemoveCorpse(GridOccupant[][] map)
+        public virtual void RemoveCorpse(GridOccupant[ , ] map)
         {
             // Removal logic here - this method should be overwritten by derived classes
         }

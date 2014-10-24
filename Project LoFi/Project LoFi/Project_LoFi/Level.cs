@@ -13,7 +13,7 @@ namespace Project_LoFi
 {
     public class Level
     {
-
+        
         Terrain[,] terrain;
         Terrain addingThisTerrain = new Terrain();
       //  List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
@@ -63,7 +63,7 @@ namespace Project_LoFi
                 try
                 {
                     string[] readAllLines = File.ReadAllLines(mapName);
-                    string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();
+                    string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();  // This is incredibly hard to read. Have a comment explaining it?
 
                //     twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].Length];
                     terrain = new Terrain[jaggedArray.GetLength(0), jaggedArray[0].Length];
@@ -75,10 +75,10 @@ namespace Project_LoFi
                            // twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
                             addingThisTerrain.X = i;
                             addingThisTerrain.Y = y;
-                            addingThisTerrain.Index = int.Parse(jaggedArray[i][y]);
+                            addingThisTerrain.TextureIndex = int.Parse(jaggedArray[i][y]);
                             terrain[i, y] = addingThisTerrain;
-                            
 
+                            addingThisTerrain = new Terrain();
                         }
 
                     }
@@ -87,7 +87,7 @@ namespace Project_LoFi
                 }
                 catch (Exception ex)
                 { 
-                    
+                    // I'm assuming this will be more fleshed out later?
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Project_LoFi
                 {
                     //texturePosition = listOfMaps[0][x,y];
                     //texturePosition = terrain[x,y].Index; // retrieve position for the texture
-                    texturePosition = listOfTerrain[0][x, y].Index;
+                    texturePosition = listOfTerrain[0][x, y].TextureIndex;
                     texture = mapTextures[texturePosition]; // get the texture number and assign it to the temporary texture variable
 
                     // draw that texture
