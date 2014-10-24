@@ -21,17 +21,22 @@ namespace Project_LoFi
         private int health;
         private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
         private int attackModifier;         // Represents current damage output. Affected by items.
-        //crit chance
+        private double critChance;
         private int level;
-        //stats
+        private int strength;
+        private int dexterity;
+        private int magic;
         private Item equippedWeapon;
         private Item equippedArmor;
         private Terrain occupiedSpace;
         private List<Item> inventory;
         /// --  End of Instance Variables   --
 
-            // Do all enemies have stats, by the way? Because if not we should put them in player,
-            // but if so we should put them here.
+            // This list is giant. I'm okay with that, but if anybody has suggestions for how to split up the inheritance, I'm
+            // open to ideas. Maybe take the inventory & stat stuff out and throw them in a Unit class that derives from MovableGridOccupant?
+            
+            // The more I think about it, the more I like that idea. Let me guys know what you think (I will, of course, be happy to 
+            // alter the affected classes myself - and in a timely fashion - if it sounds good).
 
         /// --  Properties  --
         public int Health
@@ -58,10 +63,34 @@ namespace Project_LoFi
             get { return attackModifier; }
         }
 
+        public double CritChance
+        {
+            set { critChance = value; }
+            get { return critChance; }
+        }
+
         public int Level
         {
             set { level = value; }
             get { return level; }
+        }
+
+        public int Strength
+        {
+            set { strength = value; }
+            get { return strength; }
+        }
+
+        public int Dexterity
+        {
+            set { dexterity = value; }
+            get { return dexterity; }
+        }
+
+        public int Magic
+        {
+            set { magic = value; }
+            get { return magic; }
         }
 
         public Item EquippedWeapon
@@ -96,6 +125,15 @@ namespace Project_LoFi
             : base()
         {
             health = 1;
+            defenseModifier = 0;
+            attackModifier = 0;
+            critChance = 0.0;
+            level = 1;
+            strength = 1;
+            dexterity = 1;
+            magic = 1;
+            equippedWeapon = null;
+            equippedArmor = null;
             occupiedSpace = null;
             Inventory = new List<Item>();
         }
