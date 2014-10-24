@@ -14,10 +14,13 @@ namespace Project_LoFi
     public class Level
     {
 
-        List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
+        Terrain[,] terrain;
+        Terrain addingThisTerrain = new Terrain();
+      //  List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
+        List<Terrain[,]> listOfTerrain = new List<Terrain[,]>();
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
-       
-        int[,] twoDArray;
+
+      //  int[,] twoDArray;
 
         int textureHeight = 48; // used to keep the size of the texture
         int textureWidth = 48; // // used to keep the size of the texture
@@ -32,7 +35,8 @@ namespace Project_LoFi
         {
             get
             {
-                return listOfMaps[0].GetLength(1);    
+                //return listOfMaps[0].GetLength(1);    
+                return listOfTerrain[0].GetLength(1);    
             }
         }
 
@@ -43,7 +47,8 @@ namespace Project_LoFi
         {
             get 
             {
-                return listOfMaps[0].GetLength(0);
+                // return listOfMaps[0].GetLength(0);   
+                return listOfTerrain[0].GetLength(0);
             }
         }
 
@@ -59,19 +64,26 @@ namespace Project_LoFi
                 {
                     string[] readAllLines = File.ReadAllLines(mapName);
                     string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();
-                    twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].Length];
 
+               //     twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].Length];
+                    terrain = new Terrain[jaggedArray.GetLength(0), jaggedArray[0].Length];
                     for (int i = 0; i < jaggedArray.Length; i++)
                     {
 
                         for (int y = 0; y < jaggedArray[i].Length; y++)
                         {
-                            twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
+                           // twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
+                            addingThisTerrain.X = i;
+                            addingThisTerrain.Y = y;
+                            addingThisTerrain.Index = int.Parse(jaggedArray[i][y]);
+                            terrain[i, y] = addingThisTerrain;
+                            
 
                         }
 
                     }
-                    listOfMaps.Add(twoDArray);
+               //     listOfMaps.Add(twoDArray);
+                    listOfTerrain.Add(terrain);
                 }
                 catch (Exception ex)
                 { 
@@ -96,13 +108,15 @@ namespace Project_LoFi
         /// <param name="drawTexture"></param>
         public void Draw(SpriteBatch drawTexture)
         {
-            int texturePosition = 0;
+            int texturePosition;
             Texture2D texture;
             for (int x = 0; x < mapWidth; x++)
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    texturePosition = listOfMaps[0][x, y]; // retrieve position for the texture
+                    //texturePosition = listOfMaps[0][x,y];
+                    //texturePosition = terrain[x,y].Index; // retrieve position for the texture
+                    texturePosition = listOfTerrain[0][x, y].Index;
                     texture = mapTextures[texturePosition]; // get the texture number and assign it to the temporary texture variable
 
                     // draw that texture

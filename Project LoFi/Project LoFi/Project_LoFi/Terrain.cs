@@ -19,8 +19,14 @@ namespace Project_LoFi
     {
         /// --  Instance Variables  --
         private Boolean impassable;                 // Tells you if the terrain is a wall or not
+        private int indexForTexture;
         /// --  End of Instance Variables   --
-        
+
+        public int Index
+        {
+            set { indexForTexture = value; }
+            get { return indexForTexture; }
+        }
 
         
         /// --  Properties  --
