@@ -70,6 +70,7 @@ namespace Project_LoFi
             set { itemDesc = value; }
         }
 
+        //currently ignoring this till we can decide how and if to use it
         private int range;//how far the items effect goes
         public int Range //can be 1 for melee, more for ranged weapons
         {

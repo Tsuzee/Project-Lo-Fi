@@ -19,7 +19,7 @@ namespace Project_LoFi
 
         public void OpenInventory()
         {
-
+            //possibly the same concept as character sheet
         }//end open inventory
 
 
@@ -49,14 +49,27 @@ namespace Project_LoFi
             {
                 //need something to tell if attacker is a player so xp can be given
                 //defender.RemoveCorpse(currentMap);  This needs the code for map which is a GridOccupant[][]
+
             }
         }//end combat
 
 
-
+        /// <summary>
+        /// change character stats based on item
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="character"></param>
         public void UseItem(Item item, Unit character)
         {
-            
+            if (item.ItemType == "consumable")
+            {
+                character.Strength += item.StrengthMod;
+                character.Dexterity += item.DexterityMod;
+                character.Magic += item.MagicMod;
+                character.DefenseModifier += item.ArmorMod;
+                character.AttackModifier += item.DmgMod;
+                character.CritChance += item.CritMod;
+            }
         }//end use item
 
 
