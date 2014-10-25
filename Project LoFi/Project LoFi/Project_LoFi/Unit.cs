@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Project_LoFi
 {
-    class Unit : MovableGridOccupant
+   public class Unit : MovableGridOccupant
     {
         /// --  Instance Variables  --
         private int health;

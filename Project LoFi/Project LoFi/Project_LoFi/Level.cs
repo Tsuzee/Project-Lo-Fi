@@ -16,11 +16,10 @@ namespace Project_LoFi
         
         Terrain[,] terrain;
         Terrain addingThisTerrain = new Terrain();
-      //  List<int[,]> listOfMaps = new List<int[,]>(); //  Store maps
         List<Terrain[,]> listOfTerrain = new List<Terrain[,]>();
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
 
-      //  int[,] twoDArray;
+
 
         int textureHeight = 48; // used to keep the size of the texture
         int textureWidth = 48; // // used to keep the size of the texture
@@ -35,7 +34,7 @@ namespace Project_LoFi
         {
             get
             {
-                //return listOfMaps[0].GetLength(1);    
+           
                 return listOfTerrain[0].GetLength(1);    
             }
         }
@@ -47,7 +46,7 @@ namespace Project_LoFi
         {
             get 
             {
-                // return listOfMaps[0].GetLength(0);   
+            
                 return listOfTerrain[0].GetLength(0);
             }
         }
@@ -62,17 +61,20 @@ namespace Project_LoFi
               {
                 try
                 {
-                    string[] readAllLines = File.ReadAllLines(mapName);
-                    string[][] jaggedArray = readAllLines.Select(line => line.Split(',').ToArray()).ToArray();  // This is incredibly hard to read. Have a comment explaining it?
+                    string[] readAllLines = File.ReadAllLines(mapName); // Reading all the lines from a text file
 
-               //     twoDArray = new int[jaggedArray.GetLength(0), jaggedArray[0].Length];
+                    //Iterate through readAllLines array.Select each line from readAllLines array and split it using comma as a delimeter. 
+                    //Add values that where separated to a jagged array.
+                    string[][] jaggedArray = readAllLines.Select(line => line.Split(',')).ToArray();  
+  
+
                     terrain = new Terrain[jaggedArray.GetLength(0), jaggedArray[0].Length];
                     for (int i = 0; i < jaggedArray.Length; i++)
                     {
 
                         for (int y = 0; y < jaggedArray[i].Length; y++)
                         {
-                           // twoDArray[i, y] = int.Parse(jaggedArray[i][y]);
+                   
                             addingThisTerrain.X = i;
                             addingThisTerrain.Y = y;
                             addingThisTerrain.TextureIndex = int.Parse(jaggedArray[i][y]);
@@ -82,7 +84,7 @@ namespace Project_LoFi
                         }
 
                     }
-               //     listOfMaps.Add(twoDArray);
+          
                     listOfTerrain.Add(terrain);
                 }
                 catch (Exception ex)
@@ -114,8 +116,7 @@ namespace Project_LoFi
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    //texturePosition = listOfMaps[0][x,y];
-                    //texturePosition = terrain[x,y].Index; // retrieve position for the texture
+
                     texturePosition = listOfTerrain[0][x, y].TextureIndex;
                     texture = mapTextures[texturePosition]; // get the texture number and assign it to the temporary texture variable
 

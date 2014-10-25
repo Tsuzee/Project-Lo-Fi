@@ -46,7 +46,9 @@ namespace Project_LoFi
         /// call target.IsDead() immediately after, so it can call target.RemoveCorpse() if necessary
         /// </summary>
         /// <param name="target"></param>
-        public override void Attack(MovableGridOccupant target)
+        
+         //public override void Attack(MovableGridOccupant target) Getting an error. Changed to Unit, so it compiles.
+        public override void Attack(Unit target)
         {
             EnemyUnit holder = (EnemyUnit)target;
             holder.TakeDamage(this.AttackModifier);
