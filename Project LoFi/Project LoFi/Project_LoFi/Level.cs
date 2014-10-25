@@ -14,11 +14,10 @@ namespace Project_LoFi
     public class Level
     {
         
-        Terrain[,] terrain;
+     
         Terrain addingThisTerrain = new Terrain();
-        List<Terrain[,]> listOfTerrain = new List<Terrain[,]>();
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
-
+        GridOccupant[,] gridOccupantsArray;
 
 
         int textureHeight = 48; // used to keep the size of the texture
@@ -30,24 +29,24 @@ namespace Project_LoFi
         /// <summary>
         ///  get array height
         /// </summary>
-        public int mapHeight
+        public int mapWidth
         {
             get
             {
-           
-                return listOfTerrain[0].GetLength(1);    
+
+                return gridOccupantsArray.GetLength(1);    
             }
         }
 
         /// <summary>
         /// get array width
         /// </summary>
-        public int mapWidth
+        public int mapHeight
         {
             get 
             {
-            
-                return listOfTerrain[0].GetLength(0);
+
+                return gridOccupantsArray.GetLength(0);
             }
         }
 
@@ -66,9 +65,9 @@ namespace Project_LoFi
                     //Iterate through readAllLines array.Select each line from readAllLines array and split it using comma as a delimeter. 
                     //Add values that where separated to a jagged array.
                     string[][] jaggedArray = readAllLines.Select(line => line.Split(',')).ToArray();  
-  
+ 
+                    gridOccupantsArray = new GridOccupant[jaggedArray.GetLength(0), jaggedArray[0].Length]; // set the size of the gridOccupantArray
 
-                    terrain = new Terrain[jaggedArray.GetLength(0), jaggedArray[0].Length];
                     for (int i = 0; i < jaggedArray.Length; i++)
                     {
 
@@ -78,14 +77,13 @@ namespace Project_LoFi
                             addingThisTerrain.X = i;
                             addingThisTerrain.Y = y;
                             addingThisTerrain.TextureIndex = int.Parse(jaggedArray[i][y]);
-                            terrain[i, y] = addingThisTerrain;
+                            gridOccupantsArray[i, y] = addingThisTerrain; // adding terrain object to the gridOccupantArray
 
                             addingThisTerrain = new Terrain();
                         }
 
                     }
           
-                    listOfTerrain.Add(terrain);
                 }
                 catch (Exception ex)
                 { 
@@ -112,12 +110,12 @@ namespace Project_LoFi
         {
             int texturePosition;
             Texture2D texture;
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = 0; x < mapHeight; x++)
             {
-                for (int y = 0; y < mapHeight; y++)
+                for (int y = 0; y < mapWidth; y++)
                 {
 
-                    texturePosition = listOfTerrain[0][x, y].TextureIndex;
+                    texturePosition = gridOccupantsArray[x, y].TextureIndex; // Get the texture index of the Terrain in the gridOccupantsArray
                     texture = mapTextures[texturePosition]; // get the texture number and assign it to the temporary texture variable
 
                     // draw that texture
