@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Project_LoFi
 {
-    public class EnemyUnit : MovableGridOccupant
+    public class EnemyUnit : Unit
     {
         /// --  Instance Variables  --
         private int expDrop;                    // Variable to track how much experience an enemy gives upon death

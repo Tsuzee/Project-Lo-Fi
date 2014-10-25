@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Project_LoFi
 {
-    public class PlayerUnit : MovableGridOccupant
+    public class PlayerUnit : Unit
     {
         /// --  Instance Variables  --
         private int currentExp;                    // Variable to track how much experience a unit has gained

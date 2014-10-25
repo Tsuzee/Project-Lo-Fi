@@ -42,7 +42,7 @@ namespace Project_LoFi
         /// </summary>
         /// <param name="attacker"></param>
         /// <param name="defender"></param>
-        public void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
+        public void Combat(Unit attacker, Unit defender)
         {
             attacker.Attack(defender);
             if (defender.IsDead())
@@ -54,7 +54,7 @@ namespace Project_LoFi
 
 
 
-        public void UseItem(Item item, MovableGridOccupant character)
+        public void UseItem(Item item, Unit character)
         {
             
         }//end use item
@@ -65,7 +65,7 @@ namespace Project_LoFi
         /// </summary>
         /// <param name="equipment"></param>
         /// <param name="character"></param>
-        public void EquipItem(Item equipment, MovableGridOccupant character)
+        public void EquipItem(Item equipment, Unit character)
         {
             character.equipItem(equipment);
         }
