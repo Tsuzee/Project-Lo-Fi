@@ -46,10 +46,12 @@ namespace Project_LoFi
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameVariables gameVars;
+        
 
-        // Creating Level
-       Level createLevel;
+        //class declerations
+        Level createLevel;
+        GamePlay gamePlay;
+        GameVariables gameVars;
   
 
         //States
@@ -100,6 +102,7 @@ namespace Project_LoFi
             
             //set initial frame to zero
             frameNum = 0;
+            gamePlay = new GamePlay();
             
             base.Initialize();
         }
@@ -191,7 +194,7 @@ namespace Project_LoFi
 
                             if (Keyboard.GetState().GetPressedKeys().Length > 0)
                             {
-                                MoveCursor();
+                                gamePlay.MoveCursor(keyState);
                             }
                         }
 
@@ -416,77 +419,10 @@ namespace Project_LoFi
         }
 
 
-        protected void MoveCursor()
-        {
-            //check key input and move cursor accordingly, will need code to slow down how fast the cursor moves
-            if (keyState.IsKeyDown(Keys.Up))//up
-            {
-                   //move cursor up
-            }//end up key
-
-            if (keyState.IsKeyDown(Keys.Down))//down
-            {
-                //move cursor down
-            }//end down key
-
-            if (keyState.IsKeyDown(Keys.Left))//left
-            {
-                //move cursor left
-            }//end left key
-
-            if (keyState.IsKeyDown(Keys.Right))//right
-            {
-                //move cursor right
-            }//end right key
-        }//end move cursor
+        
 
 
         
-        //////////////////////////////////////////////////////////////////////////////////////////////
-        ///////////Some of the code here may be relocated to other areas to avoid redundence//////////
         
-
-        protected void EquipItem(Item equipment, MovableGridOccupant character)
-        {
-            character.equipItem(equipment);
-        }
-
-        
-
-        protected void UseItem()
-        {
-
-        }//end use item
-
-        
-
-        /// <summary>
-        /// calls the approiate attack method and pass it something to attack
-        /// </summary>
-        /// <param name="attacker"></param>
-        /// <param name="defender"></param>
-        protected void Combat(MovableGridOccupant attacker, MovableGridOccupant defender)
-        {
-            attacker.Attack(defender);
-            if(defender.IsDead())
-            {
-                //need something to tell if attacker is a player so xp can be given
-                //defender.RemoveCorpse(currentMap);  This needs the code for map which is a GridOccupant[][]
-            }
-        }//end combat
-        
-        
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        protected void OpenInventory()
-        {
-
-        }//end open inventory
-
-
-        protected void OpenCharacterSheet()
-        {
-
-        }//end open character sheet
     }//end class
 }
