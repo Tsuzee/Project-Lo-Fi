@@ -52,6 +52,7 @@ namespace Project_LoFi
         Level createLevel;
         GamePlay gamePlay;
         GameVariables gameVars;
+        CharacterSheet characterSheet;
   
 
         //States
@@ -79,7 +80,7 @@ namespace Project_LoFi
             gameVars = new GameVariables(this.Content);
 
             //set initial game state
-            currentState = GameState.Intro;
+            currentState = GameState.Menu;
 
             //set the map
             createLevel = new Level();
@@ -103,6 +104,8 @@ namespace Project_LoFi
             //set initial frame to zero
             frameNum = 0;
             gamePlay = new GamePlay();
+            characterSheet = new CharacterSheet();
+            characterSheet.Hide();
             
             base.Initialize();
         }
@@ -191,6 +194,21 @@ namespace Project_LoFi
                     {
                         if (currentTurn == TurnState.Player)
                         {
+                            if(keyState.IsKeyDown(Keys.C))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.C))
+                                {
+                                    if(characterSheet.IsOpen())
+                                    {
+                                        gamePlay.CloseCharacterSheet(characterSheet);
+                                    }
+                                    else if (!characterSheet.IsOpen())
+                                    {
+                                        gamePlay.OpenCharacterSheet(characterSheet);
+                                    }
+                                }
+                            }
+
 
                             if (Keyboard.GetState().GetPressedKeys().Length > 0)
                             {

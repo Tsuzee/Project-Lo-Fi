@@ -23,10 +23,19 @@ namespace Project_LoFi
         }//end open inventory
 
 
-        public void OpenCharacterSheet()
+        public void OpenCharacterSheet(CharacterSheet sheet)
         {
-
+            sheet.Show();
+            sheet.open = true;
         }//end open character sheet
+
+        
+        public void CloseCharacterSheet(CharacterSheet sheet)
+        {
+            sheet.Hide();
+            sheet.open = false;
+        }
+
 
         /// <summary>
         /// calls the approiate attack method and pass it something to attack
