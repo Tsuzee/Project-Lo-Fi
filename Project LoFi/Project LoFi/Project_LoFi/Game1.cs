@@ -192,6 +192,8 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //players turn
                         if (currentTurn == TurnState.Player)
                         {
                             if(keyState.IsKeyDown(Keys.C))
@@ -215,6 +217,18 @@ namespace Project_LoFi
                                 gamePlay.MoveCursor(keyState);
                             }
                         }
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //npc's turn
+                        if(currentTurn == TurnState.NPC)
+                        {
+                            //read through list of enemy npcs and perform actions
+                            {
+
+                            }
+                        }
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
@@ -435,12 +449,6 @@ namespace Project_LoFi
                 return false;
             }
         }
-
-
-        
-
-
-        
-        
+  
     }//end class
 }
