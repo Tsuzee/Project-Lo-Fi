@@ -311,6 +311,7 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         createLevel.Draw(spriteBatch);
+                        createLevel.DrawCharactersAndMonsters(spriteBatch);
                         break;
                     }
                 case GameState.Credits:
@@ -336,9 +337,16 @@ namespace Project_LoFi
         {
             //setup test level
             createLevel.readMap("map.txt");
-
+            createLevel.setCharacters("setUpCharacters.txt");
             createLevel.AddTextureToTheList(gameVars.grassTexture);
             createLevel.AddTextureToTheList(gameVars.sandTexture);
+            createLevel.AddTextureToTheList(gameVars.lavaTexture);
+            createLevel.AddTextureToTheList(gameVars.flowersTexture);
+            createLevel.AddTextureToTheList(gameVars.roadTexture);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.player);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster1);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster2);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster3);
         }//end setup level
 
 

@@ -35,6 +35,13 @@ namespace Project_LoFi
         public Texture2D Logo;
         public Texture2D grassTexture;
         public Texture2D sandTexture;
+        public Texture2D lavaTexture;
+        public Texture2D flowersTexture;
+        public Texture2D roadTexture;
+        public Texture2D player;
+        public Texture2D monster1;
+        public Texture2D monster2;
+        public Texture2D monster3; 
        
 
 
@@ -44,6 +51,13 @@ namespace Project_LoFi
             Logo = myContent.Load<Texture2D>("logo");
             grassTexture = myContent.Load<Texture2D>("Textures\\grass");
             sandTexture = myContent.Load<Texture2D>("Textures\\sand");
+            lavaTexture = myContent.Load<Texture2D>("Textures\\lava");
+            flowersTexture = myContent.Load<Texture2D>("Textures\\flowers");
+            roadTexture = myContent.Load<Texture2D>("Textures\\road");
+            player = myContent.Load<Texture2D>("Textures\\indianajones");
+            monster1 = myContent.Load<Texture2D>("Textures\\devil");
+            monster2 = myContent.Load<Texture2D>("Textures\\shiva");
+            monster3 = myContent.Load<Texture2D>("Textures\\goldbat");
        
         }
 

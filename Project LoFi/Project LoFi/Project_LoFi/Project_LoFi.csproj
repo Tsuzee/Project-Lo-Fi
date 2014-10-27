@@ -104,6 +104,9 @@
     <Content Include="map.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="setUpCharacters.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project_LoFiContent\Project_LoFiContent.contentproj">

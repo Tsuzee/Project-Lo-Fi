@@ -17,11 +17,17 @@ namespace Project_LoFi
      
         Terrain addingThisTerrain = new Terrain();
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
+        List<Texture2D> charactersAndMonsters = new List<Texture2D>();
         GridOccupant[,] gridOccupantsArray;
+        PlayerUnit player = new PlayerUnit();
+        List<EnemyUnit> allMonsters = new List<EnemyUnit>();
 
 
         int textureHeight = 48; // used to keep the size of the texture
         int textureWidth = 48; // // used to keep the size of the texture
+        int charactersWidth = 32;
+        int charactersHeight = 48;
+
 
 
 
@@ -102,6 +108,16 @@ namespace Project_LoFi
             mapTextures.Add(textureAdd);
         }
 
+
+        /// <summary>
+        /// Adding characters and monsters to the list
+        /// </summary>
+        /// <param name="characterAndMonsterTextures"></param>
+        public void AddCharacterAndMonstersToTheList(Texture2D characterAndMonsterTextures)
+        {
+            charactersAndMonsters.Add(characterAndMonsterTextures);
+        }
+
         /// <summary>
         /// Draw the map
         /// </summary>
@@ -126,6 +142,117 @@ namespace Project_LoFi
                         
                 }
             }
+        }
+
+        /// <summary>
+        /// Draw Characters and monsters on the screen
+        /// </summary>
+        /// <param name="drawTexture"></param>
+        public void DrawCharactersAndMonsters(SpriteBatch drawTexture)
+        {
+            Texture2D characterTexture;
+            Texture2D monstersTexture;
+            characterTexture = charactersAndMonsters[0];
+            drawTexture.Draw(
+                characterTexture,
+                new Rectangle(player.X * textureWidth, player.Y * textureHeight, charactersWidth, charactersHeight),
+                new Rectangle(0, 0, 32, 48),
+                Color.White
+                );
+            foreach (EnemyUnit enemy in allMonsters)
+            {
+                monstersTexture = charactersAndMonsters[enemy.TextureIndex];
+                drawTexture.Draw(
+                    monstersTexture,
+                    new Rectangle(enemy.X * textureWidth, enemy.Y * textureHeight, charactersWidth, charactersHeight),
+                    new Rectangle(0, 48, 32, 48),
+                    Color.White
+                    );
+            }
+        }
+
+        /// <summary>
+        /// Reading data from a setUpCharacters file and set monsters and characters.
+        /// </summary>
+        /// <param name="charactersFile"></param>
+        public void setCharacters(string charactersFile)
+        {
+            StreamReader input = null;
+            if (File.Exists(charactersFile))
+            {
+                try
+                {
+                    input = new StreamReader(charactersFile);
+                    string line = "";
+                    SetupPlayer(input.ReadLine(), player);
+
+                    while ((line = input.ReadLine()) != null)
+                    {
+                        SetupMonsters(line);
+                    }
+
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Setting up monsters
+        /// </summary>
+        /// <param name="monsterInfo"></param>
+        public void SetupMonsters(string monsterInfo)
+        {
+
+            int startingX = 0;
+            int startingY = 0;
+            int monsterTextureIndex = 0;
+
+            try
+            {
+                string[] splitString = monsterInfo.Split(',');
+                startingX = Convert.ToInt32(splitString[0]);
+                startingY = Convert.ToInt32(splitString[1]);
+                monsterTextureIndex = Convert.ToInt32(splitString[2]);
+            }
+            catch (FormatException e)
+            {
+
+            }
+
+            EnemyUnit newEnemy = new EnemyUnit(startingX, startingY, monsterTextureIndex);
+            allMonsters.Add(newEnemy);
+        }
+
+        /// <summary>
+        /// Setting up Player
+        /// </summary>
+        /// <param name="playerInfo"></param>
+        /// <param name="player"></param>
+        public void SetupPlayer(string playerInfo, PlayerUnit player)
+        {
+            int startingX = 0;
+            int startingY = 0;
+            int playerTextureIndex = 0;
+
+            try
+            {
+                string[] splitString = playerInfo.Split(',');
+                startingX = Convert.ToInt32(splitString[0]);
+                startingY = Convert.ToInt32(splitString[1]);
+                playerTextureIndex = Convert.ToInt32(splitString[2]);
+            }
+            catch (FormatException e)
+            {
+
+            }
+
+            player.X = startingX;
+            player.Y = startingY;
+            player.TextureIndex = playerTextureIndex;
         }
 
     }//End of Level class
