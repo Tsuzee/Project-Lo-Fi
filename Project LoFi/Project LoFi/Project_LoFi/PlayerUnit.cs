@@ -34,7 +34,7 @@ namespace Project_LoFi
 
 
         /// --  Constructors    --
-        public PlayerUnit() { }         // Skeleton no argument constructor
+        public PlayerUnit() : base() { }         // Skeleton no argument constructor
         /// -- End of Constructors  --
 
 

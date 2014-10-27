@@ -62,6 +62,14 @@ namespace Project_LoFi
             y = 0;
             //img = DefaultTexture (probably an image of a field?)
         }
+
+        public GridOccupant(int xCoord, int yCoord, int txtrIndex)
+        {
+            this.X = xCoord;
+            this.Y = yCoord;
+            this.TextureIndex = txtrIndex;
+            // Should also assign textures
+        }
         /// --  End of Constructors --
 
 

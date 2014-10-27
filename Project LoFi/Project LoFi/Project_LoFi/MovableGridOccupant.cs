@@ -47,6 +47,12 @@ namespace Project_LoFi
         {
             occupiedSpace = null;
         }
+
+        public MovableGridOccupant(int xCoord, int yCoord, int txtrIndex)
+            : base(xCoord, yCoord, txtrIndex)
+        {
+
+        }
         /// --  End of Contructors  --
 
 

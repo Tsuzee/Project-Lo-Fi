@@ -35,14 +35,13 @@ namespace Project_LoFi
 
 
         /// --  Constructors    --
-        public EnemyUnit() { }  // Skeleton no argument constructor
+        public EnemyUnit() : base() { }  // Skeleton no argument constructor
         // Get it? Skeleton? Because the enemies are. . .nevermind.
 
-        public EnemyUnit(int xPosition, int yPosition, int enemyType) 
+        public EnemyUnit(int xCoord, int yCoord, int txtrIndex)
+            : base(xCoord, yCoord, txtrIndex)
         {
-            this.X = xPosition; 
-            this.Y = yPosition;
-            this.TextureIndex = enemyType;
+            
         }         
                                            
         /// -- End of Constructors  --
