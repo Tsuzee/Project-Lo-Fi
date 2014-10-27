@@ -23,8 +23,8 @@ namespace Project_LoFi
         List<EnemyUnit> allMonsters = new List<EnemyUnit>();
 
 
-        int textureHeight = 48; // used to keep the size of the texture
-        int textureWidth = 48; // // used to keep the size of the texture
+        int textureHeight = 60; // used to keep the size of the texture
+        int textureWidth = 60; // // used to keep the size of the texture
         int charactersWidth = 32;
         int charactersHeight = 48;
 

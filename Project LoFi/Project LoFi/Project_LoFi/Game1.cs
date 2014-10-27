@@ -70,7 +70,7 @@ namespace Project_LoFi
         {
             graphics = new GraphicsDeviceManager(this);
             //set window size(need to settle on a size)
-            graphics.PreferredBackBufferHeight = 819;
+            graphics.PreferredBackBufferHeight = 780;
             graphics.PreferredBackBufferWidth = 1200;
 
             //set content directory
