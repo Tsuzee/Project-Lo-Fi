@@ -19,8 +19,11 @@ namespace Project_LoFi
         List<Texture2D> mapTextures = new List<Texture2D>(); // Store textures for maps
         List<Texture2D> charactersAndMonsters = new List<Texture2D>();
         GridOccupant[,] gridOccupantsArray;
-        PlayerUnit player = new PlayerUnit();
+        PlayerUnit firstCharacter = new PlayerUnit();
+        PlayerUnit secondCharacter = new PlayerUnit();
+        PlayerUnit thirdCharacter = new PlayerUnit();
         List<EnemyUnit> allMonsters = new List<EnemyUnit>();
+        List<PlayerUnit> allPlayers = new List<PlayerUnit>();
 
 
         int textureHeight = 60; // used to keep the size of the texture
@@ -30,7 +33,7 @@ namespace Project_LoFi
 
 
 
-
+        
 
         /// <summary>
         ///  get array height
@@ -151,14 +154,39 @@ namespace Project_LoFi
         public void DrawCharactersAndMonsters(SpriteBatch drawTexture)
         {
             Texture2D characterTexture;
+            int textureIndex = 0;
             Texture2D monstersTexture;
-            characterTexture = charactersAndMonsters[0];
+            foreach (PlayerUnit player in allPlayers)
+            {
+                textureIndex = player.TextureIndex;
+                characterTexture = charactersAndMonsters[textureIndex];
+                drawTexture.Draw(
+               characterTexture,
+               new Rectangle(player.X * textureWidth, player.Y * textureHeight, charactersWidth, charactersHeight),
+               new Rectangle(0, 0, 32, 48),
+               Color.White
+            );
+            }
+            /*
             drawTexture.Draw(
                 characterTexture,
-                new Rectangle(player.X * textureWidth, player.Y * textureHeight, charactersWidth, charactersHeight),
+                new Rectangle(firstCharacter.X * textureWidth, firstCharacter.Y * textureHeight, charactersWidth, charactersHeight),
                 new Rectangle(0, 0, 32, 48),
                 Color.White
                 );
+            drawTexture.Draw(
+                     characterTexture,
+                new Rectangle(secondCharacter.X * textureWidth, secondCharacter.Y * textureHeight, charactersWidth, charactersHeight),
+                new Rectangle(0, 0, 32, 48),
+                Color.White
+                );
+            drawTexture.Draw(
+            characterTexture,
+            new Rectangle(thirdCharacter.X * textureWidth, thirdCharacter.Y * textureHeight, charactersWidth, charactersHeight),
+            new Rectangle(0, 0, 32, 48),
+            Color.White
+           );
+             * */
             foreach (EnemyUnit enemy in allMonsters)
             {
                 monstersTexture = charactersAndMonsters[enemy.TextureIndex];
@@ -184,7 +212,9 @@ namespace Project_LoFi
                 {
                     input = new StreamReader(charactersFile);
                     string line = "";
-                    SetupPlayer(input.ReadLine(), player);
+                    SetupPlayer(input.ReadLine(), firstCharacter);
+                    SetupPlayer(input.ReadLine(), secondCharacter);
+                    SetupPlayer(input.ReadLine(), thirdCharacter);
 
                     while ((line = input.ReadLine()) != null)
                     {
@@ -253,7 +283,10 @@ namespace Project_LoFi
             player.X = startingX;
             player.Y = startingY;
             player.TextureIndex = playerTextureIndex;
+            allPlayers.Add(player);
         }
+
+
 
     }//End of Level class
 }

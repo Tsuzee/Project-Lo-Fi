@@ -1,4 +1,5 @@
-// Grass and Sand textures where taking from http://opengameart.org/textures/ just for testing purposes.
+// Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
+// Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
 // Logo by Phillip Fowler
 
 using System;
@@ -343,7 +344,9 @@ namespace Project_LoFi
             createLevel.AddTextureToTheList(gameVars.lavaTexture);
             createLevel.AddTextureToTheList(gameVars.flowersTexture);
             createLevel.AddTextureToTheList(gameVars.roadTexture);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.player);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.firstCharacter);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.secondCharacter);
+            createLevel.AddCharacterAndMonstersToTheList(gameVars.thirdCharacter);
             createLevel.AddCharacterAndMonstersToTheList(gameVars.monster1);
             createLevel.AddCharacterAndMonstersToTheList(gameVars.monster2);
             createLevel.AddCharacterAndMonstersToTheList(gameVars.monster3);

@@ -1,4 +1,5 @@
-﻿// Grass and Sand textures where taking from http://opengameart.org/textures/ just for testing purposes.
+﻿// Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
+// Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
 
 
 using System;
@@ -38,7 +39,9 @@ namespace Project_LoFi
         public Texture2D lavaTexture;
         public Texture2D flowersTexture;
         public Texture2D roadTexture;
-        public Texture2D player;
+        public Texture2D firstCharacter;
+        public Texture2D secondCharacter;
+        public Texture2D thirdCharacter;
         public Texture2D monster1;
         public Texture2D monster2;
         public Texture2D monster3; 
@@ -54,7 +57,9 @@ namespace Project_LoFi
             lavaTexture = myContent.Load<Texture2D>("Textures\\lava");
             flowersTexture = myContent.Load<Texture2D>("Textures\\flowers");
             roadTexture = myContent.Load<Texture2D>("Textures\\road");
-            player = myContent.Load<Texture2D>("Textures\\indianajones");
+            firstCharacter = myContent.Load<Texture2D>("Textures\\indianajones");
+            secondCharacter = myContent.Load<Texture2D>("Textures\\grannyweatherwax");
+            thirdCharacter = myContent.Load<Texture2D>("Textures\\tremel");
             monster1 = myContent.Load<Texture2D>("Textures\\devil");
             monster2 = myContent.Load<Texture2D>("Textures\\shiva");
             monster3 = myContent.Load<Texture2D>("Textures\\goldbat");
