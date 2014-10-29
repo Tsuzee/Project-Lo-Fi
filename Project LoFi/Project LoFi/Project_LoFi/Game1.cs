@@ -54,6 +54,7 @@ namespace Project_LoFi
         GamePlay gamePlay;
         GameVariables gameVars;
         CharacterSheet characterSheet;
+        Cursor cursor;
   
 
         //States
@@ -85,7 +86,7 @@ namespace Project_LoFi
 
             //set the map
             createLevel = new Level();
-            
+            cursor = new Cursor();
 
             
         }
@@ -313,7 +314,7 @@ namespace Project_LoFi
                     {
                         createLevel.Draw(spriteBatch);
                         createLevel.DrawCharactersAndMonsters(spriteBatch);
-                        spriteBatch.Draw(gameVars.cursor, new Rectangle(0, 60, 60, 60), Color.White); //text code
+                        cursor.Draw(spriteBatch, gameVars.cursor);
                         break;
                     }
                 case GameState.Credits:

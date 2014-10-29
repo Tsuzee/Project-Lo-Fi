@@ -27,6 +27,10 @@ namespace Project_LoFi
             myContent = content;
         }
         
+        //static texture sizes
+        public static int textureWidth = 60;
+        public static int textureHeight = 60;
+
         //add images, fonts, music, sounds, and other content here.
         /// --  Fonts  --
         public SpriteFont Font1;

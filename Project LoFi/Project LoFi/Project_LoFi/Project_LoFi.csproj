@@ -81,6 +81,7 @@
     <Compile Include="CharacterSheet.Designer.cs">
       <DependentUpon>CharacterSheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cursor.cs" />
     <Compile Include="EnemyAI.cs" />
     <Compile Include="EnemyUnit.cs" />
     <Compile Include="GamePlay.cs" />
