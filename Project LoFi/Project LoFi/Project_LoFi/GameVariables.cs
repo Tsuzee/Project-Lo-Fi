@@ -44,7 +44,8 @@ namespace Project_LoFi
         public Texture2D thirdCharacter;
         public Texture2D monster1;
         public Texture2D monster2;
-        public Texture2D monster3; 
+        public Texture2D monster3;
+        public Texture2D cursor;
        
 
 
@@ -63,7 +64,7 @@ namespace Project_LoFi
             monster1 = myContent.Load<Texture2D>("Textures\\devil");
             monster2 = myContent.Load<Texture2D>("Textures\\shiva");
             monster3 = myContent.Load<Texture2D>("Textures\\goldbat");
-       
+            cursor = myContent.Load<Texture2D>("cursor");
         }
 
 

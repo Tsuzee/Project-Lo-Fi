@@ -313,6 +313,7 @@ namespace Project_LoFi
                     {
                         createLevel.Draw(spriteBatch);
                         createLevel.DrawCharactersAndMonsters(spriteBatch);
+                        spriteBatch.Draw(gameVars.cursor, new Rectangle(0, 60, 60, 60), Color.White); //text code
                         break;
                     }
                 case GameState.Credits:
