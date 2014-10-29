@@ -14,20 +14,14 @@ namespace Project_LoFi
 {
     class Cursor
     {
-        Rectangle cursorPos;
+        public Rectangle cursorPos;
         public bool isVisible;
-        
-        public Rectangle CursorPos
-        {
-            get { return cursorPos;}
-            set { cursorPos = value; }
-        }
 
         //constructor to set up the cursor in pos 0,0
         public Cursor()
         {
-            CursorPos = new Rectangle(0, 0, GameVariables.textureWidth, GameVariables.textureHeight);
-            isVisible = true;
+            cursorPos = new Rectangle(0, 0, GameVariables.textureWidth, GameVariables.textureHeight);
+            isVisible = false;
         }
 
 
@@ -40,8 +34,8 @@ namespace Project_LoFi
             // draw that texture if it is the players turn
             if (isVisible)
             {
-                drawTexture.Draw(texture, new Rectangle(CursorPos.X * GameVariables.textureWidth,
-                    CursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,
+                drawTexture.Draw(texture, new Rectangle(cursorPos.X * GameVariables.textureWidth,
+                    cursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,
                     GameVariables.textureHeight), Color.White);
             }
         }

@@ -198,6 +198,54 @@ namespace Project_LoFi
                         //players turn
                         if (currentTurn == TurnState.Player)
                         {
+                            cursor.isVisible = true;
+                            
+                            //check for cursor movement
+                            if (keyState.IsKeyDown(Keys.Up))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.Up))
+                                {   //move the cursor up 1 grid space
+                                    if (cursor.cursorPos.Y > 0)
+                                    {
+                                        cursor.cursorPos.Y -= 1;
+                                    }
+                                }
+                            }
+
+                            if (keyState.IsKeyDown(Keys.Down))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.Down))
+                                {
+                                    if (cursor.cursorPos.Y < 10)
+                                    {
+                                        cursor.cursorPos.Y += 1;
+                                    }
+                                }
+                            }
+
+                            if (keyState.IsKeyDown(Keys.Left))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.Left))
+                                {   //move the cursor left 1 grid space
+                                    if (cursor.cursorPos.X > 0)
+                                    {
+                                        cursor.cursorPos.X -= 1;
+                                    }
+                                }
+                            }
+
+                            if (keyState.IsKeyDown(Keys.Right))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.Right))
+                                {   //move the cursor right 1 grid space
+                                    if (cursor.cursorPos.X < 19)
+                                    {
+                                        cursor.cursorPos.X += 1;
+                                    }
+                                }
+                            }
+
+
                             if(keyState.IsKeyDown(Keys.C))
                             {
                                 if (SingleKeyPress(keyState, previousKeyState, Keys.C))
