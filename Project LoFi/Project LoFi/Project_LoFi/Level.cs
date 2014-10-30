@@ -20,8 +20,23 @@ namespace Project_LoFi
         List<Texture2D> charactersAndMonsters = new List<Texture2D>();
         GridOccupant[,] gridOccupantsArray;
         PlayerUnit firstCharacter = new PlayerUnit();
+        public PlayerUnit FirstCharacter
+        {
+            set { firstCharacter = value; }
+            get { return firstCharacter; }
+        }
         PlayerUnit secondCharacter = new PlayerUnit();
+        public PlayerUnit SecondCharacter
+        {
+            set { secondCharacter = value; }
+            get { return secondCharacter; }
+        }
         PlayerUnit thirdCharacter = new PlayerUnit();
+        public PlayerUnit ThirdCharacter
+        {
+            set { thirdCharacter = value; }
+            get { return thirdCharacter; }
+        }
         List<EnemyUnit> allMonsters = new List<EnemyUnit>();
         List<PlayerUnit> allPlayers = new List<PlayerUnit>();
 
@@ -31,7 +46,11 @@ namespace Project_LoFi
         int charactersWidth = 32;
         int charactersHeight = 48;
 
-
+        public GridOccupant[,] GridOccupantsArray       //Public property so we can pass the map around between classes
+        {
+            set { gridOccupantsArray = value; }
+            get { return gridOccupantsArray; }
+        }
 
         
 

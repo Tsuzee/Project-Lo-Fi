@@ -40,6 +40,13 @@ namespace Project_LoFi
         NPC
     }
 
+    //Enum for unit selection
+    public enum SelectState
+    {
+        Selected,
+        NotSelected
+    }
+
     /// <summary>
     /// This is the main type for your game
     /// </summary>
@@ -49,17 +56,18 @@ namespace Project_LoFi
         SpriteBatch spriteBatch;
         
 
-        //class declerations
+        //class declarations
         Level createLevel;
         GamePlay gamePlay;
         GameVariables gameVars;
         CharacterSheet characterSheet;
         Cursor cursor;
-  
+        PlayerUnit selectedUnit;
 
         //States
         GameState currentState;
         TurnState currentTurn;
+        SelectState selected;
 
         //Keyboard states to track keys
         KeyboardState keyState;
@@ -83,6 +91,7 @@ namespace Project_LoFi
 
             //set initial game state
             currentState = GameState.Menu;
+            selected = SelectState.NotSelected;
 
             //set the map
             createLevel = new Level();
@@ -245,6 +254,66 @@ namespace Project_LoFi
                                 }
                             }
 
+                            // Check if they selected a unit
+                            if (keyState.IsKeyDown(Keys.Z))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.Z))
+                                {
+                                    if (selected == SelectState.NotSelected)    // If we haven't selected a unit
+                                    {
+                                        if (cursor.cursorPos.X == createLevel.FirstCharacter.X && cursor.cursorPos.Y == createLevel.FirstCharacter.Y)
+                                        {
+                                            selectedUnit = createLevel.FirstCharacter;
+                                            selected = SelectState.Selected;
+                                        }
+                                        else if (cursor.cursorPos.X == createLevel.SecondCharacter.X && cursor.cursorPos.Y == createLevel.SecondCharacter.Y)
+                                        {
+                                            selectedUnit = createLevel.SecondCharacter;
+                                            selected = SelectState.Selected;
+                                        }
+                                        else if (cursor.cursorPos.X == createLevel.ThirdCharacter.X && cursor.cursorPos.Y == createLevel.ThirdCharacter.Y)
+                                        {
+                                            selectedUnit = createLevel.ThirdCharacter;
+                                            selected = SelectState.Selected;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y] is Terrain)
+                                        {
+                                            if ((cursor.cursorPos.X == (createLevel.FirstCharacter.X + 1)
+                                                || (cursor.cursorPos.X == (createLevel.FirstCharacter.X - 1))
+                                                || (cursor.cursorPos.X == createLevel.FirstCharacter.X))
+                                                && ((cursor.cursorPos.Y == (createLevel.FirstCharacter.Y + 1))
+                                                || (cursor.cursorPos.Y == (createLevel.FirstCharacter.Y - 1))
+                                                || (cursor.cursorPos.Y == createLevel.FirstCharacter.Y)))
+                                            {
+                                                Terrain tempHolder = (Terrain)createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y];
+                                                if (tempHolder.Impassable == false)
+                                                {
+                                                    //createLevel.GridOccupantsArray[selectedUnit.X, selectedUnit.Y] = selectedUnit.OccupiedSpace;
+                                                    //selectedUnit.OccupiedSpace = (Terrain)createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y];
+                                                    selectedUnit.X = cursor.cursorPos.X;
+                                                    selectedUnit.Y = cursor.cursorPos.Y;
+                                                    selected = SelectState.NotSelected;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            if (keyState.IsKeyDown(Keys.X))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.X))
+                                {
+                                    if (selected == SelectState.Selected)
+                                    {
+                                        selected = SelectState.NotSelected;
+                                    }
+                                }
+                            }
 
                             if(keyState.IsKeyDown(Keys.C))
                             {
