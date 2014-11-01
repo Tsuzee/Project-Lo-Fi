@@ -43,7 +43,13 @@ namespace Project_LoFi
         {
             
         }         
-                                           
+        
+        public EnemyUnit(int xValue, int yValue)
+            : base(xValue, yValue)
+        {
+
+        }
+                        
         /// -- End of Constructors  --
 
 

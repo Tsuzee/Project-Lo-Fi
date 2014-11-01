@@ -55,14 +55,18 @@ namespace Project_LoFi
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         
+        // Map
+        GridOccupant[,] map;
 
         //class declarations
-        Level createLevel;
+        Level scenario;
         GamePlay gamePlay;
         GameVariables gameVars;
         CharacterSheet characterSheet;
         Cursor cursor;
         PlayerUnit selectedUnit;
+        List<PlayerUnit> characterList;
+        Drawer screenDrawer;
 
         //States
         GameState currentState;
@@ -93,11 +97,11 @@ namespace Project_LoFi
             currentState = GameState.Menu;
             selected = SelectState.NotSelected;
 
-            //set the map
-            createLevel = new Level();
+            //set the cursor
             cursor = new Cursor();
 
-            
+            // Set up the draw class
+            screenDrawer = new Drawer();
         }
 
         /// <summary>
@@ -137,7 +141,6 @@ namespace Project_LoFi
             //load fonts
             gameVars.setFont();
 
-            
         }
 
         /// <summary>
@@ -191,7 +194,7 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel();
+                                SetupLevel("map.txt", "players.txt", "enemies.txt");
                                 currentTurn = TurnState.Player;
                             }
                         }
@@ -259,49 +262,41 @@ namespace Project_LoFi
                             {
                                 if (SingleKeyPress(keyState, previousKeyState, Keys.Z))
                                 {
+                                    int cursorX = cursor.cursorPos.X;
+                                    int cursorY = cursor.cursorPos.Y;
                                     if (selected == SelectState.NotSelected)    // If we haven't selected a unit
                                     {
-                                        if (cursor.cursorPos.X == createLevel.FirstCharacter.X && cursor.cursorPos.Y == createLevel.FirstCharacter.Y)
+                                        if (map[cursorX, cursorY] is PlayerUnit)
                                         {
-                                            selectedUnit = createLevel.FirstCharacter;
-                                            selected = SelectState.Selected;
-                                        }
-                                        else if (cursor.cursorPos.X == createLevel.SecondCharacter.X && cursor.cursorPos.Y == createLevel.SecondCharacter.Y)
-                                        {
-                                            selectedUnit = createLevel.SecondCharacter;
-                                            selected = SelectState.Selected;
-                                        }
-                                        else if (cursor.cursorPos.X == createLevel.ThirdCharacter.X && cursor.cursorPos.Y == createLevel.ThirdCharacter.Y)
-                                        {
-                                            selectedUnit = createLevel.ThirdCharacter;
+                                            selectedUnit = (PlayerUnit)map[cursorX, cursorY]; // Cast the unit
                                             selected = SelectState.Selected;
                                         }
                                     }
-                                    else
+                                    else                                        // We have a unit selected, now we want to move
                                     {
-                                        if (createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y] is Terrain)
-                                        {
-                                            if ((cursor.cursorPos.X == (createLevel.FirstCharacter.X + 1)
-                                                || (cursor.cursorPos.X == (createLevel.FirstCharacter.X - 1))
-                                                || (cursor.cursorPos.X == createLevel.FirstCharacter.X))
-                                                && ((cursor.cursorPos.Y == (createLevel.FirstCharacter.Y + 1))
-                                                || (cursor.cursorPos.Y == (createLevel.FirstCharacter.Y - 1))
-                                                || (cursor.cursorPos.Y == createLevel.FirstCharacter.Y)))
+                                        if (map[cursorX, cursorY] is Terrain)   // They aren't moving into another unit
+                                            if (MovementValid(cursorX, cursorY, selectedUnit.X, selectedUnit.Y) == true)
                                             {
-                                                Terrain tempHolder = (Terrain)createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y];
-                                                if (tempHolder.Impassable == false)
+                                                Terrain tempHolder = (Terrain)map[cursorX, cursorY];
+                                                if (tempHolder.Impassable == false) // If they *can* move there
                                                 {
-                                                    //createLevel.GridOccupantsArray[selectedUnit.X, selectedUnit.Y] = selectedUnit.OccupiedSpace;
-                                                    //selectedUnit.OccupiedSpace = (Terrain)createLevel.GridOccupantsArray[cursor.cursorPos.X, cursor.cursorPos.Y];
-                                                    selectedUnit.X = cursor.cursorPos.X;
-                                                    selectedUnit.Y = cursor.cursorPos.Y;
+                                                    // Re-insert the terrain they're on right now
+                                                    map[selectedUnit.X, selectedUnit.Y] = selectedUnit.OccupiedSpace;
+
+                                                    // Assign the space they're moving into to occupiedSpace
+                                                    selectedUnit.OccupiedSpace = (Terrain)map[cursorX, cursorY];
+
+                                                    // Move the unit
+                                                    map[cursorX, cursorY] = selectedUnit;
+                                                    selectedUnit.X = cursorX;
+                                                    selectedUnit.Y = cursorY;
+
+                                                    // Deselect the unit, they've moved
                                                     selected = SelectState.NotSelected;
                                                 }
                                             }
-                                        }
-
-                                    }
-                                }
+                                    }//End of else
+                                }//End of singleKeyPress
                             }
 
                             if (keyState.IsKeyDown(Keys.X))
@@ -429,8 +424,7 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        createLevel.Draw(spriteBatch);
-                        createLevel.DrawCharactersAndMonsters(spriteBatch);
+                        screenDrawer.DrawMap(spriteBatch, map);
                         cursor.Draw(spriteBatch, gameVars.cursor);
                         break;
                     }
@@ -450,25 +444,16 @@ namespace Project_LoFi
 
 
         /// <summary>
-        /// will need information passed in to determine which level to setup.
-        /// currently only contains test code
+        /// Will need information passed in to determine which level to setup.
+        /// Currently only contains test code.
         /// </summary>
-        protected void SetupLevel()
+        protected void SetupLevel(string mapName, string pListName, string eListName)
         {
-            //setup test level
-            createLevel.readMap("map.txt");
-            createLevel.setCharacters("setUpCharacters.txt");
-            createLevel.AddTextureToTheList(gameVars.grassTexture);
-            createLevel.AddTextureToTheList(gameVars.sandTexture);
-            createLevel.AddTextureToTheList(gameVars.lavaTexture);
-            createLevel.AddTextureToTheList(gameVars.flowersTexture);
-            createLevel.AddTextureToTheList(gameVars.roadTexture);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.firstCharacter);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.secondCharacter);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.thirdCharacter);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster1);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster2);
-            createLevel.AddCharacterAndMonstersToTheList(gameVars.monster3);
+            // Load map
+            scenario = new Level(mapName, pListName, eListName, gameVars);
+            characterList = scenario.PlayerList;
+            map = scenario.MapGrid;
+            
         }//end setup level
 
 
@@ -537,7 +522,7 @@ namespace Project_LoFi
         {
             if (frameNum < 100)
             {
-                spriteBatch.Draw(gameVars.Logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450),
+                spriteBatch.Draw(gameVars.logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450),
                     (GraphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
             }
 
@@ -579,6 +564,24 @@ namespace Project_LoFi
                 return false;
             }
         }
-  
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"> cursor.CursorPos.X </param>
+        /// <param name="cY"> cursor.CursorPos.Y </param>
+        /// <param name="sX"> selectedUnit.X </param>
+        /// <param name="sY"> selectedUnit.Y </param>
+        /// <returns></returns>
+        private bool MovementValid(int cX, int cY, int sX, int sY)
+        {
+            bool resultFlag = false;
+
+            if ((cX == (sX - 1) && cY == sY) || (cX == (sX + 1) && cY == sY) || (cY == (sY - 1) && cX == sX) || (cY == (sY + 1) && cX == sX))
+                resultFlag = true;
+
+            return resultFlag;
+        }
+
     }//end class
 }
