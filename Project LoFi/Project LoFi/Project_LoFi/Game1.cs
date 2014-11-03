@@ -111,7 +111,7 @@ namespace Project_LoFi
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
+            
             gamePlay = new GamePlay();
             characterSheet = new CharacterSheet();
             characterSheet.Hide();
@@ -135,7 +135,7 @@ namespace Project_LoFi
             //load fonts
             gameVars.setFont();
 
-            
+            cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
         }
 
         /// <summary>
@@ -291,6 +291,7 @@ namespace Project_LoFi
 
                                                     // Deselect the unit, they've moved
                                                     selected = SelectState.NotSelected;
+                                                    cursor.Selected = false;
                                                 }
                                             }
                                     }//End of else
@@ -301,10 +302,11 @@ namespace Project_LoFi
                             {
                                 if (SingleKeyPress(keyState, previousKeyState, Keys.X))
                                 {
+                                    cursor.Selected = false;
                                     if (selected == SelectState.Selected)
                                     {
                                         selected = SelectState.NotSelected;
-                                        cursor.Selected = false;
+                                        
                                     }
                                 }
                             }
