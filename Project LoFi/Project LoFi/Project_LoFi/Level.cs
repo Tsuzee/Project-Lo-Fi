@@ -21,6 +21,7 @@ namespace Project_LoFi
         private List<Texture2D> enemyTextures;          // Store textures for maps
         private List<Texture2D> charTextures;           // Store textures for maps
         private List<PlayerUnit> playerList;            // Store the players, so Game1 knows who the human can control
+        public List<EnemyUnit> enemyList;
 
         /// -- End of Instance Variables    --
 
@@ -51,6 +52,7 @@ namespace Project_LoFi
             charTextures = new List<Texture2D>();
             enemyTextures = new List<Texture2D>();
             playerList = new List<PlayerUnit>();
+            enemyList = new List<EnemyUnit>();
 
             AddTextures(gameVar);
             ConstructMap(mapFileName, playerFileName, enemyFileName);
@@ -184,6 +186,9 @@ namespace Project_LoFi
 
                     EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord);
                     eUnit.Img = enemyTextures[enemyTextureNum];
+
+                    //add enemy to the list
+                    enemyList.Add(eUnit);
 
                     Terrain tempStorage = (Terrain)mapGrid[xCoord, yCoord];
                     eUnit.OccupiedSpace = tempStorage;
