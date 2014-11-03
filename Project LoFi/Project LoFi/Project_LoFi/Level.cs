@@ -54,7 +54,6 @@ namespace Project_LoFi
 
             AddTextures(gameVar);
             ConstructMap(mapFileName, playerFileName, enemyFileName);
-            int x = 0;
         }
 
         /// --  End of Constructors --
