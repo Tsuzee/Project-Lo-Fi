@@ -101,7 +101,7 @@ namespace Project_LoFi
             cursor = new Cursor();
 
             // Set up the draw class
-            screenDrawer = new Drawer();
+            screenDrawer = new Drawer(gameVars, spriteBatch, GraphicsDevice);
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace Project_LoFi
                     {
                         GraphicsDevice.Clear(Color.White);
 
-                        DrawIntro(); //draws the game intro
+                        screenDrawer.DrawIntro(); //draws the game intro
 
                         break;
                     }
@@ -418,13 +418,13 @@ namespace Project_LoFi
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
 
-                        DrawMenu(); //draws the game menu
+                        screenDrawer.DrawMenu(); //draws the game menu
 
                         break;
                     }
                 case GameState.Playing:
                     {
-                        screenDrawer.DrawMap(spriteBatch, map);
+                        screenDrawer.DrawMap(map);
                         cursor.Draw(spriteBatch, gameVars.cursor);
                         break;
                     }
@@ -432,7 +432,7 @@ namespace Project_LoFi
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
 
-                        DrawCredits(); //draws the game menu
+                        screenDrawer.DrawCredits(); //draws the game menu
 
                         break;
                     }
@@ -456,95 +456,6 @@ namespace Project_LoFi
             
         }//end setup level
 
-
-
-        protected void DrawCredits()
-        {
-            string output;
-            Vector2 FontOrigin;
-
-            output = "Credits";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 10;
-            spriteBatch.DrawString(gameVars.Font1Bold, output, new Vector2((GraphicsDevice.Viewport.Width / 2) - 50, 10), 
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-
-            output = "Design - Aliaksandr Shumski";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 100;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-            
-
-
-            output = "Architecture - Jesse Cooper";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 200;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-            output = "Interface - Phillip Fowler";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 300;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-
-            output = "Group Lead - Darren Farr";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 400;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-        }
-
-
-        /// <summary>
-        /// draws the game menu
-        /// </summary>
-        protected void DrawMenu()
-        {
-            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375,
-                                (GraphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-
-            spriteBatch.DrawString(gameVars.Font1Bold, "press Enter to play", new Vector2((GraphicsDevice.Viewport.Width / 2) - 350,
-                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-        }//end drawmenu
-
-        /// <summary>
-        /// Draw game intro
-        /// </summary>
-        protected void DrawIntro()
-        {
-            if (frameNum < 100)
-            {
-                spriteBatch.Draw(gameVars.logo, new Rectangle(((GraphicsDevice.Viewport.Width / 2) - 450),
-                    (GraphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
-            }
-
-            if (frameNum > 99 && frameNum < 200)
-            {
-                spriteBatch.DrawString(gameVars.Font1Bold, "presents", new Vector2((GraphicsDevice.Viewport.Width / 2) - 150,
-                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-            }
-
-            if (frameNum > 199)
-            {
-                spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((GraphicsDevice.Viewport.Width / 2) - 375,
-                    (GraphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-            }
-
-            if (frameNum > 399)
-            {
-                frameNum = 0;
-                currentState = GameState.Menu;
-            }
-            frameNum++;
-        }//end drawintro
 
         /// <summary>
         /// check to see if a key has been pressed only once

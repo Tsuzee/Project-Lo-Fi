@@ -37,6 +37,7 @@ namespace Project_LoFi
         /// -- Images --
         public Texture2D logo;
         public Texture2D cursor;
+        public Texture2D selCursor;
         public Texture2D[] terrainTextures;
         /*
          * [0] = grass
@@ -68,6 +69,7 @@ namespace Project_LoFi
         {
             logo = myContent.Load<Texture2D>("logo");
             cursor = myContent.Load<Texture2D>("cursor");
+            selCursor = myContent.Load<Texture2D>("cursorS");
 
             // Terrain textures
             terrainTextures[0] = myContent.Load<Texture2D>("Textures\\grass");

@@ -22,7 +22,22 @@ namespace Project_LoFi
         int txtrHeight = 60;
         int unitWidth = 32;
         int unitHeight = 48;
+        int frameNum = 0;
 
+        GameVariables gameVars;
+        SpriteBatch spriteBatch;
+        SpriteBatch drawTexture;
+        GraphicsDevice graphicsDevice;
+
+
+        // -- Constructor --
+        public Drawer(GameVariables vars, SpriteBatch sprite, GraphicsDevice device)
+        {
+            gameVars = vars;
+            spriteBatch = sprite;
+            drawTexture = sprite;
+            graphicsDevice = device;
+        }
 
 
         //  --  Methods --
@@ -31,7 +46,7 @@ namespace Project_LoFi
         /// Draws the map and the units on it
         /// </summary>
         /// <param name="drawTexture"></param>
-        public void DrawMap(SpriteBatch drawTexture, GridOccupant[,] map)
+        public void DrawMap(GridOccupant[,] map)
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -61,6 +76,90 @@ namespace Project_LoFi
             }//End of outer for loop
         }//End of DrawMap method
 
+
+        /// <summary>
+        /// Draw game intro
+        /// </summary>
+        public void DrawIntro()
+        {
+            if (frameNum < 100)
+            {
+                spriteBatch.Draw(gameVars.logo, new Rectangle(((graphicsDevice.Viewport.Width / 2) - 450),
+                    (graphicsDevice.Viewport.Height / 2) - 360, 900, 750), Color.White);
+            }
+
+            if (frameNum > 99 && frameNum < 200)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, "presents", new Vector2((graphicsDevice.Viewport.Width / 2) - 150,
+                    (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            }
+
+            if (frameNum > 199)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
+                    (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+            }
+
+            frameNum++;
+        }//end drawintro
+
+        /// <summary>
+        /// draws the game menu
+        /// </summary>
+        public void DrawMenu()
+        {
+            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
+                                (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+
+            spriteBatch.DrawString(gameVars.Font1Bold, "press Enter to play", new Vector2((graphicsDevice.Viewport.Width / 2) - 350,
+                    (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+        }//end drawmenu
+
+
+        //draw Credits
+        public void DrawCredits()
+        {
+            string output;
+            Vector2 FontOrigin;
+
+            output = "Credits";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 10;
+            spriteBatch.DrawString(gameVars.Font1Bold, output, new Vector2((graphicsDevice.Viewport.Width / 2) - 50, 10),
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+
+            output = "Design - Aliaksandr Shumski";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 100;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+
+
+            output = "Architecture - Jesse Cooper";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 200;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+            output = "Interface - Phillip Fowler";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 300;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+
+
+            output = "Group Lead - Darren Farr";
+            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
+            FontOrigin.Y = 400;
+            spriteBatch.DrawString(gameVars.Font1Bold, output,
+                FontOrigin,
+                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+        }
 
     }//End of Draw class
 }
