@@ -77,8 +77,6 @@ namespace Project_LoFi
         KeyboardState keyState;
         KeyboardState previousKeyState;
 
-        //keep track of frame for animations
-        int frameNum;
 
         public Game1()
         {
@@ -113,11 +111,7 @@ namespace Project_LoFi
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            
-            
-            
-            //set initial frame to zero
-            frameNum = 0;
+            cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
             gamePlay = new GamePlay();
             characterSheet = new CharacterSheet();
             characterSheet.Hide();
@@ -141,6 +135,7 @@ namespace Project_LoFi
             //load fonts
             gameVars.setFont();
 
+            
         }
 
         /// <summary>
@@ -164,6 +159,8 @@ namespace Project_LoFi
                 this.Exit();
 
             // TODO: Add your update logic here
+            screenDrawer.update(GraphicsDevice, spriteBatch);
+
             //get current keyboard state
             keyState = Keyboard.GetState();
 
@@ -264,6 +261,7 @@ namespace Project_LoFi
                                 {
                                     int cursorX = cursor.cursorPos.X;
                                     int cursorY = cursor.cursorPos.Y;
+                                    cursor.Selected = true;
                                     if (selected == SelectState.NotSelected)    // If we haven't selected a unit
                                     {
                                         if (map[cursorX, cursorY] is PlayerUnit)
@@ -306,6 +304,7 @@ namespace Project_LoFi
                                     if (selected == SelectState.Selected)
                                     {
                                         selected = SelectState.NotSelected;
+                                        cursor.Selected = false;
                                     }
                                 }
                             }
@@ -409,6 +408,7 @@ namespace Project_LoFi
                 case GameState.Intro:
                     {
                         GraphicsDevice.Clear(Color.White);
+                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
                         screenDrawer.DrawIntro(); //draws the game intro
 
@@ -417,6 +417,7 @@ namespace Project_LoFi
                 case GameState.Menu:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
+                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
                         screenDrawer.DrawMenu(); //draws the game menu
 
@@ -425,12 +426,13 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         screenDrawer.DrawMap(map);
-                        cursor.Draw(spriteBatch, gameVars.cursor);
+                        cursor.Draw(spriteBatch);
                         break;
                     }
                 case GameState.Credits:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
+                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
                         screenDrawer.DrawCredits(); //draws the game menu
 

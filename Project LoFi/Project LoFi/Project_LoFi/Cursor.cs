@@ -16,27 +16,48 @@ namespace Project_LoFi
     {
         public Rectangle cursorPos;
         public bool isVisible;
+        private bool selected;
+        public Texture2D texture;
+        private Texture2D selTexture;
+        public bool Selected
+        {
+            get { return selected; }
+            set { selected = value; }
+        }
 
         //constructor to set up the cursor in pos 0,0
         public Cursor()
         {
             cursorPos = new Rectangle(0, 0, GameVariables.textureWidth, GameVariables.textureHeight);
             isVisible = false;
+            selected = false;
         }
 
-
+        //set cursor textures
+        public void setCursorTextures(Texture2D text, Texture2D text2)
+        {
+            texture = text;
+            selTexture = text2;
+         }
         /// <summary>
         /// Draw the map
         /// </summary>
         /// <param name="drawTexture"></param>
-        public void Draw(SpriteBatch drawTexture, Texture2D texture)
+        public void Draw(SpriteBatch drawTexture)
         {
             // draw that texture if it is the players turn
-            if (isVisible)
+            if (isVisible && !selected)
             {
                 drawTexture.Draw(texture, new Rectangle(cursorPos.X * GameVariables.textureWidth,
                     cursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,
                     GameVariables.textureHeight), Color.White);
+            }
+            else if(isVisible && selected)
+            {
+                drawTexture.Draw(selTexture, new Rectangle(cursorPos.X * GameVariables.textureWidth,
+                    cursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,
+                    GameVariables.textureHeight), Color.White);
+
             }
         }
 

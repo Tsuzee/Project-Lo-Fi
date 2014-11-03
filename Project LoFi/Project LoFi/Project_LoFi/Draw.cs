@@ -42,6 +42,14 @@ namespace Project_LoFi
 
         //  --  Methods --
 
+        //keep graphics device updated
+        public void update(GraphicsDevice device, SpriteBatch sprite)
+        {
+            graphicsDevice = device;
+            spriteBatch = sprite;
+            drawTexture = sprite;
+        }
+
         /// <summary>
         /// Draws the map and the units on it
         /// </summary>
