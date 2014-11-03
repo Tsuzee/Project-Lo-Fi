@@ -115,7 +115,9 @@
     <Content Include="enemies.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="players.txt" />
+    <Content Include="players.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project_LoFiContent\Project_LoFiContent.contentproj">
