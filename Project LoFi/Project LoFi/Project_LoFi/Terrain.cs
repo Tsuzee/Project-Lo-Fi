@@ -34,17 +34,6 @@ namespace Project_LoFi
 
 
 
-        /// --  Constructors    --
-
-        public Terrain()
-            : base()
-        { }
-
-        public Terrain(int xValue, int yValue)
-            : base(xValue, yValue)
-        { }
-
-        /// -- End of Constructors  --
 
     }//End of Terrain class
 }

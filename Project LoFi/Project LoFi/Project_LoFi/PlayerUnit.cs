@@ -34,15 +34,7 @@ namespace Project_LoFi
 
 
         /// --  Constructors    --
-        
         public PlayerUnit() : base() { }         // Skeleton no argument constructor
-
-        public PlayerUnit(int xValue, int yValue)
-            : base(xValue, yValue)
-        {
-
-        }
-
         /// -- End of Constructors  --
 
 

@@ -53,13 +53,6 @@ namespace Project_LoFi
         {
 
         }
-
-        public MovableGridOccupant(int xCoord, int yCoord)
-            : base(xCoord, yCoord)
-        {
-
-        }
-
         /// --  End of Contructors  --
 
 
