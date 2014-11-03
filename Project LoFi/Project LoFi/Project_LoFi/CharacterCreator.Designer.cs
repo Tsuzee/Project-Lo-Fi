@@ -33,7 +33,7 @@
             this.NextPortrait = new System.Windows.Forms.Button();
             this.Portrait = new System.Windows.Forms.Label();
             this.NameLabel = new System.Windows.Forms.Label();
-            this.Name = new System.Windows.Forms.TextBox();
+            this.UnitName = new System.Windows.Forms.TextBox();
             this.NextMember = new System.Windows.Forms.Button();
             this.PreviousMember = new System.Windows.Forms.Button();
             this.PointsLeft = new System.Windows.Forms.ProgressBar();
@@ -99,12 +99,12 @@
             this.NameLabel.TabIndex = 4;
             this.NameLabel.Text = "Name";
             // 
-            // Name
+            // UnitName
             // 
-            this.Name.Location = new System.Drawing.Point(162, 30);
-            this.Name.Name = "Name";
-            this.Name.Size = new System.Drawing.Size(225, 20);
-            this.Name.TabIndex = 5;
+            this.UnitName.Location = new System.Drawing.Point(162, 30);
+            this.UnitName.Name = "UnitName";
+            this.UnitName.Size = new System.Drawing.Size(225, 20);
+            this.UnitName.TabIndex = 5;
             // 
             // NextMember
             // 
@@ -239,7 +239,7 @@
             this.Controls.Add(this.PointsLeft);
             this.Controls.Add(this.PreviousMember);
             this.Controls.Add(this.NextMember);
-            this.Controls.Add(this.Name);
+            this.Controls.Add(this.UnitName);
             this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.Portrait);
             this.Controls.Add(this.NextPortrait);
@@ -265,7 +265,7 @@
         private System.Windows.Forms.Button NextPortrait;
         private System.Windows.Forms.Label Portrait;
         private System.Windows.Forms.Label NameLabel;
-        private System.Windows.Forms.TextBox Name;
+        private System.Windows.Forms.TextBox UnitName;
         private System.Windows.Forms.Button NextMember;
         private System.Windows.Forms.Button PreviousMember;
         private System.Windows.Forms.ProgressBar PointsLeft;

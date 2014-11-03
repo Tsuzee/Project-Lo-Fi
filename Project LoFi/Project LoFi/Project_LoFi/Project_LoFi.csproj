@@ -88,6 +88,7 @@
       <DependentUpon>CharacterSheet.cs</DependentUpon>
     </Compile>
     <Compile Include="Cursor.cs" />
+    <Compile Include="Draw.cs" />
     <Compile Include="EnemyAI.cs" />
     <Compile Include="EnemyUnit.cs" />
     <Compile Include="GamePlay.cs" />
@@ -111,9 +112,10 @@
     <Content Include="map.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="setUpCharacters.txt">
+    <Content Include="enemies.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="players.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project_LoFiContent\Project_LoFiContent.contentproj">

@@ -96,6 +96,7 @@ namespace Project_LoFi
         /// --  End of Properties   --
         
         /// -- Constructors --
+        
         public Unit()
             : base()
         {
@@ -127,6 +128,23 @@ namespace Project_LoFi
             equippedArmor = null;
             Inventory = new List<Item>();
         }
+
+        public Unit(int xCoord, int yCoord)
+            : base(xCoord, yCoord)
+        {
+            health = 1;
+            defenseModifier = 0;
+            attackModifier = 0;
+            critChance = 0.0;
+            level = 1;
+            strength = 1;
+            dexterity = 1;
+            magic = 1;
+            equippedWeapon = null;
+            equippedArmor = null;
+            Inventory = new List<Item>();
+        }
+
         /// -- End of Constructors --
 
 
