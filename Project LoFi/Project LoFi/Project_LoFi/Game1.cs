@@ -66,6 +66,7 @@ namespace Project_LoFi
         Cursor cursor;
         PlayerUnit selectedUnit;
         List<PlayerUnit> characterList;
+        List<EnemyUnit> enemyList;
         Drawer screenDrawer;
 
         //States
@@ -203,6 +204,8 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
+                        enemyList = scenario.enemyList;
+                        screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         //players turn
                         if (currentTurn == TurnState.Player)
@@ -261,12 +264,14 @@ namespace Project_LoFi
                                 {
                                     int cursorX = cursor.cursorPos.X;
                                     int cursorY = cursor.cursorPos.Y;
-                                    cursor.Selected = true;
+                                    
                                     if (selected == SelectState.NotSelected)    // If we haven't selected a unit
                                     {
                                         if (map[cursorX, cursorY] is PlayerUnit)
                                         {
+                                            cursor.Selected = true;
                                             selectedUnit = (PlayerUnit)map[cursorX, cursorY]; // Cast the unit
+                                            screenDrawer.SelectedUnit = selectedUnit;
                                             selected = SelectState.Selected;
                                         }
                                     }
@@ -292,6 +297,7 @@ namespace Project_LoFi
                                                     // Deselect the unit, they've moved
                                                     selected = SelectState.NotSelected;
                                                     cursor.Selected = false;
+                                                    screenDrawer.SelectedUnit = null;
                                                 }
                                             }
                                     }//End of else
@@ -303,6 +309,7 @@ namespace Project_LoFi
                                 if (SingleKeyPress(keyState, previousKeyState, Keys.X))
                                 {
                                     cursor.Selected = false;
+                                    screenDrawer.SelectedUnit = null;
                                     if (selected == SelectState.Selected)
                                     {
                                         selected = SelectState.NotSelected;

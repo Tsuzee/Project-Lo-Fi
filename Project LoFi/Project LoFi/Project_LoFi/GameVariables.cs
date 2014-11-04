@@ -38,6 +38,8 @@ namespace Project_LoFi
         public Texture2D logo;
         public Texture2D cursor;
         public Texture2D selCursor;
+        public Texture2D highligther;
+        public Texture2D battleHighLighter;
         public Texture2D[] terrainTextures;
         /*
          * [0] = grass
@@ -70,6 +72,8 @@ namespace Project_LoFi
             logo = myContent.Load<Texture2D>("logo");
             cursor = myContent.Load<Texture2D>("cursor");
             selCursor = myContent.Load<Texture2D>("cursorS");
+            highligther = myContent.Load<Texture2D>("highlight");
+            battleHighLighter = myContent.Load<Texture2D>("battlehighlight");
 
             // Terrain textures
             terrainTextures[0] = myContent.Load<Texture2D>("Textures\\grass");

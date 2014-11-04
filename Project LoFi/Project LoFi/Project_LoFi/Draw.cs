@@ -28,6 +28,13 @@ namespace Project_LoFi
         SpriteBatch spriteBatch;
         SpriteBatch drawTexture;
         GraphicsDevice graphicsDevice;
+        PlayerUnit selectedUnit;
+        public List<EnemyUnit> enemyList;
+
+        public PlayerUnit SelectedUnit
+        {
+            set { selectedUnit = value; }
+        }
 
 
         // -- Constructor --
@@ -37,6 +44,7 @@ namespace Project_LoFi
             spriteBatch = sprite;
             drawTexture = sprite;
             graphicsDevice = device;
+            SelectedUnit = null;
         }
 
 
@@ -62,8 +70,17 @@ namespace Project_LoFi
                 {
                     if (map[i, j] is Terrain)
                     {
+                        
                         Texture2D terrainTxtr = map[i, j].Img;
                         drawTexture.Draw(terrainTxtr, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                        if (selectedUnit != null)
+                        {
+                            if (((selectedUnit.X == i - 1) && selectedUnit.Y == j) || ((selectedUnit.X == i + 1) && selectedUnit.Y == j)
+                                || ((selectedUnit.Y == j - 1) && selectedUnit.X == i) || ((selectedUnit.Y == j + 1) && selectedUnit.X == i))
+                            {
+                                drawTexture.Draw(gameVars.highligther, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                            }
+                        }
                     }
                     else if (map[i, j] is MovableGridOccupant)
                     {
@@ -79,6 +96,27 @@ namespace Project_LoFi
                             new Rectangle(i * txtrWidth, j * txtrHeight, unitWidth, unitHeight),
                             new Rectangle(0, 0, unitWidth, unitHeight),
                             Color.White);
+
+                        //if player is attemping combat draw the battle highlighters
+                        if (selectedUnit != null)
+                        {
+                            if(map[selectedUnit.X+1, selectedUnit.Y] is EnemyUnit)
+                            {
+                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((selectedUnit.X + 1) * txtrWidth, selectedUnit.Y * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                            }
+                            if(map[selectedUnit.X-1, selectedUnit.Y] is EnemyUnit)
+                            {
+                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((selectedUnit.X - 1) * txtrWidth, selectedUnit.Y * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                            }
+                            if(map[selectedUnit.X, selectedUnit.Y+1] is EnemyUnit)
+                            {
+                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(selectedUnit.X * txtrWidth, (selectedUnit.Y + 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                            }
+                            if(map[selectedUnit.X, selectedUnit.Y-1] is EnemyUnit)
+                            {
+                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(selectedUnit.X * txtrWidth, (selectedUnit.Y - 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                            }  
+                        }
                     }
                 }//End of inner for loop
             }//End of outer for loop
