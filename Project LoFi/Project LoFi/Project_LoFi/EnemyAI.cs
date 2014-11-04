@@ -41,15 +41,11 @@ namespace Project_LoFi
         }
 
         //can the enemy see a player
-        public bool IsPlayerVisible(int enemyNum)
+        public bool IsPlayerVisible(int enemyNum, PlayerUnit player)
         {
-            foreach(PlayerUnit player in characterList)
+            if ( (Math.Abs((player.X - enemyList[enemyNum].X))) < 5 && (Math.Abs((player.Y - enemyList[enemyNum].Y))) < 5 )
             {
-                if( ((player.X - enemyList[enemyNum].X) > -5 && (enemyList[enemyNum].X - player.X) < 5)
-                    && ((player.X - enemyList[enemyNum].Y) > -5 && (enemyList[enemyNum].X - player.Y) < 5) )
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
