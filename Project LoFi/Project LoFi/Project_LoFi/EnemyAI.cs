@@ -7,23 +7,29 @@ namespace Project_LoFi
 {
     public class EnemyAI
     {
+        public List<PlayerUnit> characterList;
+        public List<EnemyUnit> enemyList;
+
+        public EnemyAI(List<PlayerUnit> cList, List<EnemyUnit> eList)
+        {
+            characterList = cList;
+            enemyList = eList;
+        }
+
         //determine if the computer should attack a player
-        public bool AttackPlayer(MovableGridOccupant player1, MovableGridOccupant player2,
-            MovableGridOccupant player3, MovableGridOccupant enemy)
+        public bool AttackPlayer()
         {
             return false;
         }
 
         //determine if the computer should move towards a player
-        public bool MoveTowardsPlayer(MovableGridOccupant player1, MovableGridOccupant player2,
-            MovableGridOccupant player3, MovableGridOccupant enemy)
+        public bool MoveTowardsPlayer()
         {
             return false;
         }
 
         //determine if the computer should chase after a retreating player
-        public bool ChasePlayer(MovableGridOccupant player1, MovableGridOccupant player2,
-            MovableGridOccupant player3, MovableGridOccupant enemy)
+        public bool ChasePlayer()
         {
             return false;
         }
@@ -35,11 +41,47 @@ namespace Project_LoFi
         }
 
         //can the enemy see a player
-        public bool IsPlayerVisible(MovableGridOccupant player1, MovableGridOccupant player2,
-            MovableGridOccupant player3, MovableGridOccupant enemy)
+        public bool IsPlayerVisible(int enemyNum)
         {
+            foreach(PlayerUnit player in characterList)
+            {
+                if( ((player.X - enemyList[enemyNum].X) > -5 && (enemyList[enemyNum].X - player.X) < 5)
+                    && ((player.X - enemyList[enemyNum].Y) > -5 && (enemyList[enemyNum].X - player.Y) < 5) )
+                {
+                    return true;
+                }
+            }
             return false;
         }
+
+        //find closest player
+        public PlayerUnit ClosestPlayer(int enemyNum)
+        {
+            int x = 100;
+            int y;
+            int pNum = 0;
+
+            if( (Math.Abs((characterList[0].X - enemyList[enemyNum].X))) < x && (Math.Abs((characterList[0].Y - enemyList[enemyNum].Y))) < y)
+            {
+                x = Math.Abs((characterList[0].X - enemyList[enemyNum].X));
+                y = Math.Abs((characterList[0].Y - enemyList[enemyNum].Y));
+                pNum = 0;
+            }
+            if ((Math.Abs((characterList[1].X - enemyList[enemyNum].X))) < x && (Math.Abs((characterList[1].Y - enemyList[enemyNum].Y))) < y)
+            {
+                x = Math.Abs((characterList[1].X - enemyList[enemyNum].X));
+                y = Math.Abs((characterList[1].Y - enemyList[enemyNum].Y));
+                pNum = 1;
+            }
+            if ((Math.Abs((characterList[2].X - enemyList[enemyNum].X))) < x && (Math.Abs((characterList[2].Y - enemyList[enemyNum].Y))) < y)
+            {
+                x = Math.Abs((characterList[2].X - enemyList[enemyNum].X));
+                y = Math.Abs((characterList[2].Y - enemyList[enemyNum].Y));
+                pNum = 2;
+            }
+
+            return characterList[pNum];
+        }//end ClosestPlayer
 
     }//end class
 }

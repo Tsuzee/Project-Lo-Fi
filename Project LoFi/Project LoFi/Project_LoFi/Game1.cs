@@ -68,6 +68,7 @@ namespace Project_LoFi
         List<PlayerUnit> characterList;
         List<EnemyUnit> enemyList;
         Drawer screenDrawer;
+        EnemyAI enemyAI;
 
         //States
         GameState currentState;
@@ -464,7 +465,9 @@ namespace Project_LoFi
             scenario = new Level(mapName, pListName, eListName, gameVars);
             characterList = scenario.PlayerList;
             map = scenario.MapGrid;
-            
+
+            //setup AI for enemies
+            enemyAI = new EnemyAI(characterList, enemyList);
         }//end setup level
 
 
