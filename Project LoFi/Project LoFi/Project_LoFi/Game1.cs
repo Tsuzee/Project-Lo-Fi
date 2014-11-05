@@ -79,6 +79,8 @@ namespace Project_LoFi
         KeyboardState keyState;
         KeyboardState previousKeyState;
 
+        //player number of turns
+        int numOfTurns;
 
         public Game1()
         {
@@ -102,6 +104,9 @@ namespace Project_LoFi
 
             // Set up the draw class
             screenDrawer = new Drawer(gameVars, spriteBatch, GraphicsDevice);
+
+            //set number of turns to 6
+            numOfTurns = 6;
         }
 
         /// <summary>
@@ -211,6 +216,7 @@ namespace Project_LoFi
                         //players turn
                         if (currentTurn == TurnState.Player)
                         {
+                            numOfTurns = 6;
                             cursor.isVisible = true;
                             
                             //check for cursor movement
@@ -298,7 +304,10 @@ namespace Project_LoFi
                                                     // Deselect the unit, they've moved
                                                     selected = SelectState.NotSelected;
                                                     cursor.Selected = false;
+
+                                                    //change cursor back to unselected and decrement their number of turns
                                                     screenDrawer.SelectedUnit = null;
+                                                    numOfTurns--;
                                                 }
                                             }
                                     }//End of else
@@ -339,6 +348,12 @@ namespace Project_LoFi
                             {
                                 gamePlay.MoveCursor(keyState);
                             }
+
+                            //if player uses all their turns change game state
+                            if(numOfTurns == 0)
+                            {
+                                currentTurn = TurnState.NPC;
+                            }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -351,6 +366,7 @@ namespace Project_LoFi
                             //read through list of enemy npcs and perform actions
                             foreach(EnemyUnit enemy in enemyList)
                             {
+                                Thread.Sleep(2000);
                                 player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
 
                                 if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
@@ -361,39 +377,40 @@ namespace Project_LoFi
                                         {
                                             enemy.Attack(player);
                                         }
-                                        else if(enemyAI.RunAway(enemy, player))
+                                        else if(enemyAI.RunAway(enemy, player)) //should they run away
                                         {
-                                            if(player.X == enemy.X)
+                                            switch (enemyAI.WhichSide(enemy, player))
                                             {
-                                                if(player.X > enemy.X)
-                                                {
-                                                    enemy.Move(map, 2);
-                                                }
-                                                else
-                                                {
-                                                    enemy.Move(map, 3);
-                                                }
-                                            }
-                                            else if(player.Y == enemy.Y)
-                                            {
-                                                if(player.Y > enemy.Y)
-                                                {
-                                                    enemy.Move(map, 0);
-                                                }
-                                                else
-                                                {
-                                                    enemy.Move(map, 1);
-                                                }
-                                            }
+                                                case 0: { enemy.Move(map, 1); break; }
+                                                case 1: { enemy.Move(map, 0); break; }
+                                                case 2: { enemy.Move(map, 3); break; }  
+                                                case 3: { enemy.Move(map, 2); break; }
+                                                case 4: { /* No Movement */   break; }
+                                                default: { /* No Movement */  break; }
+                                            }//end switch
                                         }//end run away move
                                     }//end if next to
                                     else
                                     {
-
+                                        if(enemyAI.MoveTowardsPlayer(enemy, player)) //if a playe is nearby and visible, maybe move towards them
+                                        {
+                                            switch (enemyAI.WhichSide(enemy, player))
+                                            {
+                                                case 0: { enemy.Move(map, 0); break; }
+                                                case 1: { enemy.Move(map, 1); break; }
+                                                case 2: { enemy.Move(map, 2); break; }
+                                                case 3: { enemy.Move(map, 3); break; }
+                                                case 4: { /* No Movement */   break; }
+                                                default: { /* No Movement */  break; }
+                                            }//end switch
+                                        }
                                     }
                                 }
-                            }
-                        }
+                            }//end foreach
+
+                            //change back to players state
+                            currentTurn = TurnState.Player;
+                        }//end NPC turns
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 

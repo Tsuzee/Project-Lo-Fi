@@ -9,11 +9,13 @@ namespace Project_LoFi
     {
         public List<PlayerUnit> characterList;
         public List<EnemyUnit> enemyList;
+        private Random rand;
 
         public EnemyAI(List<PlayerUnit> cList, List<EnemyUnit> eList)
         {
             characterList = cList;
             enemyList = eList;
+            rand = new Random();
         }
 
         //determine if the computer should attack a player
@@ -45,8 +47,9 @@ namespace Project_LoFi
         //determine if the computer should move towards a player
         public bool MoveTowardsPlayer(EnemyUnit enemy, PlayerUnit player)
         {
-            //check to see if the enemy can see the player and if are they in a straight line path
-            if(IsPlayerVisible(enemy, player) && (player.X == enemy.X || player.Y == enemy.Y))
+            int num = rand.Next(1, 101);
+
+            if( !RunAway(enemy, player) && ( (num % 2) == 0))
             {
                 return true;
             }
@@ -89,6 +92,44 @@ namespace Project_LoFi
                 return true;
             }
             return false;
+        }
+
+        
+        /// <summary> 
+        /// /// which side is the player on in relation to the enemy
+        /// 0 --> above, 1 --> below, 2 --> left, 3 --> right
+        /// </summary>
+        ///
+        /// <param name="enemy"></param>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        public int WhichSide(EnemyUnit enemy, PlayerUnit player)
+        {
+            if( player.X == enemy.X )
+            {
+                if( player.Y < enemy.Y)
+                {
+                    return 0;
+                }
+                else if( player.Y > enemy.Y )
+                {
+                    return 1;
+                }
+            }
+            else if( player.Y == enemy.Y )
+            {
+                if (player.X < enemy.X )
+                {
+                    return 2;
+                }
+                else if (player.X > enemy.X )
+                {
+                    return 3;
+                }
+            }
+
+            //default return
+            return 4;
         }
 
         //find closest player
