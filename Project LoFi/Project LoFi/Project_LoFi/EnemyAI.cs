@@ -19,9 +19,23 @@ namespace Project_LoFi
         //determine if the computer should attack a player
         public bool AttackPlayer(EnemyUnit enemy, PlayerUnit player)
         {
+            //is the player next to the enemy
+            if(IsNextTo(enemy, player))
+            {
+                //is the players life twice the enemies
+                if( (enemy.Health * 2) < player.Health )
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool IsNextTo(EnemyUnit enemy, PlayerUnit player)
+        {
             //if the player is right next to the enemy unit return true
-            if( ((player.X - 1) == enemy.X || player.X + 1 == enemy.X || player.X == enemy.X) &&
-                ((player.Y - 1) == enemy.Y || player.Y + 1 == enemy.Y || player.Y == enemy.Y) )
+            if (((player.X - 1) == enemy.X || player.X + 1 == enemy.X || player.X == enemy.X) &&
+                ((player.Y - 1) == enemy.Y || player.Y + 1 == enemy.Y || player.Y == enemy.Y))
             {
                 return true;
             }
@@ -44,6 +58,16 @@ namespace Project_LoFi
         {
             //if players life is less then half of enemies they will pursue the player
             if(player.Health < (enemy.Health / 2))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        //run away from the player
+        public bool RunAway(EnemyUnit enemy, PlayerUnit player)
+        {
+            if (player.Health > (enemy.Health * 1.5))
             {
                 return true;
             }

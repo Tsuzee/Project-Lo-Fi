@@ -346,9 +346,52 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
-                            //read through list of enemy npcs and perform actions
-                            {
+                            PlayerUnit player;
 
+                            //read through list of enemy npcs and perform actions
+                            foreach(EnemyUnit enemy in enemyList)
+                            {
+                                player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
+
+                                if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
+                                {
+                                    if (enemyAI.IsNextTo(enemy, player)) //is the player next to them
+                                    {
+                                        if(enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
+                                        {
+                                            enemy.Attack(player);
+                                        }
+                                        else if(enemyAI.RunAway(enemy, player))
+                                        {
+                                            if(player.X == enemy.X)
+                                            {
+                                                if(player.X > enemy.X)
+                                                {
+                                                    enemy.Move(map, 2);
+                                                }
+                                                else
+                                                {
+                                                    enemy.Move(map, 3);
+                                                }
+                                            }
+                                            else if(player.Y == enemy.Y)
+                                            {
+                                                if(player.Y > enemy.Y)
+                                                {
+                                                    enemy.Move(map, 0);
+                                                }
+                                                else
+                                                {
+                                                    enemy.Move(map, 1);
+                                                }
+                                            }
+                                        }//end run away move
+                                    }//end if next to
+                                    else
+                                    {
+
+                                    }
+                                }
                             }
                         }
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////
