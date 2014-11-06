@@ -21,7 +21,6 @@ namespace Project_LoFi
         private int x;
         private int y;
         private Texture2D img;
-        private int textureIndex;
         ///  --  End of Instance Variables   --
 
 
@@ -43,13 +42,6 @@ namespace Project_LoFi
         {
             set { img = value; }
             get { return img; }
-        }
-
-
-        public int TextureIndex
-        {
-            set { textureIndex = value; }
-            get { return textureIndex; }
         }
         /// --  End of Properties   --
 
@@ -74,7 +66,6 @@ namespace Project_LoFi
         {
             this.X = xCoord;
             this.Y = yCoord;
-            this.TextureIndex = txtrIndex;
             // Should also assign textures
         }
         /// --  End of Constructors --
