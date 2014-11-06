@@ -106,7 +106,7 @@ namespace Project_LoFi
             cursor = new Cursor();
 
             // Set up the draw class
-            screenDrawer = new Drawer(gameVars, spriteBatch, GraphicsDevice);
+            screenDrawer = new Drawer();
 
             //set number of turns to 6
             numOfTurns = 6;
@@ -173,12 +173,11 @@ namespace Project_LoFi
             timer += gameTime.ElapsedGameTime.TotalSeconds;
 
             // TODO: Add your update logic here
-            screenDrawer.update(GraphicsDevice, spriteBatch);
 
             //get current keyboard state
             keyState = Keyboard.GetState();
 
-            //update certian elements based on gamestate
+            //update certain elements based on gamestate
             switch (currentState)
             {
                 case GameState.Intro:
@@ -218,7 +217,7 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         enemyList = scenario.enemyList;
-                        screenDrawer.enemyList = enemyList;
+                        //screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         //players turn
                         if (currentTurn == TurnState.Player)
@@ -288,7 +287,7 @@ namespace Project_LoFi
                                         {
                                             cursor.Selected = true;
                                             selectedUnit = (PlayerUnit)map[cursorX, cursorY]; // Cast the unit
-                                            screenDrawer.SelectedUnit = selectedUnit;
+                                            //screenDrawer.SelectedUnit = selectedUnit;
                                             selected = SelectState.Selected;
                                         }
                                     }
@@ -316,7 +315,8 @@ namespace Project_LoFi
                                                     cursor.Selected = false;
 
                                                     //change cursor back to unselected and decrement their number of turns
-                                                    screenDrawer.SelectedUnit = null;
+                                                    //screenDrawer.SelectedUnit = null;
+                                                    selectedUnit = null;
                                                     numOfTurns--;
                                                 }
                                             }
@@ -329,7 +329,7 @@ namespace Project_LoFi
                                 if (SingleKeyPress(keyState, previousKeyState, Keys.X))
                                 {
                                     cursor.Selected = false;
-                                    screenDrawer.SelectedUnit = null;
+                                    //screenDrawer.SelectedUnit = null;
                                     if (selected == SelectState.Selected)
                                     {
                                         selected = SelectState.NotSelected;
@@ -467,33 +467,32 @@ namespace Project_LoFi
                 case GameState.Intro:
                     {
                         GraphicsDevice.Clear(Color.White);
-                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
-                        screenDrawer.DrawIntro(); //draws the game intro
+                        screenDrawer.DrawIntro(gameVars, spriteBatch, GraphicsDevice); //draws the game intro
 
                         break;
                     }
                 case GameState.Menu:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
-                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
-                        screenDrawer.DrawMenu(); //draws the game menu
+                        screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
 
                         break;
                     }
                 case GameState.Playing:
                     {
-                        screenDrawer.DrawMap(map);
+                        screenDrawer.DrawMap(map, spriteBatch);
+                        if (selectedUnit != null)
+                            screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
                         cursor.Draw(spriteBatch);
                         break;
                     }
                 case GameState.Credits:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
-                        screenDrawer.update(GraphicsDevice, spriteBatch);
 
-                        screenDrawer.DrawCredits(); //draws the game menu
+                        screenDrawer.DrawCredits(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
 
                         break;
                     }

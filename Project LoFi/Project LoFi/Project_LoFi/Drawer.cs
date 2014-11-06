@@ -24,45 +24,18 @@ namespace Project_LoFi
         int unitHeight = 48;
         int frameNum = 0;
 
-        GameVariables gameVars;
-        SpriteBatch spriteBatch;
-        SpriteBatch drawTexture;
-        GraphicsDevice graphicsDevice;
-        PlayerUnit selectedUnit;
-        public List<EnemyUnit> enemyList;
-
-        public PlayerUnit SelectedUnit
-        {
-            set { selectedUnit = value; }
-        }
-
 
         // -- Constructor --
-        public Drawer(GameVariables vars, SpriteBatch sprite, GraphicsDevice device)
-        {
-            gameVars = vars;
-            spriteBatch = sprite;
-            drawTexture = sprite;
-            graphicsDevice = device;
-            SelectedUnit = null;
-        }
+        public Drawer() { }
 
 
         //  --  Methods --
-
-        //keep graphics device updated
-        public void update(GraphicsDevice device, SpriteBatch sprite)
-        {
-            graphicsDevice = device;
-            spriteBatch = sprite;
-            drawTexture = sprite;
-        }
 
         /// <summary>
         /// Draws the map and the units on it
         /// </summary>
         /// <param name="drawTexture"></param>
-        public void DrawMap(GridOccupant[,] map)
+        public void DrawMap(GridOccupant[,] map, SpriteBatch drawTexture)
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -73,14 +46,6 @@ namespace Project_LoFi
                         
                         Texture2D terrainTxtr = map[i, j].Img;
                         drawTexture.Draw(terrainTxtr, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                        if (selectedUnit != null)
-                        {
-                            if (((selectedUnit.X == i - 1) && selectedUnit.Y == j) || ((selectedUnit.X == i + 1) && selectedUnit.Y == j)
-                                || ((selectedUnit.Y == j - 1) && selectedUnit.X == i) || ((selectedUnit.Y == j + 1) && selectedUnit.X == i))
-                            {
-                                drawTexture.Draw(gameVars.highligther, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                            }
-                        }
                     }
                     else if (map[i, j] is MovableGridOccupant)
                     {
@@ -97,26 +62,6 @@ namespace Project_LoFi
                             new Rectangle(0, 0, unitWidth, unitHeight),
                             Color.White);
 
-                        //if player is attemping combat draw the battle highlighters
-                        if (selectedUnit != null)
-                        {
-                            if(map[selectedUnit.X+1, selectedUnit.Y] is EnemyUnit)
-                            {
-                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((selectedUnit.X + 1) * txtrWidth, selectedUnit.Y * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                            }
-                            if(map[selectedUnit.X-1, selectedUnit.Y] is EnemyUnit)
-                            {
-                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((selectedUnit.X - 1) * txtrWidth, selectedUnit.Y * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                            }
-                            if(map[selectedUnit.X, selectedUnit.Y+1] is EnemyUnit)
-                            {
-                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(selectedUnit.X * txtrWidth, (selectedUnit.Y + 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                            }
-                            if(map[selectedUnit.X, selectedUnit.Y-1] is EnemyUnit)
-                            {
-                                drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(selectedUnit.X * txtrWidth, (selectedUnit.Y - 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
-                            }  
-                        }
                     }
                 }//End of inner for loop
             }//End of outer for loop
@@ -124,9 +69,57 @@ namespace Project_LoFi
 
 
         /// <summary>
+        /// Handles all the highlighter details
+        /// </summary>
+        /// <param name="map"></param>
+        /// <param name="selectedUnit"> Whatever unit is selected in Game1 </param>
+        /// <param name="gameVars"> Game1's GameVariables object </param>
+        public void DrawHighlighter(GridOccupant[,] map, PlayerUnit selectedUnit, GameVariables gameVars, SpriteBatch drawTexture)
+        {
+            // Local "mask" variables to make code cleaner
+            int i = selectedUnit.X;
+            int j = selectedUnit.Y;
+
+
+            //if player is attemping combat draw the battle highlighters
+            if (selectedUnit != null)
+            {
+                if (i + 1 < map.GetLength(0))                // If it's in bounds
+                {
+                    if (map[i + 1, j] is EnemyUnit)          // If it's an enemy, color the square red
+                        drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((i + 1) * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                    else if (map[i + 1, j] is Terrain)      // If it's a terrain space, color it blue
+                        drawTexture.Draw(gameVars.highligther, new Rectangle((i + 1) * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                }
+                if (i - 1 >= 0)
+                {
+                    if (map[i - 1, j] is EnemyUnit)          // Enemy red
+                        drawTexture.Draw(gameVars.battleHighLighter, new Rectangle((i - 1) * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                    else if (map[i - 1, j] is Terrain)      // Terrain blue
+                        drawTexture.Draw(gameVars.highligther, new Rectangle((i - 1) * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                }
+                if ((j + 1) < map.GetLength(1))
+                {
+                    if (map[i, j + 1] is EnemyUnit)          // Enemy red
+                        drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(i * txtrWidth, (j + 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                    else if (map[i, j + 1] is Terrain)      // Terrain blue
+                        drawTexture.Draw(gameVars.highligther, new Rectangle(i * txtrWidth, (j + 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                }
+                if ((j - 1) >= 0)
+                {
+                    if (map[i, j - 1] is EnemyUnit)          // Enemy red
+                        drawTexture.Draw(gameVars.battleHighLighter, new Rectangle(i * txtrWidth, (j - 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                    else if (map[i, j - 1] is Terrain)      // Terrain blue
+                        drawTexture.Draw(gameVars.highligther, new Rectangle(i * txtrWidth, (j - 1) * txtrHeight, txtrWidth, txtrHeight), Color.White);
+                }
+            }// End of outerMost if
+        }// End of DrawHighlighter method
+
+
+        /// <summary>
         /// Draw game intro
         /// </summary>
-        public void DrawIntro()
+        public void DrawIntro(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             if (frameNum < 100)
             {
@@ -152,7 +145,7 @@ namespace Project_LoFi
         /// <summary>
         /// draws the game menu
         /// </summary>
-        public void DrawMenu()
+        public void DrawMenu(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
                                 (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
@@ -163,7 +156,7 @@ namespace Project_LoFi
 
 
         //draw Credits
-        public void DrawCredits()
+        public void DrawCredits(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             string output;
             Vector2 FontOrigin;
