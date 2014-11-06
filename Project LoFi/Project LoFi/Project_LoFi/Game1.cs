@@ -81,6 +81,9 @@ namespace Project_LoFi
 
         //player number of turns
         int numOfTurns;
+        double timer;
+        int enemyNum;
+        float timeToMove;
 
         public Game1()
         {
@@ -107,6 +110,8 @@ namespace Project_LoFi
 
             //set number of turns to 6
             numOfTurns = 6;
+            enemyNum = 0;
+            timeToMove = 2;
         }
 
         /// <summary>
@@ -165,6 +170,8 @@ namespace Project_LoFi
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            timer += gameTime.ElapsedGameTime.TotalSeconds;
+
             // TODO: Add your update logic here
             screenDrawer.update(GraphicsDevice, spriteBatch);
 
@@ -216,7 +223,10 @@ namespace Project_LoFi
                         //players turn
                         if (currentTurn == TurnState.Player)
                         {
-                            numOfTurns = 6;
+                            if (numOfTurns == 0)
+                            {
+                                numOfTurns = 6;
+                            }
                             cursor.isVisible = true;
                             
                             //check for cursor movement
@@ -353,63 +363,42 @@ namespace Project_LoFi
                             if(numOfTurns == 0)
                             {
                                 currentTurn = TurnState.NPC;
+                                timer = 0;
+                                enemyNum = 0;
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                        //forced draw call
+                        
 
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
-                            PlayerUnit player;
+                            
 
                             //read through list of enemy npcs and perform actions
-                            foreach(EnemyUnit enemy in enemyList)
-                            {
-                                Thread.Sleep(2000);
-                                player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
+                            EnemyUnit enemy;
 
-                                if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
+                            if( timer > timeToMove)
+                            {
+                                enemy = enemyList[enemyNum];
+                                EnemyLogic(enemy);
+                                if(enemyNum + 1 < enemyList.Count())
                                 {
-                                    if (enemyAI.IsNextTo(enemy, player)) //is the player next to them
-                                    {
-                                        if(enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
-                                        {
-                                            enemy.Attack(player);
-                                        }
-                                        else if(enemyAI.RunAway(enemy, player)) //should they run away
-                                        {
-                                            switch (enemyAI.WhichSide(enemy, player))
-                                            {
-                                                case 0: { enemy.Move(map, 1); break; }
-                                                case 1: { enemy.Move(map, 0); break; }
-                                                case 2: { enemy.Move(map, 3); break; }  
-                                                case 3: { enemy.Move(map, 2); break; }
-                                                case 4: { /* No Movement */   break; }
-                                                default: { /* No Movement */  break; }
-                                            }//end switch
-                                        }//end run away move
-                                    }//end if next to
-                                    else
-                                    {
-                                        if(enemyAI.MoveTowardsPlayer(enemy, player)) //if a playe is nearby and visible, maybe move towards them
-                                        {
-                                            switch (enemyAI.WhichSide(enemy, player))
-                                            {
-                                                case 0: { enemy.Move(map, 0); break; }
-                                                case 1: { enemy.Move(map, 1); break; }
-                                                case 2: { enemy.Move(map, 2); break; }
-                                                case 3: { enemy.Move(map, 3); break; }
-                                                case 4: { /* No Movement */   break; }
-                                                default: { /* No Movement */  break; }
-                                            }//end switch
-                                        }
-                                    }
+                                    enemyNum++;
                                 }
-                            }//end foreach
+                                timeToMove += 2;
+                            }
 
                             //change back to players state
-                            currentTurn = TurnState.Player;
+                            if(enemyNum == enemyList.Count() - 1)
+                            {
+                                currentTurn = TurnState.Player;
+                                timer = 0;
+                            }
+                            
                         }//end NPC turns
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -566,6 +555,55 @@ namespace Project_LoFi
                 resultFlag = true;
 
             return resultFlag;
+        }
+
+        /// <summary>
+        /// Decides what the enemy will do on their move
+        /// </summary>
+        /// <param name="enemy"></param>
+        private void EnemyLogic(EnemyUnit enemy)
+        {
+            PlayerUnit player;
+            player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
+
+            if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
+            {
+
+                if (enemyAI.IsNextTo(enemy, player)) //is the player next to them
+                {
+                    if (enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
+                    {
+                        enemy.Attack(player);
+                    }
+                    else if (enemyAI.RunAway(enemy, player)) //should they run away
+                    {
+                        switch (enemyAI.WhichSide(enemy, player))
+                        {
+                            case 0: { enemy.Move(map, 1); break; }
+                            case 1: { enemy.Move(map, 0); break; }
+                            case 2: { enemy.Move(map, 3); break; }
+                            case 3: { enemy.Move(map, 2); break; }
+                            case 4: { /* No Movement */   break; }
+                            default: { /* No Movement */  break; }
+                        }//end switch
+                    }//end run away move
+                }//end if next to
+                else
+                {
+                    if (enemyAI.MoveTowardsPlayer(enemy, player)) //if a playe is nearby and visible, maybe move towards them
+                    {
+                        switch (enemyAI.WhichSide(enemy, player))
+                        {
+                            case 0: { enemy.Move(map, 0); break; }
+                            case 1: { enemy.Move(map, 1); break; }
+                            case 2: { enemy.Move(map, 2); break; }
+                            case 3: { enemy.Move(map, 3); break; }
+                            case 4: { /* No Movement */   break; }
+                            default: { /* No Movement */  break; }
+                        }//end switch
+                    }
+                }
+            }
         }
 
     }//end class

@@ -47,9 +47,9 @@ namespace Project_LoFi
         //determine if the computer should move towards a player
         public bool MoveTowardsPlayer(EnemyUnit enemy, PlayerUnit player)
         {
-            int num = rand.Next(1, 101);
+            //int num = rand.Next(1, 101);
 
-            if( !RunAway(enemy, player) && ( (num % 2) == 0))
+            if( !RunAway(enemy, player) /*&& ( (num % 2) == 0)*/)
             {
                 return true;
             }
@@ -136,30 +136,28 @@ namespace Project_LoFi
         public PlayerUnit ClosestPlayer(EnemyUnit enemy)
         {
             //set x, y coordinates to some number that could never be on the map
-            int x = 1000;
-            int y = 1000;
+            double x;
+            double y;
+            double z;
             int pNum = 0;
 
             //check how close the player is to the enemy and store new x,y coords
-            if( (Math.Abs((characterList[0].X - enemy.X))) < x && (Math.Abs((characterList[0].Y - enemy.Y))) < y)
-            {
-                x = Math.Abs((characterList[0].X - enemy.X));
-                y = Math.Abs((characterList[0].Y - enemy.Y));
-                pNum = 0;
-            }
-            if ((Math.Abs((characterList[1].X - enemy.X))) < x && (Math.Abs((characterList[1].Y - enemy.Y))) < y)
-            {
-                x = Math.Abs((characterList[1].X - enemy.X));
-                y = Math.Abs((characterList[1].Y - enemy.Y));
-                pNum = 1;
-            }
-            if ((Math.Abs((characterList[2].X - enemy.X))) < x && (Math.Abs((characterList[2].Y - enemy.Y))) < y)
-            {
-                x = Math.Abs((characterList[2].X - enemy.X));
-                y = Math.Abs((characterList[2].Y - enemy.Y));
-                pNum = 2;
-            }
+            x = Math.Sqrt(  Math.Pow(((characterList[0].X - enemy.X)), 2) + Math.Pow(((characterList[0].Y - enemy.Y)),2) );
+            y = Math.Sqrt(Math.Pow(((characterList[1].X - enemy.X)), 2) + Math.Pow(((characterList[1].Y - enemy.Y)), 2));
+            z = Math.Sqrt(Math.Pow(((characterList[2].X - enemy.X)), 2) + Math.Pow(((characterList[2].Y - enemy.Y)), 2));
 
+            if( x <= y && x <= z)
+            {
+                return characterList[0];
+            }
+            else if (y <= z && y <= z)
+            {
+                return characterList[1];
+            }
+            else if (z <= x && z <= y)
+            {
+                return characterList[2];
+            }
             //return character closest to the enemy
             return characterList[pNum];
         }//end ClosestPlayer
