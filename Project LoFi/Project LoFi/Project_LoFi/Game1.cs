@@ -85,6 +85,8 @@ namespace Project_LoFi
         int enemyNum;
         float timeToMove;
 
+        private Random rand;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -603,6 +605,10 @@ namespace Project_LoFi
                         }//end switch
                     }
                 }
+            }//end is player visible logic
+            else if(rand.Next(1,101) % 2 == 0)
+            {
+                enemy.Move(map, rand.Next(0, 5));
             }
         }
 

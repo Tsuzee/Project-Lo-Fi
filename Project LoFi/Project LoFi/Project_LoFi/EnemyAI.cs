@@ -72,7 +72,14 @@ namespace Project_LoFi
         {
             if (player.Health > (enemy.Health * 1.5))
             {
-                return true;
+                if (rand.Next(1, 1011) % 2 == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             return false;
         }
