@@ -365,11 +365,10 @@ namespace Project_LoFi
                                 currentTurn = TurnState.NPC;
                                 timer = 0;
                                 enemyNum = 0;
+                                cursor.isVisible = false;
                             }
                         }
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                        //forced draw call
                         
 
                         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -482,10 +481,12 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
+                        
                         screenDrawer.DrawMap(map, spriteBatch);
                         if (selectedUnit != null)
                             screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
                         cursor.Draw(spriteBatch);
+                        screenDrawer.DrawGameInfo(gameVars, spriteBatch, GraphicsDevice, currentTurn, numOfTurns);
                         break;
                     }
                 case GameState.Credits:

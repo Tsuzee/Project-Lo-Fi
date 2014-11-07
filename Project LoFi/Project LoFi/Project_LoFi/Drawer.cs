@@ -155,7 +155,12 @@ namespace Project_LoFi
         }//end drawmenu
 
 
-        //draw Credits
+        /// <summary>
+        /// Draw the Game Credits
+        /// </summary>
+        /// <param name="gameVars"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="graphicsDevice"></param>
         public void DrawCredits(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             string output;
@@ -199,6 +204,13 @@ namespace Project_LoFi
                 FontOrigin,
                 Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
         }
+
+        //draw text information for player
+        public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn, int numTurns)
+        {
+            spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 700), 
+                Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+        }//end draw gameinfo
 
     }//End of Draw class
 }
