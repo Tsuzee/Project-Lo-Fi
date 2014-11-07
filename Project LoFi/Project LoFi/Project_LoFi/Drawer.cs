@@ -20,8 +20,8 @@ namespace Project_LoFi
         //  --  Attributes  --
         int txtrWidth = 60;
         int txtrHeight = 60;
-        int unitWidth = 32;
-        int unitHeight = 48;
+        int unitWidth = 60;
+        int unitHeight = 60;
         int frameNum = 0;
 
 
