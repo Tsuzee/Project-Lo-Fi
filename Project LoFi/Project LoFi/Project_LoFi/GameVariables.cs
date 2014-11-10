@@ -57,7 +57,7 @@ namespace Project_LoFi
         {
             myContent = content;
 
-            terrainTextures = new Texture2D[50];        // Default size of 20 - adjust as necessary
+            terrainTextures = new Texture2D[80];        // Default size of 20 - adjust as necessary
             charTextures = new Texture2D[6];
             enemyTextures = new Texture2D[15];
         }
@@ -75,7 +75,7 @@ namespace Project_LoFi
             highligther = myContent.Load<Texture2D>("highlight");
             battleHighLighter = myContent.Load<Texture2D>("battlehighlight");
 
-            // Terrain textures
+            // Terrain textures For Level 1
             terrainTextures[0] = myContent.Load<Texture2D>("Textures\\lightGrass");
             terrainTextures[1] = myContent.Load<Texture2D>("Textures\\NarrowRoad");
             terrainTextures[2] = myContent.Load<Texture2D>("Textures\\LeftAngleRoad");
@@ -125,8 +125,42 @@ namespace Project_LoFi
             terrainTextures[46] = myContent.Load<Texture2D>("Textures\\GoblinHouse");
             terrainTextures[47] = myContent.Load<Texture2D>("Textures\\HayStack");
 
+            //Terrain textures For Level 2
+            terrainTextures[48] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientGates");
+            terrainTextures[49] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientStonesBottom");
+            terrainTextures[50] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientStonesLeftAngle");
+            terrainTextures[51] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientStonesLeftSide");
+            terrainTextures[52] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientStonesRightAngle");
+            terrainTextures[53] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\AncientStonesRightSide");
+            terrainTextures[54] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\BeaconOnSand");
+            terrainTextures[55] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\BeaconOnSandCompleted");
+            terrainTextures[56] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\BridgeCenter");
+            terrainTextures[57] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\BridgeLeftSIde");
+            terrainTextures[58] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\BridgeRightSide");
+            terrainTextures[59] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\Cactus1");
+            terrainTextures[60] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\Cactus2");
+            terrainTextures[61] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\Cactus3");
+            terrainTextures[62] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\ChestOnSand");
+            terrainTextures[63] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\DragonStatue");
+            terrainTextures[64] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\GrassInDesert");
+            terrainTextures[65] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\GravesDesert");
+            terrainTextures[66] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\lava");
+            terrainTextures[67] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\lightSand");
+            terrainTextures[68] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\PalmOnSand");
+            terrainTextures[69] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SandPath");
+            terrainTextures[70] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SandPathDown");
+            terrainTextures[71] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SandPathLeft");
+            terrainTextures[72] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SandPathUp");
+            terrainTextures[73] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SkeletOnSand");
+            terrainTextures[74] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\SkullOnSand");
+            terrainTextures[75] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\StatueInSand");
+            terrainTextures[76] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\StoneLeftSide");
+            terrainTextures[77] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\StoneWithFireLeftSide");
+            terrainTextures[78] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\StoneWithFireRightSide");
+            terrainTextures[79] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Ground\\WheilOnSand");
 
-            // Enemy textures
+
+            // Enemy textures Level 1
             enemyTextures[0] = myContent.Load<Texture2D>("Textures\\Devil_Scorpion");
             enemyTextures[1] = myContent.Load<Texture2D>("Textures\\Wyvern_Chick");
             enemyTextures[2] = myContent.Load<Texture2D>("Textures\\Boss1");
@@ -134,6 +168,15 @@ namespace Project_LoFi
             enemyTextures[4] = myContent.Load<Texture2D>("Textures\\Goblin");
             enemyTextures[5] = myContent.Load<Texture2D>("Textures\\Nightmare");
             enemyTextures[6] = myContent.Load<Texture2D>("Textures\\Tornado_Lizard");
+
+            // Enemy textures Level 2
+            enemyTextures[7] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Ant_Lion");
+            enemyTextures[8] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Bone_Fighter");
+            enemyTextures[9] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Boss2");
+            enemyTextures[10] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Foul_Mummy");
+            enemyTextures[11] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Living_Armor");
+            enemyTextures[12] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Sentinel");
+            enemyTextures[13] = myContent.Load<Texture2D>("Textures\\Level2Textures\\Monsters\\Zombie");
 
 
             // Character textures

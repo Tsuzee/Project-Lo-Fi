@@ -206,7 +206,7 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel("map.txt", "players.txt", "enemies.txt");
+                                SetupLevel("map2.txt", "players.txt", "enemies2.txt");
                                 currentTurn = TurnState.Player;
                             }
                         }
