@@ -296,6 +296,7 @@ namespace Project_LoFi
                                     else                                        // We have a unit selected, now we want to move
                                     {
                                         if (map[cursorX, cursorY] is Terrain)   // They aren't moving into another unit
+                                        {
                                             if (MovementValid(cursorX, cursorY, selectedUnit.X, selectedUnit.Y) == true)
                                             {
                                                 Terrain tempHolder = (Terrain)map[cursorX, cursorY];
@@ -322,6 +323,23 @@ namespace Project_LoFi
                                                     numOfTurns--;
                                                 }
                                             }
+                                        }
+                                        else if (map[cursorX, cursorY] is EnemyUnit)
+                                        {
+                                            EnemyUnit target = (EnemyUnit)map[cursorX, cursorY];
+                                            //pop up pre-attack info here (e.g. tell them the expected result)
+                                            //Will also need to mess with adding more states again, to see if
+                                            //they press Z to confirm the attack or X to cancel
+                                            selectedUnit.Attack(target);
+
+                                            // Deselect the unit, they've attacked
+                                            selected = SelectState.NotSelected;
+                                            cursor.Selected = false;
+
+                                            //change cursor back to unselected and decrement their number of turns
+                                            selectedUnit = null;
+                                            numOfTurns--;
+                                        }
                                     }//End of else
                                 }//End of singleKeyPress
                             }
