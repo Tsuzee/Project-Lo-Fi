@@ -8,6 +8,7 @@ namespace Project_LoFi
    public class Unit : MovableGridOccupant
     {
         /// --  Instance Variables  --
+        private string name;
         private int health;
         private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
         private int attackModifier;         // Represents current damage output. Affected by items.
@@ -22,6 +23,11 @@ namespace Project_LoFi
         /// --  End of Instance Variables   --
 
         /// -- Properties --
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
         public int Health
         {
             set

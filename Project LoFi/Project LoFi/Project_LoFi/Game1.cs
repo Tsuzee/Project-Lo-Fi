@@ -316,6 +316,9 @@ namespace Project_LoFi
                                                     selectedUnit.X = cursorX;
                                                     selectedUnit.Y = cursorY;
 
+                                                    //update draw info
+                                                    screenDrawer.updateDrawInfo(true, selectedUnit);
+
                                                     // Deselect the unit, they've moved
                                                     selected = SelectState.NotSelected;
                                                     cursor.Selected = false;
@@ -324,6 +327,7 @@ namespace Project_LoFi
                                                     //screenDrawer.SelectedUnit = null;
                                                     selectedUnit = null;
                                                     numOfTurns--;
+                                                    
                                                 }
                                             }
                                         }
@@ -398,7 +402,8 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
-                            
+                            //update draw information
+                            screenDrawer.updateDrawInfo(false);
 
                             //read through list of enemy npcs and perform actions
                             EnemyUnit enemy;

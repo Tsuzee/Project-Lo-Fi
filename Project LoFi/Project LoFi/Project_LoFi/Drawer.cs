@@ -23,13 +23,28 @@ namespace Project_LoFi
         int unitWidth = 60;
         int unitHeight = 60;
         int frameNum = 0;
+        string player;
+        bool moved;
 
 
         // -- Constructor --
-        public Drawer() { }
+        public Drawer() 
+        {
+            moved = false;
+
+        }
 
 
         //  --  Methods --
+
+        public void updateDrawInfo(bool pMoved, PlayerUnit pUnit = null, EnemyUnit eUnit = null)
+        {
+            moved = pMoved;
+            if (pUnit != null)
+            {
+                player = pUnit.Name;
+            }
+        }//end updatedrawinfo
 
         /// <summary>
         /// Draws the map and the units on it
@@ -147,6 +162,7 @@ namespace Project_LoFi
         /// </summary>
         public void DrawMenu(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
+            frameNum = 0;
             spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
                                 (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
 
@@ -210,8 +226,11 @@ namespace Project_LoFi
         {
             spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 661), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-
-
+            if(moved)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, player + " moved", new Vector2(10, 680),
+                Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            }
         }//end draw gameinfo
 
     }//End of Draw class

@@ -142,6 +142,7 @@ namespace Project_LoFi
                     // Create player unit object
                     PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord);
                     pUnit.Img = charTextures[charTextureNum];
+                    pUnit.Name = charTextureNum.ToString();
 
                     // Add to playerList
                     playerList.Add(pUnit);
