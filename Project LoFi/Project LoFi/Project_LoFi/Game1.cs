@@ -84,6 +84,7 @@ namespace Project_LoFi
         double timer;
         int enemyNum;
         float timeToMove;
+        int frameNum;
 
         private Random rand;
 
@@ -129,6 +130,8 @@ namespace Project_LoFi
             gamePlay = new GamePlay();
             characterSheet = new CharacterSheet();
             characterSheet.Hide();
+            rand = new Random();
+            frameNum = 0;
             
             base.Initialize();
         }
@@ -485,10 +488,16 @@ namespace Project_LoFi
             {
                 case GameState.Intro:
                     {
+                        if(frameNum > 299)
+                        {
+                            currentState = GameState.Menu;
+                            break;
+                        }
                         GraphicsDevice.Clear(Color.White);
 
                         screenDrawer.DrawIntro(gameVars, spriteBatch, GraphicsDevice); //draws the game intro
 
+                        frameNum++;
                         break;
                     }
                 case GameState.Menu:
@@ -624,7 +633,7 @@ namespace Project_LoFi
                     }
                 }
             }//end is player visible logic
-            else if(rand.Next(1,101) % 2 == 0)
+            else if((rand.Next(1,101) % 2) == 0)
             {
                 enemy.Move(map, rand.Next(0, 5));
             }

@@ -138,7 +138,7 @@ namespace Project_LoFi
                 spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
                     (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
             }
-
+            
             frameNum++;
         }//end drawintro
 
@@ -208,8 +208,10 @@ namespace Project_LoFi
         //draw text information for player
         public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn, int numTurns)
         {
-            spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 700), 
+            spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 661), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+
         }//end draw gameinfo
 
     }//End of Draw class
