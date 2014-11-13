@@ -102,7 +102,7 @@ namespace Project_LoFi
             gameVars = new GameVariables(this.Content);
 
             //set initial game state
-            currentState = GameState.Menu;
+            currentState = GameState.Intro;
             selected = SelectState.NotSelected;
 
             //set the cursor
@@ -209,7 +209,7 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel("map2.txt", "players.txt", "enemies2.txt");
+                                SetupLevel("map.txt", "players.txt", "enemies.txt");
                                 currentTurn = TurnState.Player;
                             }
                         }
