@@ -25,6 +25,7 @@ namespace Project_LoFi
         int frameNum = 0;
         string player;
         bool moved;
+        bool attack = false;
 
 
         // -- Constructor --
@@ -62,12 +63,12 @@ namespace Project_LoFi
                         Texture2D terrainTxtr = map[i, j].Img;
                         drawTexture.Draw(terrainTxtr, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
                     }
-                    else if (map[i, j] is MovableGridOccupant)
+                    else if (map[i, j] is MovableGridOccupant && map[i,j] is EnemyUnit)
                     {
                         MovableGridOccupant mgo = (MovableGridOccupant)map[i, j];
                         Texture2D unitTxtr = mgo.Img;
                         Texture2D terrainTxtr = mgo.OccupiedSpace.Img;
-
+                        
                         // First draw the terrain under the unit
                         drawTexture.Draw(terrainTxtr, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
 
@@ -78,9 +79,33 @@ namespace Project_LoFi
                             Color.White);
 
                     }
+                    else if(map[i, j] is PlayerUnit)
+                    {
+                        MovableGridOccupant pUnit = (MovableGridOccupant)map[i, j];
+                        Texture2D unitTxtr = pUnit.Img;
+                        Texture2D terrainTxtr = pUnit.OccupiedSpace.Img;
+
+                        // First draw the terrain under the unit
+                        drawTexture.Draw(terrainTxtr, new Rectangle(i * txtrWidth, j * txtrHeight, txtrWidth, txtrHeight), Color.White);
+
+                        if (!attack)
+                        {
+                            // Then draw the unit itself
+                            drawTexture.Draw(unitTxtr,
+                                new Rectangle(i * txtrWidth, j * txtrHeight, unitWidth, unitHeight),
+                                new Rectangle(0, 0, unitWidth, unitHeight),
+                                Color.White);
+                        }
+                        else if (attack)
+                        {
+                            //needs the map to be finished with fully loaded units
+                        }
+                    }
                 }//End of inner for loop
             }//End of outer for loop
         }//End of DrawMap method
+
+
 
 
         /// <summary>
@@ -132,8 +157,11 @@ namespace Project_LoFi
 
 
         /// <summary>
-        /// Draw game intro
+        /// Draws the game introduction.
         /// </summary>
+        /// <param name="gameVars"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="graphicsDevice"></param>
         public void DrawIntro(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             if (frameNum < 100)
@@ -158,8 +186,11 @@ namespace Project_LoFi
         }//end drawintro
 
         /// <summary>
-        /// draws the game menu
+        /// Draws the Main Menu.
         /// </summary>
+        /// <param name="gameVars"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="graphicsDevice"></param>
         public void DrawMenu(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             frameNum = 0;
@@ -172,7 +203,7 @@ namespace Project_LoFi
 
 
         /// <summary>
-        /// Draw the Game Credits
+        /// Draw the Game Credits.
         /// </summary>
         /// <param name="gameVars"></param>
         /// <param name="spriteBatch"></param>
@@ -232,6 +263,8 @@ namespace Project_LoFi
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
         }//end draw gameinfo
+
+
 
     }//End of Draw class
 }
