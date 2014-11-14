@@ -24,23 +24,26 @@ namespace Project_LoFi
         int unitHeight = 60;
         int frameNum = 0;
         string player;
-        bool moved;
-        bool attack = false;
+        bool pmoved;
+        bool emoved;
+        public bool attack = false;
 
 
         // -- Constructor --
         public Drawer() 
         {
-            moved = false;
+            pmoved = false;
+            emoved = false;
 
         }
 
 
         //  --  Methods --
 
-        public void updateDrawInfo(bool pMoved, PlayerUnit pUnit = null, EnemyUnit eUnit = null)
+        public void updateDrawInfo(bool pMoved = false, PlayerUnit pUnit = null, bool enMoved = false)
         {
-            moved = pMoved;
+            pmoved = pMoved;
+            emoved = enMoved;
             if (pUnit != null)
             {
                 player = pUnit.Name;
@@ -257,9 +260,15 @@ namespace Project_LoFi
         {
             spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 661), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            if(moved)
+            if(pmoved)
             {
                 spriteBatch.DrawString(gameVars.Font1Bold, player + " moved", new Vector2(10, 680),
+                Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            }
+
+            if (emoved)
+            {
+                spriteBatch.DrawString(gameVars.Font1Bold, "Enemy has moved", new Vector2(10, 680),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
         }//end draw gameinfo

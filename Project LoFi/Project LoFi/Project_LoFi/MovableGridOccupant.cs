@@ -93,22 +93,27 @@ namespace Project_LoFi
 
             if (testX >= 0 && testX < map.Length && testY >= 0 && testY < map.GetLength(0))    //Ensure it's in-bounds
             {
-                if (map[testX, testY].GetType() == occupiedSpace.GetType())     // If it's terrain
+                try
                 {
-                    Terrain holder = (Terrain)map[testX, testY];            // Casting is lossy, so this might not work
-                    if (holder.Impassable == false)                         // If it isn't a wall
+                    if (map[testX, testY].GetType() == occupiedSpace.GetType())     // If it's terrain
                     {
-                        map[this.X, this.Y] = this.OccupiedSpace;           // Restore the terrain
-                        this.OccupiedSpace = (Terrain)map[testX, testY];    // Store the space you're about to walk into
-                        map[testX, testY] = this;                           // Finally, move the unit
+                        Terrain holder = (Terrain)map[testX, testY];            // Casting is lossy, so this might not work
+                        if (holder.Impassable == false)                         // If it isn't a wall
+                        {
+                            map[this.X, this.Y] = this.OccupiedSpace;           // Restore the terrain
+                            this.OccupiedSpace = (Terrain)map[testX, testY];    // Store the space you're about to walk into
+                            map[testX, testY] = this;                           // Finally, move the unit
 
-                        //Update unit info
-                        this.X = testX;
-                        this.Y = testY;
+                            //Update unit info
+                            this.X = testX;
+                            this.Y = testY;
 
-                        resultFlag = true;
-                    }
-                }
+                            resultFlag = true;
+                        }
+                    }//end if
+                }//end try
+                catch { }
+
             }// And we're done, because units can only move into passable terrain spaces
 
             return resultFlag;

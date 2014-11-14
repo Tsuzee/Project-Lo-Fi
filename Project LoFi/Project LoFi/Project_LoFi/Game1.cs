@@ -232,6 +232,9 @@ namespace Project_LoFi
                                 numOfTurns = 6;
                             }
                             cursor.isVisible = true;
+
+                            //update draw info
+                            screenDrawer.updateDrawInfo(false, null, false);
                             
                             //check for cursor movement
                             if (keyState.IsKeyDown(Keys.Up))
@@ -337,7 +340,10 @@ namespace Project_LoFi
                                             //pop up pre-attack info here (e.g. tell them the expected result)
                                             //Will also need to mess with adding more states again, to see if
                                             //they press Z to confirm the attack or X to cancel
+
+                                            //screenDrawer.attack = true;
                                             selectedUnit.Attack(target);
+
 
                                             // Deselect the unit, they've attacked
                                             selected = SelectState.NotSelected;
@@ -402,8 +408,7 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
-                            //update draw information
-                            screenDrawer.updateDrawInfo(false);
+                            
 
                             //read through list of enemy npcs and perform actions
                             EnemyUnit enemy;
@@ -425,6 +430,7 @@ namespace Project_LoFi
                                 currentTurn = TurnState.Player;
                                 timer = 0;
                             }
+                            
                             
                         }//end NPC turns
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -620,6 +626,9 @@ namespace Project_LoFi
                             case 4: { /* No Movement */   break; }
                             default: { /* No Movement */  break; }
                         }//end switch
+
+                        //update draw information
+                        screenDrawer.updateDrawInfo(false, null, true);
                     }//end run away move
                 }//end if next to
                 else
@@ -635,6 +644,9 @@ namespace Project_LoFi
                             case 4: { /* No Movement */   break; }
                             default: { /* No Movement */  break; }
                         }//end switch
+
+                        //update draw information
+                        screenDrawer.updateDrawInfo(false, null, true);
                     }
                 }
             }//end is player visible logic
