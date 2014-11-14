@@ -102,7 +102,7 @@ namespace Project_LoFi
             gameVars = new GameVariables(this.Content);
 
             //set initial game state
-            currentState = GameState.Intro;
+            currentState = GameState.Menu;
             selected = SelectState.NotSelected;
 
             //set the cursor
