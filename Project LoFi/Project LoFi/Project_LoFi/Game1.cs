@@ -209,7 +209,8 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel("map.txt", "players.txt", "enemies.txt");
+                                //SetupLevel("map2.txt", "players.txt", "enemies2.txt");
+                                SetupLevel("map2alt.txt");
                                 currentTurn = TurnState.Player;
                             }
                         }
@@ -343,7 +344,8 @@ namespace Project_LoFi
 
                                             //screenDrawer.attack = true;
                                             selectedUnit.Attack(target);
-
+                                            if (target.IsDead() == true)
+                                                map[target.X, target.Y] = target.OccupiedSpace;
 
                                             // Deselect the unit, they've attacked
                                             selected = SelectState.NotSelected;
@@ -559,6 +561,21 @@ namespace Project_LoFi
             enemyAI = new EnemyAI(characterList, enemyList);
         }//end setup level
 
+        /// <summary>
+        /// Alternate method for new map format
+        /// Will need information passed in to determine which level to setup.
+        /// Currently only contains test code.
+        /// </summary>
+        protected void SetupLevel(string mapName)
+        {
+            // Load map
+            scenario = new Level(mapName, gameVars);
+            characterList = scenario.PlayerList;
+            map = scenario.MapGrid;
+
+            //setup AI for enemies
+            enemyAI = new EnemyAI(characterList, enemyList);
+        }//end setup level
 
         /// <summary>
         /// check to see if a key has been pressed only once

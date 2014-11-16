@@ -19,7 +19,7 @@ namespace Project_LoFi
     {
         /// --  Instance Variables  --
         private Boolean impassable;                 // Tells you if the terrain is a wall or not
-
+        private int defenseMod;
         /// --  End of Instance Variables   --
 
 
@@ -29,6 +29,11 @@ namespace Project_LoFi
         {
             set { impassable = value; }
             get { return impassable; }
+        }
+        public int DefenseMod
+        {
+            set { defenseMod = value; }
+            get { return defenseMod; }
         }
         /// --  End of Properties   --
 
@@ -44,6 +49,12 @@ namespace Project_LoFi
             : base(xValue, yValue)
         { }
 
+        public Terrain(int xValue, int yValue, bool impass, int dMod)
+            : base(xValue, yValue)
+        {
+            Impassable = impass;
+            DefenseMod = dMod;
+        }
         /// -- End of Constructors  --
 
     }//End of Terrain class

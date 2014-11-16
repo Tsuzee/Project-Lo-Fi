@@ -42,7 +42,30 @@ namespace Project_LoFi
         {
 
         }
+        
+        public PlayerUnit(int xValue, int yValue, string unitName, int hp, int defenseModifier, int attackModifier,
+                            double critChance, int level, int strength, int dexterity, int magic, int curXP)
+            : base(xValue, yValue, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic)
+        {
+            CurrentExp = curXP;
+        }     
+        
+        public PlayerUnit(int xValue, int yValue, Texture2D unitImage, string unitName, int hp, int defenseModifier, int attackModifier,
+                            double critChance, int level, int strength, int dexterity, int magic, int curXP)
+            : base(xValue, yValue, unitImage, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic)
+        {
+            CurrentExp = curXP;
+        }
 
+        public PlayerUnit(int xValue, int yValue, Texture2D unitImage, string unitName, int hp, int defenseModifier, int attackModifier,
+                            double critChance, int level, int strength, int dexterity, int magic, Item equippedWeapon, Item equippedArmor,
+                            List<Item> inventory, int curXP)
+            : base(xValue, yValue, unitImage, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic,
+                    equippedWeapon, equippedArmor, inventory)
+        {
+            CurrentExp = curXP;
+        }     
+        
         /// -- End of Constructors  --
 
 

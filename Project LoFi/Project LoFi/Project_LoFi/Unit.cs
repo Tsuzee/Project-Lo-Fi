@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Project_LoFi
 {
@@ -119,22 +126,6 @@ namespace Project_LoFi
             Inventory = new List<Item>();
         }
 
-        public Unit(int xCoord, int yCoord, int txtrIndex)
-            : base(xCoord, yCoord, txtrIndex)
-        {
-            health = 1;
-            defenseModifier = 0;
-            attackModifier = 0;
-            critChance = 0.0;
-            level = 1;
-            strength = 1;
-            dexterity = 1;
-            magic = 1;
-            equippedWeapon = null;
-            equippedArmor = null;
-            Inventory = new List<Item>();
-        }
-
         public Unit(int xCoord, int yCoord)
             : base(xCoord, yCoord)
         {
@@ -151,6 +142,54 @@ namespace Project_LoFi
             Inventory = new List<Item>();
         }
 
+        public Unit(int xCoord, int yCoord, string unitName, int hp, int dMod, int aMod, double cChance,
+                        int lvl, int str, int dex, int mag)
+            : base(xCoord, yCoord)
+        {
+            Name = unitName;
+            health = hp;
+            defenseModifier = dMod;
+            attackModifier = aMod;
+            critChance = cChance;
+            level = lvl;
+            strength = str;
+            dexterity = dex;
+            magic = mag;
+        }
+        
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
+                        int lvl, int str, int dex, int mag)
+            : base(xCoord, yCoord, unitImage)
+        {
+            Name = unitName;
+            health = hp;
+            defenseModifier = dMod;
+            attackModifier = aMod;
+            critChance = cChance;
+            level = lvl;
+            strength = str;
+            dexterity = dex;
+            magic = mag;
+        }
+        
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
+                        int lvl, int str, int dex, int mag, Item equippedWpn, Item equippedAmr, List<Item> inv)
+            : base(xCoord, yCoord, unitImage)
+        {
+            Name = unitName;
+            health = hp;
+            defenseModifier = dMod;
+            attackModifier = aMod;
+            critChance = cChance;
+            level = lvl;
+            strength = str;
+            dexterity = dex;
+            magic = mag;
+            equippedWeapon = equippedWpn;
+            equippedArmor = equippedAmr;
+            Inventory = inv;
+        }
+        
         /// -- End of Constructors --
 
 

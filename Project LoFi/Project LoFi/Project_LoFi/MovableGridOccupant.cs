@@ -48,14 +48,14 @@ namespace Project_LoFi
             occupiedSpace = null;
         }
 
-        public MovableGridOccupant(int xCoord, int yCoord, int txtrIndex)
-            : base(xCoord, yCoord, txtrIndex)
+        public MovableGridOccupant(int xCoord, int yCoord)
+            : base(xCoord, yCoord)
         {
 
         }
 
-        public MovableGridOccupant(int xCoord, int yCoord)
-            : base(xCoord, yCoord)
+        public MovableGridOccupant(int xCoord, int yCoord, Texture2D unitImage)
+            : base(xCoord, yCoord, unitImage)
         {
 
         }

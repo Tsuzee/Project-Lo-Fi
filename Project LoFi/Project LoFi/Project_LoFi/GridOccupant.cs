@@ -62,12 +62,13 @@ namespace Project_LoFi
             // Should also assign default texture
         }
 
-        public GridOccupant(int xCoord, int yCoord, int txtrIndex)
+        public GridOccupant(int xCoord, int yCoord, Texture2D unitImage)
         {
             this.X = xCoord;
             this.Y = yCoord;
-            // Should also assign textures
+            this.Img = unitImage;
         }
+
         /// --  End of Constructors --
 
 
