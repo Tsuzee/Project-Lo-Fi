@@ -113,7 +113,7 @@ namespace Project_LoFi
         public Unit()
             : base()
         {
-            health = 100;
+            health = 1;
             defenseModifier = 0;
             attackModifier = 0;
             critChance = 0.0;
