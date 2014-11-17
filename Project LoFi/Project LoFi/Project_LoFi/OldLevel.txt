@@ -1,4 +1,4 @@
-﻿// Aliaksandr Shumski
+// Aliaksandr Shumski
 // Level class creates level for the game. 
 // Has AddTextureToTheList method and Draw method
 
@@ -46,6 +46,18 @@ namespace Project_LoFi
 
         /// --  Constructors    --
 
+        public Level(string mapFileName, string playerFileName, string enemyFileName, GameVariables gameVar)
+        {
+            mapTextures = new List<Texture2D>();
+            charTextures = new List<Texture2D>();
+            enemyTextures = new List<Texture2D>();
+            playerList = new List<PlayerUnit>();
+            enemyList = new List<EnemyUnit>();
+
+            AddTextures(gameVar);
+            ConstructMap(mapFileName, playerFileName, enemyFileName);
+        }
+
         public Level(string mapFileName, GameVariables gameVar)
         {
             mapTextures = new List<Texture2D>();
@@ -55,7 +67,7 @@ namespace Project_LoFi
             enemyList = new List<EnemyUnit>();
 
             AddTextures(gameVar);
-            ConstructMap(mapFileName);
+            ReadMapAlt(mapFileName);
         }
 
         /// --  End of Constructors --
@@ -70,12 +82,51 @@ namespace Project_LoFi
         /// <param name="mapFile"> Name of the file storing the map. </param>
         /// <param name="charFile"> Name of the file storing the players. </param>
         /// <param name="enemyFile"> Name of the file storing the enemies. </param>
-        public void ConstructMap(string mapFile, string charFile = null, string enemyFile = null)
+        public void ConstructMap(string mapFile, string charFile, string enemyFile)
         {
             ReadMap(mapFile);
-            //ReadPlayers(charFile); may be needed later
+            ReadPlayers(charFile);
+            ReadEnemies(enemyFile);
         }
 
+        /// <summary>
+        /// Reads in terrain data and puts it in the map - should eventually handle all gridOccupant objects (units, enemies)
+        /// </summary>
+        /// <param name="mapName"> The name of the file storing our map. </param>
+        public void ReadMap(string mapName)
+        {
+            try
+            {
+                string[] allLines = File.ReadAllLines(mapName); // Reading all the lines from a text file
+
+                /* Iterate through allLines array. Select each line from allLines and split it using commas as the delimeter. 
+                 * Add values that where separated to a jagged array. */
+                string[][] jaggedArray = allLines.Select(line => line.Split(',')).ToArray();
+ 
+                mapGrid = new GridOccupant[jaggedArray.GetLength(0), jaggedArray[0].Length];    // Set the size of mapGrid
+
+                for (int i = 0; i < jaggedArray.Length; i++)
+                {
+                    for (int j = 0; j < jaggedArray[i].Length; j++)
+                    {
+                        int terrainNumber = Int32.Parse(jaggedArray[i][j]);     // Get the appropriate index for mapTextures
+                        Terrain gridSpace = new Terrain(i, j);                  // Make a new terrain instance to add
+                        gridSpace.Img = mapTextures[terrainNumber];             // Add the appropriate image from mapTextures
+
+                        mapGrid[i, j] = gridSpace;
+                    }
+                }
+          
+            }
+            catch(FileNotFoundException fnfe)       // Basically takes the place of If(File.Exists(mapName))
+            {
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
 
         /// <summary>
         /// Temporary method to add player units to the map - will want to consolidate all map stuff into one method eventually
@@ -124,12 +175,54 @@ namespace Project_LoFi
             }
         }
 
+        /// <summary>
+        /// Temporary method to add enemy units to the map - will want to consolidate all map stuff into one method eventually
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void ReadEnemies(string fileName)
+        {
+            Stream inStream = null;
+            StreamReader input = null;
+
+            try
+            {
+                inStream = File.OpenRead(fileName);     // Open the player list for reading
+                input = new StreamReader(inStream);
+
+                while (input.EndOfStream == false)      // While there's still stuff in the file
+                {
+                    string enemyData = input.ReadLine();
+                    string[] splitEnemyData = enemyData.Split(',');
+                    int xCoord = Int32.Parse(splitEnemyData[0]);
+                    int yCoord = Int32.Parse(splitEnemyData[1]);
+                    int enemyTextureNum = Int32.Parse(splitEnemyData[2]);
+
+                    EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord);
+                    eUnit.Img = enemyTextures[enemyTextureNum];
+
+                    //add enemy to the list
+                    enemyList.Add(eUnit);
+
+                    Terrain tempStorage = (Terrain)mapGrid[xCoord, yCoord];
+                    eUnit.OccupiedSpace = tempStorage;
+                    mapGrid[xCoord, yCoord] = eUnit;
+                }
+            }
+            catch (FileNotFoundException fnfe)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
         /// <summary>
         /// Reads in terrain data and puts it in the map - should eventually handle all gridOccupant objects (units, enemies)
         /// </summary>
         /// <param name="mapName"> The name of the file storing our map. </param>
-        public void ReadMap(string mapName)
+        public void ReadMapAlt(string mapName)
         {
             Stream input = null;
             StreamReader inStream = null;
@@ -218,7 +311,6 @@ namespace Project_LoFi
                     currentLine = inStream.ReadLine();
                 }// End of while (enemy stuff)
 
-                //Player Stuff
                 currentLine = inStream.ReadLine();
                 indexer = 0;
                 while (inStream.EndOfStream == false)

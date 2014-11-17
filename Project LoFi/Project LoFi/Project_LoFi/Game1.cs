@@ -553,7 +553,7 @@ namespace Project_LoFi
         protected void SetupLevel(string mapName, string pListName, string eListName)
         {
             // Load map
-            scenario = new Level(mapName, pListName, eListName, gameVars);
+            scenario = new Level(mapName, gameVars);
             characterList = scenario.PlayerList;
             map = scenario.MapGrid;
 
