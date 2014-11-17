@@ -234,8 +234,7 @@ namespace Project_LoFi
                             }
                             cursor.isVisible = true;
 
-                            //update draw info
-                            screenDrawer.updateDrawInfo(false, null, false);
+                            
                             
                             //check for cursor movement
                             if (keyState.IsKeyDown(Keys.Up))
