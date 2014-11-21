@@ -23,32 +23,50 @@ namespace Project_LoFi
         int unitWidth = 60;
         int unitHeight = 60;
         int frameNum = 0;
-        string player;
-        bool pmoved;
-        bool emoved;
+        bool pMoved;
+        bool eMoved;
+        bool attacked;
         public bool attack = false;
+        string[] log;
 
 
         // -- Constructor --
         public Drawer() 
         {
-            pmoved = false;
-            emoved = false;
+            pMoved = false;
+            eMoved = false;
+            log = new string[10];
 
         }
 
 
         //  --  Methods --
 
-        public void updateDrawInfo(bool pMoved = false, PlayerUnit pUnit = null, bool enMoved = false)
-        {
-            pmoved = pMoved;
-            emoved = enMoved;
-            if (pUnit != null)
+        public void updateTextLog(string[] info)
+        {// 0:Number of turns, 1:did player move, 2:player name, 3: did enemy move, 4:enemy name, 5:was attack called, 6:dmg delt, 7:Attacker, 8:Target
+            log[0] = info[0];
+            log[2] = info[2];
+            log[4] = info[4];
+            log[6] = info[6];
+
+            if( info[1] == "true")
             {
-                player = pUnit.Name;
+                pMoved = true;
             }
-        }//end updatedrawinfo
+
+            if( info[3] == "true")
+            {
+                eMoved = true;
+            }
+
+            if( info[5] == "true")
+            {
+                attacked = true;
+            }
+
+            
+        }
+
 
         /// <summary>
         /// Draws the map and the units on it
@@ -101,6 +119,7 @@ namespace Project_LoFi
                         }
                         else if (attack)
                         {
+                            
                             //needs the map to be finished with fully loaded units
                         }
                     }
@@ -256,19 +275,27 @@ namespace Project_LoFi
         }
 
         //draw text information for player
-        public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn, int numTurns)
+        public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn)
         {
-            spriteBatch.DrawString(gameVars.Font1Bold, "You have " + numTurns + " turns remaining.", new Vector2(10, 661), 
+            spriteBatch.DrawString(gameVars.Font1Bold, "Turns remaining: " + log[0], new Vector2(10, 661), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            if(pmoved)
+            if(pMoved)
             {
-                spriteBatch.DrawString(gameVars.Font1Bold, player + " moved", new Vector2(10, 680),
+                spriteBatch.DrawString(gameVars.Font1Bold, log[2] + " moved", new Vector2(10, 680),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
 
-            if (emoved)
+            if (eMoved)
             {
-                spriteBatch.DrawString(gameVars.Font1Bold, "Enemy has moved", new Vector2(10, 680),
+                spriteBatch.DrawString(gameVars.Font1Bold, log[4] + " moved", new Vector2(10, 680),
+                Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            }
+
+            if(attacked)
+            {
+                string combat = log[7] + " attacks " + log[8] + " and deals " + log[6] + " damage.";
+
+                spriteBatch.DrawString(gameVars.Font1Bold, combat, new Vector2(10, 680),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
         }//end draw gameinfo
