@@ -27,7 +27,9 @@ namespace Project_LoFi
                 //is the players life twice the enemies
                 if( (enemy.Health * 2) < player.Health )
                 {
-                    return false;
+                    /////////////////TEMP CODE//////////////////////
+                    return true; 
+                    ////////////////////////////////////////////////
                 }
             }
             return true;

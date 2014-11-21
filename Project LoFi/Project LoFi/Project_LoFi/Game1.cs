@@ -240,6 +240,8 @@ namespace Project_LoFi
                         //players turn
                         if (currentTurn == TurnState.Player)
                         {
+                            screenDrawer.HighlightCurrentEnemy(false, null);
+                            textLog[0] = numOfTurns.ToString();
                             if (numOfTurns == 0)
                             {
                                 numOfTurns = 6;
@@ -248,7 +250,7 @@ namespace Project_LoFi
                                 
                             }
                             cursor.isVisible = true;
-
+                            screenDrawer.updateTextLog(textLog);
                             
                             
                             //check for cursor movement
@@ -358,17 +360,19 @@ namespace Project_LoFi
                                             //Will also need to mess with adding more states again, to see if
                                             //they press Z to confirm the attack or X to cancel
 
-                                            //screenDrawer.attack = true;
-                                            selectedUnit.Attack(target);
-                                            if (target.IsDead() == true)
-                                                map[target.X, target.Y] = target.OccupiedSpace;
-
                                             //update text log info to be drawn to screen
                                             textLog[1] = "false";
-                                            textLog[2] = selectedUnit.Name;
-                                            textLog[4] = target.Name;
+                                            textLog[7] = selectedUnit.Name;
+                                            textLog[8] = target.Name;
                                             textLog[5] = "true";
                                             screenDrawer.updateTextLog(textLog);
+
+                                            textLog[6] = selectedUnit.Attack(target).ToString();
+                                            if (target.IsDead() == true)
+                                            {
+                                                map[target.X, target.Y] = target.OccupiedSpace;
+                                                enemyList.Remove(target);
+                                            }
 
                                             // Deselect the unit, they've attacked
                                             selected = SelectState.NotSelected;
@@ -423,6 +427,7 @@ namespace Project_LoFi
                                 currentTurn = TurnState.NPC;
                                 timer = 0;
                                 enemyNum = 0;
+                                timeToMove = 2;
                                 cursor.isVisible = false;
                             }
                         }
@@ -433,7 +438,9 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
+                            textLog[0] = numOfTurns.ToString();
                             textLog[1] = "false";
+                            screenDrawer.updateTextLog(textLog);
 
                             //read through list of enemy npcs and perform actions
                             EnemyUnit enemy;
@@ -547,7 +554,7 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         
-                        screenDrawer.DrawMap(map, spriteBatch);
+                        screenDrawer.DrawMap(map, spriteBatch, gameVars);
                         if (selectedUnit != null)
                             screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
                         cursor.Draw(spriteBatch);
@@ -645,7 +652,7 @@ namespace Project_LoFi
         {
             PlayerUnit player;
             player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
-
+            screenDrawer.HighlightCurrentEnemy(true, enemy);
 
             if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
             {
@@ -655,6 +662,8 @@ namespace Project_LoFi
                     if (enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
                     {
                         enemy.Attack(player);
+                        textLog[5] = "true";
+                        screenDrawer.updateTextLog(textLog);
                     }
                     else if (enemyAI.RunAway(enemy, player)) //should they run away
                     {
@@ -671,6 +680,7 @@ namespace Project_LoFi
                         //update draw information
                         textLog[3] = "true";
                         textLog[4] = enemy.Name;
+                        textLog[5] = "false";
                         screenDrawer.updateTextLog(textLog);
                     }//end run away move
                 }//end if next to
@@ -691,6 +701,7 @@ namespace Project_LoFi
                         //update draw information
                         textLog[3] = "true";
                         textLog[4] = enemy.Name;
+                        textLog[5] = "false";
                         screenDrawer.updateTextLog(textLog);
                     }
                 }

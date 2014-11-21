@@ -211,21 +211,31 @@ namespace Project_LoFi
         /// Method applies damage to a unit, taking into account the unit's defense.
         /// </summary>
         /// <param name="dmg"> dmg should be a positive number </param>
-        public void TakeDamage(int dmg)
+        public int TakeDamage(int dmg)
         {
             if (dmg > 0)                // As long as they're doing *some* damage
+            {
                 Health -= (dmg - DefenseModifier);  // Subtract your defense from the dmg, then apply the dmg)
+                return (dmg - DefenseModifier);
+            }
             else if (dmg < 0)           // If they did "negative" damage (healed)
+            {
                 Health -= dmg;          // then don't include the defense modifier
+                return dmg;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         /// <summary>
         /// Method to allow enemies to attack each other.
         /// </summary>
         /// <param name="mgo"></param>
-        public virtual void Attack(Unit target)
+        public virtual int Attack(Unit target)
         {
-            target.TakeDamage(this.AttackModifier);
+            return target.TakeDamage(this.AttackModifier);
         }
 
         /// <summary>

@@ -26,8 +26,10 @@ namespace Project_LoFi
         bool pMoved;
         bool eMoved;
         bool attacked;
+        bool enemysTurn;
         public bool attack = false;
         string[] log;
+        EnemyUnit selectedEUnit = null;
 
 
         // -- Constructor --
@@ -48,22 +50,35 @@ namespace Project_LoFi
             log[2] = info[2];
             log[4] = info[4];
             log[6] = info[6];
+            log[7] = info[7];
+            log[8] = info[8];
 
             if( info[1] == "true")
             {
                 pMoved = true;
+            }
+            else
+            {
+                pMoved = false;
             }
 
             if( info[3] == "true")
             {
                 eMoved = true;
             }
+            else
+            {
+                eMoved = false;
+            }
 
             if( info[5] == "true")
             {
                 attacked = true;
             }
-
+            else
+            {
+                attacked = false;
+            }
             
         }
 
@@ -72,7 +87,7 @@ namespace Project_LoFi
         /// Draws the map and the units on it
         /// </summary>
         /// <param name="drawTexture"></param>
-        public void DrawMap(GridOccupant[,] map, SpriteBatch drawTexture)
+        public void DrawMap(GridOccupant[,] map, SpriteBatch drawTexture, GameVariables gameVars)
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -125,8 +140,18 @@ namespace Project_LoFi
                     }
                 }//End of inner for loop
             }//End of outer for loop
+
+            if(enemysTurn)
+            {
+                drawTexture.Draw(gameVars.highligther, new Rectangle(selectedEUnit.X * txtrWidth, selectedEUnit.Y * txtrHeight, unitWidth, unitHeight), Color.White);
+            }
         }//End of DrawMap method
 
+        public void HighlightCurrentEnemy(bool enemyTurn, EnemyUnit unit)
+        {
+            enemysTurn = enemyTurn;
+            selectedEUnit = unit;
+        }
 
 
 
@@ -277,7 +302,7 @@ namespace Project_LoFi
         //draw text information for player
         public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn)
         {
-            spriteBatch.DrawString(gameVars.Font1Bold, "Turns remaining: " + log[0], new Vector2(10, 661), 
+            spriteBatch.DrawString(gameVars.Font1Bold, "Turns remaining: " + log[0], new Vector2(10, 660), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             if(pMoved)
             {
