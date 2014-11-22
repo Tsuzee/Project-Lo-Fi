@@ -75,12 +75,6 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterCreator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CharacterCreator.Designer.cs">
-      <DependentUpon>CharacterCreator.cs</DependentUpon>
-    </Compile>
     <Compile Include="CharacterSheet.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,9 +151,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CharacterCreator.resx">
-      <DependentUpon>CharacterCreator.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CharacterSheet.resx">
       <DependentUpon>CharacterSheet.cs</DependentUpon>
     </EmbeddedResource>
