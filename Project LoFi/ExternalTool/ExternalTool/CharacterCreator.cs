@@ -22,6 +22,15 @@ namespace ExternalTool
         private int controlVariable = 0; // variable used to control limits of the numericUpDown Control. 
         private string data; // variable used to write data.
 
+        private int health; // character health
+        private int defense; // character defense
+        private double attack; // character attack
+        private double crit; // % for critical strike
+        private int level; // character level
+        private int currentExp; // character experience
+
+
+
         Image[] characterImages = new Image[3]; // store characters texture
         string[] dataForChar = new string[3];  // store all data for characters
         bool[] saved = new bool[3]; // used to check if character was saved or not after next button pressed.
@@ -47,6 +56,9 @@ namespace ExternalTool
             characterImages[0] = ExternalTool.Properties.Resources.indianajones;
             characterImages[1] = ExternalTool.Properties.Resources.grannyweatherwax;
             characterImages[2] = ExternalTool.Properties.Resources.tremel;
+
+            level = 0;
+            currentExp = 0;
         }
 
         /// <summary>
@@ -133,6 +145,11 @@ namespace ExternalTool
         /// <param name="e"></param>
         private void NextMemeber_Click(object sender, EventArgs e)
         {
+
+
+            calculateAttributes();
+            
+
             if (UnitName.Text.Trim().Length != 0 && points == 0)
             {
                 //if this is the first character, disable previous button
@@ -151,7 +168,10 @@ namespace ExternalTool
                     if (charCount < 2)
                     {
 
-                        data = StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + "," + UnitName.Text + "," + charactersCount;
+                        data = charactersCount + "," + UnitName.Text + "," + health + "," + defense + "," + 
+                        attack + "," + crit + "," + level + "," + StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + 
+                        "," + currentExp;
+                      //  data = StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + "," + UnitName.Text + "," + charactersCount;
                         dataForChar[charCount] = data;
                         saved[charCount] = true;
                         charCount++;
@@ -221,11 +241,11 @@ namespace ExternalTool
             if (dataForChar[countNum] != null)
             {
                 string[] getSeparateData = dataForChar[countNum].Split(',');
-                StrengthStat.Value = Int32.Parse(getSeparateData[0]);
-                DexterityStat.Value = Int32.Parse(getSeparateData[1]);
-                MagicStat.Value = Int32.Parse(getSeparateData[2]);
-                UnitName.Text = getSeparateData[3];
-                charactersPictureBox.Image = characterImages[Int32.Parse(getSeparateData[4])];
+                StrengthStat.Value = Int32.Parse(getSeparateData[7]);
+                DexterityStat.Value = Int32.Parse(getSeparateData[8]);
+                MagicStat.Value = Int32.Parse(getSeparateData[9]);
+                UnitName.Text = getSeparateData[1];
+                charactersPictureBox.Image = characterImages[Int32.Parse(getSeparateData[0])];
             }
             else
             {
@@ -247,7 +267,11 @@ namespace ExternalTool
             safeWindow.FileName = "Characters"; // default file name
             safeWindow.Title = "Save Lo-Fi Character File"; // title for the save dialog window
 
-            data = StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + "," + UnitName.Text + "," + charactersCount;
+
+            calculateAttributes();
+            data = charactersCount + "," + UnitName.Text + "," + health + "," + defense + "," +
+            attack + "," + crit + "," + level + "," + StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value +
+            "," + currentExp;
             dataForChar[charCount] = data;
 
             if (safeWindow.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -326,6 +350,55 @@ namespace ExternalTool
                 charactersCount = 2;
                 charactersPictureBox.Image = characterImages[charactersCount];
             }
+        }
+
+
+        /// <summary>
+        /// Calculate crit chance, health, defense, attack attributes. Attributes Depends on stats.
+        /// </summary>
+        public void calculateAttributes()
+        {
+           //  Every character has a 1% chance to crit
+            if (DexterityStat.Value == 0)
+            {
+                crit = 1;
+            }
+            else
+            {
+                crit = (double)DexterityStat.Value * 0.35; // formula for crit chance;
+            }
+
+            //If strength is the main attribute - characters is a strength based.  He is getting more health, defense and attack
+            if ((StrengthStat.Value > DexterityStat.Value) && (StrengthStat.Value > MagicStat.Value))
+            {
+                health = 50;
+                defense = 10;
+                attack = (double)(StrengthStat.Value / 2);
+            }
+
+            // If dexterity is the main attribute - character is a dexterity based. He is getting less health and defense but higher crit chance
+            else if ((DexterityStat.Value > StrengthStat.Value) && (DexterityStat.Value > MagicStat.Value))
+            {
+                health = 30;
+                defense = 5;
+                attack = (double)(DexterityStat.Value / 4);
+            }
+
+            // If magic is the main attribute - character is a magic based.  He is getting less health and defense but has higher attack.
+            else if ((MagicStat.Value > StrengthStat.Value) && (MagicStat.Value > DexterityStat.Value))
+            {
+                health = 20;
+                defense = 4;
+                attack = (double)(MagicStat.Value) / 1.3;
+            }
+
+            //If character has equal attributes, he is getting "middle attributes"
+            else
+            {
+                health = 35;
+                defense = 7;
+                attack = (double)(StrengthStat.Value / 2) + (double)(DexterityStat.Value / 2) + (double)(MagicStat.Value / 2);
+            } 
         }
 
     }
