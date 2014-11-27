@@ -709,6 +709,254 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleCenter.png">
+      <Name>CarpetCastleCenter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleCenterMagicWall.png">
+      <Name>CarpetCastleCenterMagicWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleLeftSide.png">
+      <Name>CarpetCastleLeftSide</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleLeftSideMagicWall.png">
+      <Name>CarpetCastleLeftSideMagicWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleRightSide.png">
+      <Name>CarpetCastleRightSide</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CarpetCastleRightSideMagicWall.png">
+      <Name>CarpetCastleRightSideMagicWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBookRoomTable.png">
+      <Name>CastleBookRoomTable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBookShelf.png">
+      <Name>CastleBookShelf</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBookShelfBottom.png">
+      <Name>CastleBookShelfBottom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleWoodFloorSide.png">
+      <Name>CastleWoodFloorSide</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleWoodFloorWithBed.png">
+      <Name>CastleWoodFloorWithBed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleWoodFloorWithDresser.png">
+      <Name>CastleWoodFloorWithDresser</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleGround.png">
+      <Name>CastleGround</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleGroundWithCarpet.png">
+      <Name>CastleGroundWithCarpet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleGroundWithTable.png">
+      <Name>CastleGroundWithTable</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCell3Guys.png">
+      <Name>CastleCell3Guys</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCellCell.png">
+      <Name>CastleCellCell</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCellDeadGuyAndAGirl.png">
+      <Name>CastleCellDeadGuyAndAGirl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCellDoor.png">
+      <Name>CastleCellDoor</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCellSide.png">
+      <Name>CastleCellSide</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCellSideWithTop.png">
+      <Name>CastleCellSideWithTop</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBottomSideWallAndWood.png">
+      <Name>CastleBottomSideWallAndWood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCornerRightSideWallAndWood.png">
+      <Name>CastleCornerRightSideWallAndWood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleRightSideWallLeftSideWood.png">
+      <Name>CastleRightSideWallLeftSideWood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleTopCornerAngleSideWallAndRock.png">
+      <Name>CastleTopCornerAngleSideWallAndRock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBottomSideWallAndRock.png">
+      <Name>CastleBottomSideWallAndRock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleBottomSideWall.png">
+      <Name>CastleBottomSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleCornerRightSideWall.png">
+      <Name>CastleCornerRightSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleLeftCornerSideWall.png">
+      <Name>CastleLeftCornerSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleLeftSideWall.png">
+      <Name>CastleLeftSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleRightSideWall.png">
+      <Name>CastleRightSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleTopCornerAngleSideWall.png">
+      <Name>CastleTopCornerAngleSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Ground\CastleTopSideWall.png">
+      <Name>CastleTopSideWall</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Monsters\boss3.png">
+      <Name>boss3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\Deadbeard.png">
+      <Name>Deadbeard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\Hummer.png">
+      <Name>Hummer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\Lich_2.png">
+      <Name>Lich_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\Satrage.png">
+      <Name>Satrage</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\Tiamat.png">
+      <Name>Tiamat</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Textures\Level3Textures\Monsters\WhiteKnight.png">
+      <Name>WhiteKnight</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleTopSideWallAndRock.png">
+      <Name>CastleTopSideWallAndRock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\StoneGround.png">
+      <Name>StoneGround</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleLeftSideWallAndRock.png">
+      <Name>CastleLeftSideWallAndRock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Textures\Level3Textures\Ground\CastleLeftCornerSideWallAndRock.png">
+      <Name>CastleLeftCornerSideWallAndRock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
