@@ -1,3 +1,5 @@
-0,5,0
-1,5,1
-2,5,2
+*player stuff = txtrIndex,name,health,defense,attack,crit,level,strength,dex,magic,current experience,eqpWpn,eqpAmr
+0,indy - ugh,10,0,5,0.3,2,10,9,0,10,2,5
+1,some elderly woman,3,1,1,0.1,1,2,2,10,13,4,5
+2,totally not a gigolo I swear,6,2,3,0.8,2,4,6,3,23,3,5
+* End File

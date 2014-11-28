@@ -22,6 +22,7 @@ namespace Project_LoFi
         private List<Texture2D> charTextures;           // Store textures for maps
         private List<PlayerUnit> playerList;            // Store the players, so Game1 knows who the human can control
         public List<EnemyUnit> enemyList;
+        public List<Item> itemList;
 
         /// -- End of Instance Variables    --
 
@@ -46,6 +47,7 @@ namespace Project_LoFi
 
         /// --  Constructors    --
 
+        // DEFUNCT - DO NOT USE
         public Level(string mapFileName, GameVariables gameVar)
         {
             mapTextures = new List<Texture2D>();
@@ -53,9 +55,27 @@ namespace Project_LoFi
             enemyTextures = new List<Texture2D>();
             playerList = new List<PlayerUnit>();
             enemyList = new List<EnemyUnit>();
+            itemList = new List<Item>();
 
             AddTextures(gameVar);
-            ConstructMap(mapFileName);
+            ReadMap(mapFileName);
+        }
+
+        public Level(string mapFileName, string itemDBFileName, string playerListFileName, string monsterDBFileName, GameVariables gameVar)
+        {
+            mapTextures = new List<Texture2D>();
+            charTextures = new List<Texture2D>();
+            enemyTextures = new List<Texture2D>();
+            playerList = new List<PlayerUnit>();
+            enemyList = new List<EnemyUnit>();
+            itemList = new List<Item>();
+
+            AddTextures(gameVar);
+            ReadItems(itemDBFileName);
+            ReadPlayers(playerListFileName);
+            ReadMonsters(monsterDBFileName);
+            // Note that items, players, and monsters MUST be read in that order, and MUST be read before the map
+            ReadMap(mapFileName);
         }
 
         /// --  End of Constructors --
@@ -78,41 +98,106 @@ namespace Project_LoFi
 
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseName"></param>
+        public void ReadItems(string databaseName)
+        {
+            Stream input = null;
+            StreamReader inStream = null;
+            try
+            {
+                input = File.OpenRead(databaseName);
+                inStream = new StreamReader(input);
+
+                string currentLine = inStream.ReadLine();
+                while (inStream.EndOfStream == false)
+                {
+                    if (currentLine.Contains('*') == false)     // If it's not a comment line
+                    {
+                        string[] splitItemData = currentLine.Split(',');
+                        int itemTextureNum = Int32.Parse(splitItemData[0]);     // Currently unused
+                        string name = splitItemData[1];
+                        int strMod = Int32.Parse(splitItemData[2]);
+                        int dexMod = Int32.Parse(splitItemData[3]);
+                        int magMod = Int32.Parse(splitItemData[4]);
+                        int amrMod = Int32.Parse(splitItemData[5]);
+                        int dmgMod = Int32.Parse(splitItemData[6]);
+                        double critMod = Double.Parse(splitItemData[7]);
+                        string type = splitItemData[8];
+                        string desc = splitItemData[9];
+
+                        Item newItem = new Item(name, strMod, dexMod, magMod, amrMod, dmgMod, critMod, type, desc);
+                        //newItem.Img = itemTextures[itemTextureNum];
+
+                        //add item to the list
+                        itemList.Add(newItem);
+                    }
+                    currentLine = inStream.ReadLine();
+                }// End of while (enemy stuff)
+            }
+            catch (FileNotFoundException fnfe)       // Basically takes the place of If(File.Exists(mapName))
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (inStream != null)
+                    inStream.Dispose();
+                if (input != null)
+                    input.Dispose();
+            }
+        }
+
+
+        /// <summary>
         /// Temporary method to add player units to the map - will want to consolidate all map stuff into one method eventually
         /// </summary>
         /// <param name="fileName"></param>
         public void ReadPlayers(string fileName)
         {
-            Stream inStream = null;
-            StreamReader input = null;
+            Stream input = null;
+            StreamReader inStream = null;
 
             try
             {
-                inStream = File.OpenRead(fileName);     // Open the player list for reading
-                input = new StreamReader(inStream);
+                input = File.OpenRead(fileName);     // Open the player list for reading
+                inStream = new StreamReader(input);
 
-                while (input.EndOfStream == false)      // While there's still stuff in the file
+                string currentLine = inStream.ReadLine();
+                while (inStream.EndOfStream == false)      // While there's still stuff in the file
                 {
-                    // Read & parse file data
-                    string playerData = input.ReadLine();
-                    string[] splitPlayerData = playerData.Split(',');
-                    int xCoord = Int32.Parse(splitPlayerData[0]);
-                    int yCoord = Int32.Parse(splitPlayerData[1]);
-                    int charTextureNum = Int32.Parse(splitPlayerData[2]);
+                    if (currentLine.Contains('*') == false)     // If it's not a comment line
+                    {
+                        int xCoord = 0;
+                        int yCoord = 0;
+                        string[] splitPlayerData = currentLine.Split(',');
+                        int playerTextureNum = Int32.Parse(splitPlayerData[0]);
+                        string name = splitPlayerData[1];
+                        int health = Int32.Parse(splitPlayerData[2]);
+                        int defense = Int32.Parse(splitPlayerData[3]);
+                        int attack = Int32.Parse(splitPlayerData[4]);
+                        double crit = Double.Parse(splitPlayerData[5]);
+                        int lvl = Int32.Parse(splitPlayerData[6]);
+                        int str = Int32.Parse(splitPlayerData[7]);
+                        int dex = Int32.Parse(splitPlayerData[8]);
+                        int mag = Int32.Parse(splitPlayerData[9]);
+                        int curXP = Int32.Parse(splitPlayerData[10]);
+                        int eqpWpn = Int32.Parse(splitPlayerData[11]);      // Currently unused
+                        int eqpAmr = Int32.Parse(splitPlayerData[12]);      // Currently unused
 
-                    // Create player unit object
-                    PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord);
-                    pUnit.Img = charTextures[charTextureNum];
-                    pUnit.Name = charTextureNum.ToString();
+                        PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, curXP);
+                        pUnit.Img = charTextures[playerTextureNum];
 
-                    // Add to playerList
-                    playerList.Add(pUnit);
-
-                    // Add to map
-                    Terrain tempStorage = (Terrain)mapGrid[xCoord, yCoord];
-                    pUnit.OccupiedSpace = tempStorage;
-                    mapGrid[xCoord, yCoord] = pUnit;
-                }
+                        //add player to the list
+                        playerList.Add(pUnit);
+                    }
+                    currentLine = inStream.ReadLine();
+                }// End of while
             }
             catch(FileNotFoundException fnfe)
             {
@@ -122,7 +207,78 @@ namespace Project_LoFi
             {
 
             }
+            finally
+            {
+                if (inStream != null)
+                    inStream.Dispose();
+                if (input != null)
+                    input.Dispose();
+            }
         }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseName"></param>
+        public void ReadMonsters(string databaseName)
+        {
+            Stream input = null;
+            StreamReader inStream = null;
+            try
+            {
+                input = File.OpenRead(databaseName);
+                inStream = new StreamReader(input);
+
+                // Enemy stuff
+                string currentLine = inStream.ReadLine();
+                while (inStream.EndOfStream == false)
+                {
+                    if (currentLine.Contains('*') == false)     // If it's not a comment line
+                    {
+                        int xCoord = 0;
+                        int yCoord = 0;
+                        string[] splitEnemyData = currentLine.Split(',');
+                        int enemyTextureNum = Int32.Parse(splitEnemyData[0]);
+                        string name = splitEnemyData[1];
+                        int health = Int32.Parse(splitEnemyData[2]);
+                        int defense = Int32.Parse(splitEnemyData[3]);
+                        int attack = Int32.Parse(splitEnemyData[4]);
+                        double crit = Double.Parse(splitEnemyData[5]);
+                        int lvl = Int32.Parse(splitEnemyData[6]);
+                        int str = Int32.Parse(splitEnemyData[7]);
+                        int dex = Int32.Parse(splitEnemyData[8]);
+                        int mag = Int32.Parse(splitEnemyData[9]);
+                        int xpDrop = Int32.Parse(splitEnemyData[10]);
+                        int wpnIndex = Int32.Parse(splitEnemyData[11]);     // Currently unused
+                        int amrIndex = Int32.Parse(splitEnemyData[12]);     // Currently unused
+
+                        EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, xpDrop);
+                        eUnit.Img = enemyTextures[enemyTextureNum];
+
+                        //add enemy to the list
+                        enemyList.Add(eUnit);
+                    }
+                    currentLine = inStream.ReadLine();
+                }// End of while (enemy stuff)
+            }
+            catch (FileNotFoundException fnfe)       // Basically takes the place of If(File.Exists(mapName))
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (inStream != null)
+                    inStream.Dispose();
+                if (input != null)
+                    input.Dispose();
+            }
+        }
+
 
 
         /// <summary>
@@ -138,9 +294,7 @@ namespace Project_LoFi
                 input = File.OpenRead(mapName);
                 inStream = new StreamReader(input);
 
-                List<Point> enemyPositions = new List<Point>();         // Hold enemy positions
-                List<Point> playerPositions = new List<Point>();        // Hold player positions
-
+                int playerIndexer = 0;
                 int mapWidth = 0;
                 int mapHeight = 0;
 
@@ -161,10 +315,6 @@ namespace Project_LoFi
                             string[] splitString = data.Split(',');
 
                             int typeNum = Int32.Parse(splitString[0]);
-                            if (typeNum == 1)
-                                playerPositions.Add(new Point(i, j));
-                            else if (typeNum == 2)
-                                enemyPositions.Add(new Point(i, j));
 
                             int terrainNumber = Int32.Parse(splitString[1]);
 
@@ -177,82 +327,30 @@ namespace Project_LoFi
                             Terrain gridSpace = new Terrain(i, j, cannotPass, dMod);
                             gridSpace.Img = mapTextures[terrainNumber];
 
-                            mapGrid[i, j] = gridSpace;
+                            if (typeNum == 0)
+                                mapGrid[i, j] = gridSpace;
+                            else if (typeNum == 1)
+                            {
+                                PlayerUnit pUnit = playerList[playerIndexer];   // Grab the next player in the list
+                                pUnit.OccupiedSpace = gridSpace;
+                                pUnit.X = i;
+                                pUnit.Y = j;
+                                mapGrid[i, j] = pUnit;
+                                playerIndexer++;                                // Move the indexer to the next player
+                            }
+                            else if (typeNum >= 2)
+                            {
+                                EnemyUnit eUnit = enemyList[typeNum - 2];       // Grab the appropriate enemy - minus 2 to offset 0 for terrain and 1 for player
+                                eUnit.OccupiedSpace = gridSpace;
+                                eUnit.X = i;
+                                eUnit.Y = j;
+                                mapGrid[i, j] = eUnit;
+                            }
+
                         }
-                    }
-                }
+                    }// End of inner (i) for
+                }// End of outer (j) for
 
-                // Enemy stuff
-                string currentLine = inStream.ReadLine();
-                int indexer = 0;
-                while (inStream.EndOfStream == false && currentLine.Contains('#') == false)
-                {
-                    if (currentLine.Contains('*') == false)     // If it's not a comment line
-                    {
-                        int xCoord = enemyPositions[indexer].X;
-                        int yCoord = enemyPositions[indexer].Y;
-                        string[] splitEnemyData = currentLine.Split(',');
-                        int enemyTextureNum = Int32.Parse(splitEnemyData[0]);
-                        string name = splitEnemyData[1];
-                        int health = Int32.Parse(splitEnemyData[2]);
-                        int defense = Int32.Parse(splitEnemyData[3]);
-                        int attack = Int32.Parse(splitEnemyData[4]);
-                        double crit = Double.Parse(splitEnemyData[5]);
-                        int lvl = Int32.Parse(splitEnemyData[6]);
-                        int str = Int32.Parse(splitEnemyData[7]);
-                        int dex = Int32.Parse(splitEnemyData[8]);
-                        int mag = Int32.Parse(splitEnemyData[9]);
-                        int xpDrop = Int32.Parse(splitEnemyData[10]);
-
-                        EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, xpDrop);
-                        eUnit.Img = enemyTextures[enemyTextureNum];
-
-                        //add enemy to the list
-                        enemyList.Add(eUnit);
-
-                        Terrain tempStorage = (Terrain)mapGrid[xCoord, yCoord];
-                        eUnit.OccupiedSpace = tempStorage;
-                        mapGrid[xCoord, yCoord] = eUnit;
-                        indexer++;
-                    }
-                    currentLine = inStream.ReadLine();
-                }// End of while (enemy stuff)
-
-                //Player Stuff
-                currentLine = inStream.ReadLine();
-                indexer = 0;
-                while (inStream.EndOfStream == false)
-                {
-                    if (currentLine.Contains('*') == false)     // If it's not a comment line
-                    {
-                        int xCoord = playerPositions[indexer].X;
-                        int yCoord = playerPositions[indexer].Y;
-                        string[] splitPlayerData = currentLine.Split(',');
-                        int playerTextureNum = Int32.Parse(splitPlayerData[0]);
-                        string name = splitPlayerData[1];
-                        int health = Int32.Parse(splitPlayerData[2]);
-                        int defense = Int32.Parse(splitPlayerData[3]);
-                        int attack = Int32.Parse(splitPlayerData[4]);
-                        double crit = Double.Parse(splitPlayerData[5]);
-                        int lvl = Int32.Parse(splitPlayerData[6]);
-                        int str = Int32.Parse(splitPlayerData[7]);
-                        int dex = Int32.Parse(splitPlayerData[8]);
-                        int mag = Int32.Parse(splitPlayerData[9]);
-                        int curXP = Int32.Parse(splitPlayerData[10]);
-
-                        PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, curXP);
-                        pUnit.Img = charTextures[playerTextureNum];
-
-                        //add enemy to the list
-                        playerList.Add(pUnit);
-
-                        Terrain tempStorage = (Terrain)mapGrid[xCoord, yCoord];
-                        pUnit.OccupiedSpace = tempStorage;
-                        mapGrid[xCoord, yCoord] = pUnit;
-                        indexer++;
-                    }
-                    currentLine = inStream.ReadLine();
-                }// End of while (player stuff)
             }
             catch (FileNotFoundException fnfe)       // Basically takes the place of If(File.Exists(mapName))
             {
@@ -290,27 +388,5 @@ namespace Project_LoFi
         /// --  End of Methods  --
     
     }//End of Level class
-
-    public class Point
-    {
-        int x;
-        int y;
-
-        public int X
-        {
-            get { return x; }
-        }
-
-        public int Y
-        {
-            get { return y; }
-        }
-
-        public Point(int i, int j)
-        {
-            x = i;
-            y = j;
-        }
-    }
 
 }

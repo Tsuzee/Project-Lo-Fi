@@ -221,8 +221,8 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                //SetupLevel("map2.txt", "players.txt", "enemies2.txt");
-                                SetupLevel("map3alt.txt");
+                                SetupLevel("map2alt.txt", "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+                                //SetupLevel("map3alt.txt");
                                 currentTurn = TurnState.Player;
                             }
                         }
@@ -580,10 +580,10 @@ namespace Project_LoFi
         /// Will need information passed in to determine which level to setup.
         /// Currently only contains test code.
         /// </summary>
-        protected void SetupLevel(string mapName, string pListName, string eListName)
+        protected void SetupLevel(string mapName, string itemListName, string pListName, string eListName)
         {
             // Load map
-            scenario = new Level(mapName, gameVars);
+            scenario = new Level(mapName, itemListName, pListName, eListName, gameVars);
             characterList = scenario.PlayerList;
             map = scenario.MapGrid;
 

@@ -1,0 +1,8 @@
+﻿* Data, in the order it appears: item index (doubles as txtrIndex), item name, strMod, dexMod, magMod, amrMod, dmgMod, critMod, type, desc
+0,monster weapon,0,0,0,0,0,0.0,weapon,A placeholder weapon for monsters.
+1,monster armor,0,0,0,0,0,0.0,armor,A placeholder armor for monsters.
+2,Sword,0,0,0,0,3,0.1,weapon,A basic sword.
+3,Dagger,0,0,0,0,2,0.3,weapon,A basic dagger.
+4,Staff,0,0,0,0,1,0.08,weapon,A basic staff.
+5,Leather Tunic,0,0,0,1,0,0.0,weapon,A basic leather tunic.
+* End File

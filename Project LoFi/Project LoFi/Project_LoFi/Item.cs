@@ -10,10 +10,21 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+/// Orig. class author: Philip Fowler
+/// Most recent edit: 11/27/14, by J. Cooper
+
 namespace Project_LoFi
 {
     public class Item
     {
+        /// --  Attributes & Properties
+        private string itemName;//affects player stat
+        public string ItemName //affects damage with swords
+        {
+            get { return itemName; }
+            set { itemName = value; }
+        }
+
         private int strengthMod;//affects player stat
         public int StrengthMod //affects damage with swords
         {
@@ -49,8 +60,8 @@ namespace Project_LoFi
             set { dmgMod = value; }
         }
 
-        private int critMod;//value of item that will modify the
-        public int CritMod //chance the character has to critical hit
+        private double critMod;//value of item that will modify the
+        public double CritMod //chance the character has to critical hit
         {
             get { return critMod; }
             set { critMod = value; }
@@ -78,11 +89,35 @@ namespace Project_LoFi
             set { range = value; }
         }
 
-        private Texture2D itemImage;//has the image file for the item
-        public Texture2D ItemImage
+        private Texture2D img;//has the image file for the item
+        public Texture2D Img
         {
-            get { return itemImage; }
-            set { itemImage = value; }
+            get { return img; }
+            set { img = value; }
         }
+        /// --  End Attributes & Properties
+
+
+
+        /// --  Constructors
+
+        public Item(){ }
+
+        public Item(string name, int strMod, int dexMod, int magMod, int amrMod, int damageMod, double criticalMod, string type, string desc)
+        {
+            itemName = name;
+            strengthMod = strMod;
+            dexterityMod = dexMod;
+            magicMod = magMod;
+            armorMod = amrMod;
+            dmgMod = damageMod;
+            critMod = criticalMod;
+            itemType = type;
+            itemDesc = desc;
+        }
+
+        /// --  End Constructors
+
+
     }//End of Item class
 }
