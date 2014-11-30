@@ -221,7 +221,7 @@ namespace Project_LoFi
                             {
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel("map2alt.txt", "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+                                SetupLevel("map1alt.txt", "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
                                 //SetupLevel("map3alt.txt");
                                 currentTurn = TurnState.Player;
                             }
