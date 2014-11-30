@@ -201,7 +201,7 @@ namespace Project_LoFi
         public bool IsDead()
         {
             bool resultFlag = false;    //Assume they aren't dead
-            if (health == 0)            // health <= 0?
+            if (health <= 0)            // health <= 0?
                 resultFlag = true;
 
             return resultFlag;
