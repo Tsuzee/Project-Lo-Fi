@@ -95,6 +95,7 @@ namespace Project_LoFi
         float timeToMove;
         int frameNum;
         int level;
+        int maxLevel = 3;
 
         private Random rand;
 
@@ -117,6 +118,7 @@ namespace Project_LoFi
 
             //set the cursor
             cursor = new Cursor();
+            
 
             // Set up the draw class
             screenDrawer = new Drawer();
@@ -168,6 +170,7 @@ namespace Project_LoFi
             gameVars.setFont();
 
             cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
+            
         }
 
         /// <summary>
@@ -224,11 +227,14 @@ namespace Project_LoFi
                             {
                                 if(level > 3)
                                 {
+                                    ResetGameForNextLevel();
                                     level = 1;
                                 }
                                 currentState = GameState.Playing;
                                 //setup level
                                 SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+
+                                
 
                                 currentTurn = TurnState.Player;
                             }
@@ -493,7 +499,7 @@ namespace Project_LoFi
                             {
                                 level++;
 
-                                if(level == 4)
+                                if(level >= 4)
                                 {
                                     currentState = GameState.Credits;
                                 }
@@ -598,7 +604,7 @@ namespace Project_LoFi
                     }
                 case GameState.Won:
                     {
-                        screenDrawer.DrawWon(gameVars, spriteBatch, GraphicsDevice);
+                        screenDrawer.DrawWon(gameVars, spriteBatch, GraphicsDevice, level, maxLevel);
                         break;
                     }
                 case GameState.Credits:
@@ -632,11 +638,15 @@ namespace Project_LoFi
                     }
                 case 2:
                     {
+                        ResetGameForNextLevel();
+                        //scenario.ResetGameForNextLevel();
                         scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
                         break;
                     }
                 case 3:
                     {
+                        ResetGameForNextLevel();
+                        //scenario.ResetGameForNextLevel();
                         scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
                         break;
                     }
@@ -659,16 +669,19 @@ namespace Project_LoFi
         /// Will need information passed in to determine which level to setup.
         /// Currently only contains test code.
         /// </summary>
-        protected void SetupLevel(string mapName)
+        protected void ResetGameForNextLevel()
         {
-            // Load map
-            scenario = new Level(mapName, gameVars);
-            characterList = scenario.PlayerList;
-            map = scenario.MapGrid;
+            selected = SelectState.NotSelected;
 
-            //setup AI for enemies
-            enemyAI = new EnemyAI(characterList, enemyList);
-        }//end setup level
+            //set number of turns to 6
+            numOfTurns = 6;
+            enemyNum = 0;
+            timeToMove = 2;
+
+            //setup the textLog array
+            textLog = new string[10] { numOfTurns.ToString(), "false", "", "false", "", "false", "", "", "", "" };
+
+        }//end reset
 
         /// <summary>
         /// check to see if a key has been pressed only once

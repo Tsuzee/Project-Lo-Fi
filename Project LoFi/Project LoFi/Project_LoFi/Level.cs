@@ -47,20 +47,6 @@ namespace Project_LoFi
 
         /// --  Constructors    --
 
-        // DEFUNCT - DO NOT USE
-        public Level(string mapFileName, GameVariables gameVar)
-        {
-            mapTextures = new List<Texture2D>();
-            charTextures = new List<Texture2D>();
-            enemyTextures = new List<Texture2D>();
-            playerList = new List<PlayerUnit>();
-            enemyList = new List<EnemyUnit>();
-            itemList = new List<Item>();
-
-            AddTextures(gameVar);
-            ReadMap(mapFileName);
-        }
-
         public Level(string mapFileName, string itemDBFileName, string playerListFileName, string monsterDBFileName, GameVariables gameVar)
         {
             mapTextures = new List<Texture2D>();
@@ -385,6 +371,17 @@ namespace Project_LoFi
             for (int i = 0; i < gv.charTextures.Length; i++)
                 charTextures.Add(gv.charTextures[i]);
         }
+
+        /*
+        public void ResetGameForNextLevel()
+        {
+            PlayerList.Clear();
+            enemyList.Clear();
+            mapTextures.Clear();
+            enemyTextures.Clear();
+            charTextures.Clear();
+            itemList.Clear();
+        }*/
 
         /// --  End of Methods  --
     
