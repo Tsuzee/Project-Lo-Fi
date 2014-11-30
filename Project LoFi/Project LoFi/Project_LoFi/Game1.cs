@@ -94,6 +94,7 @@ namespace Project_LoFi
         int enemyNum;
         float timeToMove;
         int frameNum;
+        int level;
 
         private Random rand;
 
@@ -125,6 +126,8 @@ namespace Project_LoFi
             enemyNum = 0;
             timeToMove = 2;
 
+            //set level to 1
+            level = 1;
             //setup the textLog array
             textLog = new string[10]{numOfTurns.ToString(), "false", "", "false", "", "false", "", "", "", ""};
         }
@@ -219,10 +222,14 @@ namespace Project_LoFi
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
+                                if(level > 3)
+                                {
+                                    level = 1;
+                                }
                                 currentState = GameState.Playing;
                                 //setup level
-                                SetupLevel("map2alt.txt", "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
-                                //SetupLevel("map3alt.txt");
+                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+
                                 currentTurn = TurnState.Player;
                             }
                         }
@@ -370,8 +377,13 @@ namespace Project_LoFi
                                             textLog[6] = selectedUnit.Attack(target).ToString();
                                             if (target.IsDead() == true)
                                             {
+                                                
                                                 map[target.X, target.Y] = target.OccupiedSpace;
                                                 enemyList.Remove(target);
+                                                if(target.IsBoss)
+                                                {
+                                                    currentState = GameState.Won;
+                                                }
                                             }
 
                                             // Deselect the unit, they've attacked
@@ -479,13 +491,36 @@ namespace Project_LoFi
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
+                                level++;
 
-                                currentState = GameState.Credits;
+                                if(level == 4)
+                                {
+                                    currentState = GameState.Credits;
+                                }
+                                else
+                                {
+                                    currentState = GameState.Playing;
+                                    //setup level
+                                    SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+
+                                    currentTurn = TurnState.Player;
+                                }
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
+                        }
+                        break;
+                    }
+                case GameState.Credits:
+                    {
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+                                currentState = GameState.Menu;
+                            }
                         }
                         break;
                     }
@@ -561,6 +596,11 @@ namespace Project_LoFi
                         screenDrawer.DrawGameInfo(gameVars, spriteBatch, GraphicsDevice, currentTurn);
                         break;
                     }
+                case GameState.Won:
+                    {
+                        screenDrawer.DrawWon(gameVars, spriteBatch, GraphicsDevice);
+                        break;
+                    }
                 case GameState.Credits:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
@@ -580,10 +620,33 @@ namespace Project_LoFi
         /// Will need information passed in to determine which level to setup.
         /// Currently only contains test code.
         /// </summary>
-        protected void SetupLevel(string mapName, string itemListName, string pListName, string eListName)
+        protected void SetupLevel(int level, string itemListName, string pListName, string eListName)
         {
             // Load map
-            scenario = new Level(mapName, itemListName, pListName, eListName, gameVars);
+            switch(level)
+            {
+                case 1:
+                    {
+                        scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
+                        break;
+                    }
+                case 2:
+                    {
+                        scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
+                        break;
+                    }
+                case 3:
+                    {
+                        scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
+                        break;
+                    }
+                default:
+                    {
+                        currentState = GameState.Menu;
+                        break;
+                    }
+            }
+            
             characterList = scenario.PlayerList;
             map = scenario.MapGrid;
 

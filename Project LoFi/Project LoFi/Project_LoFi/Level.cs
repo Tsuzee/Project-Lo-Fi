@@ -250,10 +250,11 @@ namespace Project_LoFi
                         int dex = Int32.Parse(splitEnemyData[8]);
                         int mag = Int32.Parse(splitEnemyData[9]);
                         int xpDrop = Int32.Parse(splitEnemyData[10]);
-                        int wpnIndex = Int32.Parse(splitEnemyData[11]);     // Currently unused
-                        int amrIndex = Int32.Parse(splitEnemyData[12]);     // Currently unused
+                        int boss = Int32.Parse(splitEnemyData[11]);
+                        int wpnIndex = Int32.Parse(splitEnemyData[12]);     // Currently unused
+                        int amrIndex = Int32.Parse(splitEnemyData[13]);     // Currently unused
 
-                        EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, xpDrop);
+                        EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, xpDrop, boss);
                         eUnit.Img = enemyTextures[enemyTextureNum];
 
                         //add enemy to the list

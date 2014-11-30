@@ -1,23 +1,23 @@
-﻿*Data, in the order it appears: monster index(also called txtrIndex),name,health,defense,attack,crit,level,strength,dex,magic,xp drop,weapon index,armor index (14 fields)
-0,Devil Scorpion,1,0,0,0.0,0,0,0,0,0,0,1
-1,Wyvern Chick,1,0,0,0.0,0,0,0,0,0,0,1
-2,Boss 1,0,0,0,0.0,0,0,0,0,0,0,1
-3,Mauler,1,0,0,0.0,0,0,0,0,0,0,1
-4,Goblin,1,0,0,0.0,0,0,0,0,0,0,1
-5,Nightmare,1,0,0,0.0,0,0,0,0,0,0,1
-6,Tornado Lizard,1,0,0,0.0,0,0,0,0,0,0,1
-7,Ant Lion,5,1,3,0.2,3,6,3,0,8,0,1
-8,Bone Fighter,3,0,1,0.0,1,3,1,0,1,0,1
-9,Boss 2,3,10,3,0.0,4,4,1,1,12,0,1
-10,Foul Mummy,4,1,1,0.0,2,4,0,0,3,0,1
-11,Living Armor,8,3,1,0.3,3,3,1,1,9,0,1
-12,Sentinel,2,3,4,0.43,4,2,2,2,6,0,1
-13,Zombie,1,0,1,0.0,1,1,0,0,1,0,1
-14,Boss 3,0,1,0.0,1,3,1,0,1,0,1
-15,Deadbeard,3,0,1,0.0,1,3,1,0,1
-16,Hummer,4,1,1,0.0,2,4,0,0,3,0,1
-17,Lich,5,1,3,0.2,3,6,3,0,8,0,1
-18,Satrage,3,0,1,0.0,1,3,1,0,1,0,1
-19,Tiamat,4,1,1,0.0,2,4,0,0,3,0,1
-20,White Knight,2,3,4,0.43,4,2,2,2,6,0,1
+﻿*Data, in the order it appears: monster index(also called txtrIndex),name,health,defense,attack,crit,level,strength,dex,magic,xp drop,isboss,weapon index,armor index (14 fields)
+0,Devil Scorpion,1,0,0,0.0,0,0,0,0,0,0,0,1
+1,Wyvern Chick,1,0,0,0.0,0,0,0,0,0,0,0,1
+2,Boss 1,2,0,0,0.0,0,0,0,0,0,1,0,1
+3,Mauler,1,0,0,0.0,0,0,0,0,0,0,0,1
+4,Goblin,1,0,0,0.0,0,0,0,0,0,0,0,1
+5,Nightmare,1,0,0,0.0,0,0,0,0,0,0,0,1
+6,Tornado Lizard,1,0,0,0.0,0,0,0,0,0,0,0,1
+7,Ant Lion,5,1,3,0.2,3,6,3,0,8,0,0,1
+8,Bone Fighter,3,0,1,0.0,1,3,1,0,1,0,0,1
+9,Boss 2,3,1,3,0.0,4,4,1,1,12,1,0,1
+10,Foul Mummy,4,1,1,0.0,2,4,0,0,3,0,0,1
+11,Living Armor,8,3,1,0.3,3,3,1,1,9,0,0,1
+12,Sentinel,2,3,4,0.43,4,2,2,2,6,0,0,1
+13,Zombie,1,0,1,0.0,1,1,0,0,1,0,0,1
+14,Boss 3,2,1,0.0,1,3,1,0,1,1,0,1
+15,Deadbeard,3,0,1,0.0,1,3,1,0,0,1
+16,Hummer,4,1,1,0.0,2,4,0,0,3,0,0,1
+17,Lich,5,1,3,0.2,3,6,3,0,8,0,0,1
+18,Satrage,3,0,1,0.0,1,3,1,0,1,0,0,1
+19,Tiamat,4,1,1,0.0,2,4,0,0,3,0,0,1
+20,White Knight,2,3,4,0.43,4,2,2,2,6,0,0,1
 * End File
