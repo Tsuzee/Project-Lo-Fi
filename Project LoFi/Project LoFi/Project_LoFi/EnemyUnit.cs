@@ -96,7 +96,16 @@ namespace Project_LoFi
                 isBoss = false;
             }
         }     
-          
+        
+        // Copy constructor
+        public EnemyUnit(EnemyUnit oeu)
+            : base(oeu.X, oeu.Y, oeu.Img, oeu.Name, oeu.Health, oeu.DefenseModifier, oeu.AttackModifier, oeu.CritChance, oeu.Level,
+                    oeu.Strength, oeu.Dexterity, oeu.Magic, oeu.EquippedWeapon, oeu.EquippedArmor, oeu.Inventory)
+        {
+            ExpDrop = oeu.ExpDrop;
+            isBoss = oeu.isBoss;
+        }
+
         /// -- End of Constructors  --
 
 

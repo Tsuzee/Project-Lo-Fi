@@ -329,7 +329,7 @@ namespace Project_LoFi
                             }
                             else if (typeNum >= 2)
                             {
-                                EnemyUnit eUnit = enemyDataBase[typeNum - 2];       // Grab the appropriate enemy - minus 2 to offset 0 for terrain and 1 for player
+                                EnemyUnit eUnit = new EnemyUnit(enemyDataBase[typeNum - 2]);       // Grab the appropriate enemy - minus 2 to offset 0 for terrain and 1 for player
                                 eUnit.OccupiedSpace = gridSpace;
                                 eUnit.X = i;
                                 eUnit.Y = j;

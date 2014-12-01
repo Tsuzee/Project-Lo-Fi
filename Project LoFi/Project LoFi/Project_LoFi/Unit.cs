@@ -101,7 +101,7 @@ namespace Project_LoFi
             get { return equippedArmor; }
         }
 
-        List<Item> Inventory
+        public List<Item> Inventory
         {
             set { inventory = value; }
             get { return inventory; }
