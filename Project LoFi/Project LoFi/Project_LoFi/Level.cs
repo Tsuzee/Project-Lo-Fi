@@ -23,6 +23,7 @@ namespace Project_LoFi
         private List<PlayerUnit> playerList;            // Store the players, so Game1 knows who the human can control
         public List<EnemyUnit> enemyList;
         public List<Item> itemList;
+        private List<EnemyUnit> enemyDataBase;
 
         /// -- End of Instance Variables    --
 
@@ -55,6 +56,7 @@ namespace Project_LoFi
             playerList = new List<PlayerUnit>();
             enemyList = new List<EnemyUnit>();
             itemList = new List<Item>();
+            enemyDataBase = new List<EnemyUnit>();
 
             AddTextures(gameVar);
             ReadItems(itemDBFileName);
@@ -244,7 +246,7 @@ namespace Project_LoFi
                         eUnit.Img = enemyTextures[enemyTextureNum];
 
                         //add enemy to the list
-                        enemyList.Add(eUnit);
+                        enemyDataBase.Add(eUnit);
                     }
                     currentLine = inStream.ReadLine();
                 }// End of while (enemy stuff)
@@ -327,11 +329,12 @@ namespace Project_LoFi
                             }
                             else if (typeNum >= 2)
                             {
-                                EnemyUnit eUnit = enemyList[typeNum - 2];       // Grab the appropriate enemy - minus 2 to offset 0 for terrain and 1 for player
+                                EnemyUnit eUnit = enemyDataBase[typeNum - 2];       // Grab the appropriate enemy - minus 2 to offset 0 for terrain and 1 for player
                                 eUnit.OccupiedSpace = gridSpace;
                                 eUnit.X = i;
                                 eUnit.Y = j;
                                 mapGrid[i, j] = eUnit;
+                                enemyList.Add(eUnit);
                             }
 
                         }
