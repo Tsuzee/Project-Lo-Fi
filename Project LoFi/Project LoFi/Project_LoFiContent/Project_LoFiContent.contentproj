@@ -541,8 +541,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\BeaconOnSand.png">
-      <Name>BeaconOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BeaconOnStone.png">
+      <Name>BeaconOnStone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -566,8 +566,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\Cactus1.png">
-      <Name>Cactus1</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BrokenCornerstone.png">
+      <Name>BrokenCornerstone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -576,13 +576,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\Cactus3.png">
-      <Name>Cactus3</Name>
+    <Compile Include="Textures\Level2Textures\Ground\PurplePlant.png">
+      <Name>PurplePlant</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\ChestOnSand.png">
-      <Name>ChestOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\CrateOnStone.png">
+      <Name>CrateOnStone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -591,13 +591,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\GrassInDesert.png">
-      <Name>GrassInDesert</Name>
+    <Compile Include="Textures\Level2Textures\Ground\GrassInStone.png">
+      <Name>GrassInStone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\GravesDesert.png">
-      <Name>GravesDesert</Name>
+    <Compile Include="Textures\Level2Textures\Ground\CrumbledRock.png">
+      <Name>CrumbledRock</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -606,43 +606,43 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\lightSand.png">
-      <Name>lightSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\StoneFloor.png">
+      <Name>StoneFloor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\PalmOnSand.png">
-      <Name>PalmOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\CrackedBrick.png">
+      <Name>CrackedBrick</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SandPath.png">
-      <Name>SandPath</Name>
+    <Compile Include="Textures\Level2Textures\Ground\StonePath.png">
+      <Name>StonePath</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SandPathDown.png">
-      <Name>SandPathDown</Name>
+    <Compile Include="Textures\Level2Textures\Ground\StonePathDown.png">
+      <Name>StonePathDown</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SandPathLeft.png">
-      <Name>SandPathLeft</Name>
+    <Compile Include="Textures\Level2Textures\Ground\StonePathLeft.png">
+      <Name>StonePathLeft</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SandPathUp.png">
-      <Name>SandPathUp</Name>
+    <Compile Include="Textures\Level2Textures\Ground\StonePathUp.png">
+      <Name>StonePathUp</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SkeletOnSand.png">
-      <Name>SkeletOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\SkullOnStone.png">
+      <Name>SkullOnStone</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\SkullOnSand.png">
-      <Name>SkullOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BrokenFloor.png">
+      <Name>BrokenFloor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -651,23 +651,23 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\StoneLeftSide.png">
-      <Name>StoneLeftSide</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BrazierLeftSide.png">
+      <Name>BrazierLeftSide</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\StoneWithFireLeftSide.png">
-      <Name>StoneWithFireLeftSide</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BrazierWithFireLeftSide.png">
+      <Name>BrazierWithFireLeftSide</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\StoneWithFireRightSide.png">
-      <Name>StoneWithFireRightSide</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BrazierWithFireRightSide.png">
+      <Name>BrazierWithFireRightSide</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Level2Textures\Ground\WheilOnSand.png">
-      <Name>WheilOnSand</Name>
+    <Compile Include="Textures\Level2Textures\Ground\BookWithStand.png">
+      <Name>BookWithStand</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
