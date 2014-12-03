@@ -241,11 +241,7 @@ namespace Project_LoFi
         public void DrawMenu(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             frameNum = 0;
-            spriteBatch.DrawString(gameVars.Font1Bold, "PROJECT LO-FI", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
-                                (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-
-            spriteBatch.DrawString(gameVars.Font1Bold, "press Enter to play", new Vector2((graphicsDevice.Viewport.Width / 2) - 350,
-                    (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(gameVars.screens[0], new Rectangle(0, 0, 1200, 780), Color.White);
         }//end drawmenu
 
 
@@ -253,16 +249,11 @@ namespace Project_LoFi
         {
             if (level <= maxLevel - 1)
             {
-                spriteBatch.DrawString(gameVars.Font1Bold, "Level Complete", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
-                                    (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
-
-                spriteBatch.DrawString(gameVars.Font1Bold, "press Enter to play the next level", new Vector2(10,
-                        (graphicsDevice.Viewport.Height / 2) - 50), Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(gameVars.screens[1], new Rectangle(0, 0, 1200, 780), Color.White);
             }
             else
             {
-                spriteBatch.DrawString(gameVars.Font1Bold, "You Win", new Vector2((graphicsDevice.Viewport.Width / 2) - 375,
-                                    (graphicsDevice.Viewport.Height / 2) - 300), Color.DarkRed, 0.0f, Vector2.Zero, 5.0f, SpriteEffects.None, 0.0f);
+                spriteBatch.Draw(gameVars.screens[2], new Rectangle(0, 0, 1200, 780), Color.White);
             }
         }
 
@@ -274,46 +265,7 @@ namespace Project_LoFi
         /// <param name="graphicsDevice"></param>
         public void DrawCredits(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
-            string output;
-            Vector2 FontOrigin;
-
-            output = "Credits";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 10;
-            spriteBatch.DrawString(gameVars.Font1Bold, output, new Vector2((graphicsDevice.Viewport.Width / 2) - 50, 10),
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-
-            output = "Design - Aliaksandr Shumski";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 100;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-
-
-            output = "Architecture - Jesse Cooper";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 200;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-            output = "Interface - Phillip Fowler";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 300;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
-
-
-            output = "Group Lead - Darren Farr";
-            FontOrigin = gameVars.Font1Bold.MeasureString(output) / 2;
-            FontOrigin.Y = 400;
-            spriteBatch.DrawString(gameVars.Font1Bold, output,
-                FontOrigin,
-                Color.DarkRed, 0.0f, Vector2.Zero, 3.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.Draw(gameVars.screens[3], new Rectangle(0, 0, 1200, 780), Color.White);
         }
 
         //draw text information for player

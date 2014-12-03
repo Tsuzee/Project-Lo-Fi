@@ -34,6 +34,9 @@ namespace Project_LoFi
         public SpriteFont Font1;
         public SpriteFont Font1Bold;
 
+        /// -- Screens --
+        public Texture2D[] screens;
+
         /// -- Images --
         public Texture2D logo;
         public Texture2D cursor;
@@ -60,6 +63,7 @@ namespace Project_LoFi
             terrainTextures = new Texture2D[130];        // Default size of 20 - adjust as necessary
             charTextures = new Texture2D[6];
             enemyTextures = new Texture2D[21];
+            screens = new Texture2D[4];
         }
 
         /// --  End of Constructors --
@@ -74,6 +78,12 @@ namespace Project_LoFi
             selCursor = myContent.Load<Texture2D>("cursorS");
             highligther = myContent.Load<Texture2D>("highlight");
             battleHighLighter = myContent.Load<Texture2D>("battlehighlight");
+
+            //game screens
+            screens[0] = myContent.Load<Texture2D>("Main Menu");
+            screens[1] = myContent.Load<Texture2D>("Next Level");
+            screens[2] = myContent.Load<Texture2D>("Win");
+            screens[3] = myContent.Load<Texture2D>("Credits");
 
             // Terrain textures For Level 1
             terrainTextures[0] = myContent.Load<Texture2D>("Textures\\lightGrass");
