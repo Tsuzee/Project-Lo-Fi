@@ -16,9 +16,9 @@ namespace Project_LoFi
     {
         /// --  Instance Variables  --
         private string name;
-        private int health;
-        private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
-        private int attackModifier;         // Represents current damage output. Affected by items.
+        private double health;
+        private double defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
+        private double attackModifier;         // Represents current damage output. Affected by items.
         private double critChance;
         private int level;
         private int strength;
@@ -27,6 +27,7 @@ namespace Project_LoFi
         private Item equippedWeapon;
         private Item equippedArmor;
         private List<Item> inventory;
+        private Random critical = new Random();
         /// --  End of Instance Variables   --
 
         /// -- Properties --
@@ -35,7 +36,7 @@ namespace Project_LoFi
             get { return name; }
             set { name = value; }
         }
-        public int Health
+        public double Health
         {
             set
             {
@@ -47,13 +48,13 @@ namespace Project_LoFi
             get { return health; }
         }
 
-        public int DefenseModifier
+        public double DefenseModifier
         {
             set { defenseModifier = value; }
             get { return defenseModifier; }
         }
 
-        public int AttackModifier
+        public double AttackModifier
         {
             set { attackModifier = value; }
             get { return attackModifier; }
@@ -142,7 +143,7 @@ namespace Project_LoFi
             Inventory = new List<Item>();
         }
 
-        public Unit(int xCoord, int yCoord, string unitName, int hp, int dMod, int aMod, double cChance,
+        public Unit(int xCoord, int yCoord, string unitName, double hp, double dMod, double aMod, double cChance,
                         int lvl, int str, int dex, int mag)
             : base(xCoord, yCoord)
         {
@@ -156,8 +157,8 @@ namespace Project_LoFi
             dexterity = dex;
             magic = mag;
         }
-        
-        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
+
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, double hp, double dMod, double aMod, double cChance,
                         int lvl, int str, int dex, int mag)
             : base(xCoord, yCoord, unitImage)
         {
@@ -171,8 +172,8 @@ namespace Project_LoFi
             dexterity = dex;
             magic = mag;
         }
-        
-        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
+
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, double hp, double dMod, double aMod, double cChance,
                         int lvl, int str, int dex, int mag, Item equippedWpn, Item equippedAmr, List<Item> inv)
             : base(xCoord, yCoord, unitImage)
         {
@@ -211,7 +212,7 @@ namespace Project_LoFi
         /// Method applies damage to a unit, taking into account the unit's defense.
         /// </summary>
         /// <param name="dmg"> dmg should be a positive number </param>
-        public int TakeDamage(int dmg)
+        public double TakeDamage(double dmg)
         {
             if (dmg > 0)                // As long as they're doing *some* damage
             {
@@ -233,7 +234,7 @@ namespace Project_LoFi
         /// Method to allow enemies to attack each other.
         /// </summary>
         /// <param name="mgo"></param>
-        public virtual int Attack(Unit target)
+        public virtual double Attack(Unit target)
         {
             return target.TakeDamage(this.AttackModifier);
         }
@@ -286,6 +287,25 @@ namespace Project_LoFi
                 resultFlag = true;
             }
             return resultFlag;
+        }
+       /// <summary>
+       /// Check if critical strike occured or not. 
+       /// </summary>
+       /// <param name="criticalStrikeChance"></param>
+       /// <returns></returns>
+        public bool criticalStrike (double criticalStrikeChance)
+        {
+            int chance = critical.Next(101);
+
+            if (criticalStrikeChance >= chance)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
 
         /// --  End of Methods  --

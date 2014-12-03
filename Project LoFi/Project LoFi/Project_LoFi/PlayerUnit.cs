@@ -79,11 +79,22 @@ namespace Project_LoFi
         /// <param name="target"></param>
         
          //public override void Attack(MovableGridOccupant target) Getting an error. Changed to Unit, so it compiles.
-        public override int Attack(Unit target)
+        public override double Attack(Unit target)
         {
             EnemyUnit holder = (EnemyUnit)target;
-            int dmg;
-            dmg = holder.TakeDamage(this.AttackModifier);
+            double dmg;
+            double attackDmg = 0;
+
+            if (this.criticalStrike(CritChance) == true)
+            {
+                attackDmg = this.AttackModifier * 2.2;
+            }
+            else
+            {
+                attackDmg = this.AttackModifier;
+            }
+
+            dmg = holder.TakeDamage(attackDmg);
             if (holder.IsDead() == true)
                 this.currentExp += holder.ExpDrop;      //If the player killed the enemy, give them exp
             return dmg;

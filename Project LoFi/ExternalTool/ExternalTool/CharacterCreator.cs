@@ -358,7 +358,10 @@ namespace ExternalTool
         /// </summary>
         public void calculateAttributes()
         {
-           //  Every character has a 1% chance to crit
+
+            health = (int)((double)(StrengthStat.Value) * 2 + (double)(DexterityStat.Value) * 1 + (double)(MagicStat.Value) * 0.75);
+            defense =(int)((double)(StrengthStat.Value) * 1 + (double)(DexterityStat.Value) * 0.5 + (double)(MagicStat.Value) * 0.25);
+            //  Every character has a 1% chance to crit
             if (DexterityStat.Value == 0)
             {
                 crit = 1;
@@ -371,32 +374,24 @@ namespace ExternalTool
             //If strength is the main attribute - characters is a strength based.  He is getting more health, defense and attack
             if ((StrengthStat.Value > DexterityStat.Value) && (StrengthStat.Value > MagicStat.Value))
             {
-                health = 50;
-                defense = 10;
                 attack = (double)(StrengthStat.Value / 2);
             }
 
             // If dexterity is the main attribute - character is a dexterity based. He is getting less health and defense but higher crit chance
             else if ((DexterityStat.Value > StrengthStat.Value) && (DexterityStat.Value > MagicStat.Value))
             {
-                health = 30;
-                defense = 5;
                 attack = (double)(DexterityStat.Value / 4);
             }
 
             // If magic is the main attribute - character is a magic based.  He is getting less health and defense but has higher attack.
             else if ((MagicStat.Value > StrengthStat.Value) && (MagicStat.Value > DexterityStat.Value))
             {
-                health = 20;
-                defense = 4;
                 attack = (double)(MagicStat.Value) / 1.3;
             }
 
             //If character has equal attributes, he is getting "middle attributes"
             else
             {
-                health = 35;
-                defense = 7;
                 attack = (double)(StrengthStat.Value / 2) + (double)(DexterityStat.Value / 2) + (double)(MagicStat.Value / 2);
             } 
         }
