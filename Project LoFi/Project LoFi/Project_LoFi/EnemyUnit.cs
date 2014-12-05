@@ -50,7 +50,7 @@ namespace Project_LoFi
 
         }
 
-        public EnemyUnit(int xValue, int yValue, string unitName, double hp, double defenseModifier, double attackModifier,
+        public EnemyUnit(int xValue, int yValue, string unitName, int hp, int defenseModifier, int attackModifier,
                             double critChance, int level, int strength, int dexterity, int magic, int xpDrop, int boss)
             : base(xValue, yValue, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic)
         {
@@ -65,7 +65,7 @@ namespace Project_LoFi
             }
         }
 
-        public EnemyUnit(int xValue, int yValue, Texture2D unitImage, string unitName, double hp, double defenseModifier, double attackModifier,
+        public EnemyUnit(int xValue, int yValue, Texture2D unitImage, string unitName, int hp, int defenseModifier, int attackModifier,
                             double critChance, int level, int strength, int dexterity, int magic, int xpDrop, int boss)
             : base(xValue, yValue, unitImage, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic)
         {
@@ -80,7 +80,7 @@ namespace Project_LoFi
             }
         }
 
-        public EnemyUnit(int xValue, int yValue, Texture2D unitImage, string unitName, double hp, double defenseModifier, double attackModifier,
+        public EnemyUnit(int xValue, int yValue, Texture2D unitImage, string unitName, int hp, int defenseModifier, int attackModifier,
                             double critChance, int level, int strength, int dexterity, int magic, Item equippedWeapon, Item equippedArmor,
                             List<Item> inventory, int xpDrop, int boss)
             : base(xValue, yValue, unitImage, unitName, hp, defenseModifier, attackModifier, critChance, level, strength, dexterity, magic,

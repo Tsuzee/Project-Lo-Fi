@@ -24,8 +24,8 @@ namespace ExternalTool
 
         private int health; // character health
         private int defense; // character defense
-        private double attack; // character attack
-        private double crit; // % for critical strike
+        private int attack; // character attack
+        private int crit; // % for critical strike
         private int level; // character level
         private int currentExp; // character experience
 
@@ -368,31 +368,31 @@ namespace ExternalTool
             }
             else
             {
-                crit = (double)DexterityStat.Value * 0.35; // formula for crit chance;
+                crit = (int)Math.Round(((double)DexterityStat.Value * 0.35)); // formula for crit chance;
             }
 
             //If strength is the main attribute - characters is a strength based.  He is getting more health, defense and attack
             if ((StrengthStat.Value > DexterityStat.Value) && (StrengthStat.Value > MagicStat.Value))
             {
-                attack = (double)(StrengthStat.Value / 2);
+                attack = (int)Math.Round((double)(StrengthStat.Value / 2));
             }
 
             // If dexterity is the main attribute - character is a dexterity based. He is getting less health and defense but higher crit chance
             else if ((DexterityStat.Value > StrengthStat.Value) && (DexterityStat.Value > MagicStat.Value))
             {
-                attack = (double)(DexterityStat.Value / 4);
+                attack = (int)Math.Round((double)(DexterityStat.Value / 4));
             }
 
             // If magic is the main attribute - character is a magic based.  He is getting less health and defense but has higher attack.
             else if ((MagicStat.Value > StrengthStat.Value) && (MagicStat.Value > DexterityStat.Value))
             {
-                attack = (double)(MagicStat.Value) / 1.3;
+                attack = (int)Math.Round((double)(MagicStat.Value) / 1.3);
             }
 
             //If character has equal attributes, he is getting "middle attributes"
             else
             {
-                attack = (double)(StrengthStat.Value / 2) + (double)(DexterityStat.Value / 2) + (double)(MagicStat.Value / 2);
+                attack = (int)Math.Round((double)(StrengthStat.Value / 2) + (double)(DexterityStat.Value / 2) + (double)(MagicStat.Value / 2));
             } 
         }
 

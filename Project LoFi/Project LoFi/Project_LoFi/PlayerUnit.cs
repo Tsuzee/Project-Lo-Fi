@@ -82,12 +82,12 @@ namespace Project_LoFi
         public override double Attack(Unit target)
         {
             EnemyUnit holder = (EnemyUnit)target;
-            double dmg;
-            double attackDmg = 0;
+            int dmg;
+            int attackDmg = 0;
 
             if (this.criticalStrike(CritChance) == true)
             {
-                attackDmg = this.AttackModifier * 2.2;
+                attackDmg = (int)(Math.Round(this.AttackModifier * 2.2));
             }
             else
             {

@@ -16,9 +16,9 @@ namespace Project_LoFi
     {
         /// --  Instance Variables  --
         private string name;
-        private double health;
-        private double defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
-        private double attackModifier;         // Represents current damage output. Affected by items.
+        private int health;
+        private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.
+        private int attackModifier;         // Represents current damage output. Affected by items.
         private double critChance;
         private int level;
         private int strength;
@@ -36,7 +36,7 @@ namespace Project_LoFi
             get { return name; }
             set { name = value; }
         }
-        public double Health
+        public int Health
         {
             set
             {
@@ -48,13 +48,13 @@ namespace Project_LoFi
             get { return health; }
         }
 
-        public double DefenseModifier
+        public int DefenseModifier
         {
             set { defenseModifier = value; }
             get { return defenseModifier; }
         }
 
-        public double AttackModifier
+        public int AttackModifier
         {
             set { attackModifier = value; }
             get { return attackModifier; }
@@ -143,7 +143,7 @@ namespace Project_LoFi
             Inventory = new List<Item>();
         }
 
-        public Unit(int xCoord, int yCoord, string unitName, double hp, double dMod, double aMod, double cChance,
+        public Unit(int xCoord, int yCoord, string unitName, int hp, int dMod, int aMod, double cChance,
                         int lvl, int str, int dex, int mag)
             : base(xCoord, yCoord)
         {
@@ -158,7 +158,7 @@ namespace Project_LoFi
             magic = mag;
         }
 
-        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, double hp, double dMod, double aMod, double cChance,
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
                         int lvl, int str, int dex, int mag)
             : base(xCoord, yCoord, unitImage)
         {
@@ -173,7 +173,7 @@ namespace Project_LoFi
             magic = mag;
         }
 
-        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, double hp, double dMod, double aMod, double cChance,
+        public Unit(int xCoord, int yCoord, Texture2D unitImage, string unitName, int hp, int dMod, int aMod, double cChance,
                         int lvl, int str, int dex, int mag, Item equippedWpn, Item equippedAmr, List<Item> inv)
             : base(xCoord, yCoord, unitImage)
         {
@@ -212,7 +212,7 @@ namespace Project_LoFi
         /// Method applies damage to a unit, taking into account the unit's defense.
         /// </summary>
         /// <param name="dmg"> dmg should be a positive number </param>
-        public double TakeDamage(double dmg)
+        public int TakeDamage(int dmg)
         {
             if (dmg > 0)                // As long as they're doing *some* damage
             {
