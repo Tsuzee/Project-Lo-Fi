@@ -248,6 +248,7 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         enemyList = scenario.enemyList;
+                        characterSheet.UpdateCharSheet(characterList[0], characterList[1], characterList[2]);
                         //screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         //players turn
@@ -737,8 +738,12 @@ namespace Project_LoFi
                 {
                     if (enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
                     {
-                        enemy.Attack(player);
+                        textLog[6] = enemy.Attack(player).ToString();
+                        textLog[2] = "";
+                        textLog[3] = "false";
                         textLog[5] = "true";
+                        textLog[7] = enemy.Name;
+                        textLog[8] = player.Name;
                         screenDrawer.updateTextLog(textLog);
                     }
                     else if (enemyAI.RunAway(enemy, player)) //should they run away
@@ -754,6 +759,7 @@ namespace Project_LoFi
                         }//end switch
 
                         //update draw information
+                        textLog[2] = "";
                         textLog[3] = "true";
                         textLog[4] = enemy.Name;
                         textLog[5] = "false";
@@ -775,6 +781,7 @@ namespace Project_LoFi
                         }//end switch
 
                         //update draw information
+                        textLog[2] = "";
                         textLog[3] = "true";
                         textLog[4] = enemy.Name;
                         textLog[5] = "false";

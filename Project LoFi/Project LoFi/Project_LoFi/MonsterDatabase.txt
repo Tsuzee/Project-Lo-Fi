@@ -1,11 +1,11 @@
 ﻿*Data, in the order it appears: monster index(also called txtrIndex),name,health,defense,attack,crit,level,strength,dex,magic,xp drop,isboss,weapon index,armor index (14 fields)
-0,Devil Scorpion,1,0,0,0.0,0,0,0,0,0,0,0,1
-1,Wyvern Chick,1,0,0,0.0,0,0,0,0,0,0,0,1
-2,Boss 1,2,0,0,0.0,0,0,0,0,0,1,0,1
-3,Mauler,1,0,0,0.0,0,0,0,0,0,0,0,1
-4,Goblin,1,0,0,0.0,0,0,0,0,0,0,0,1
-5,Nightmare,1,0,0,0.0,0,0,0,0,0,0,0,1
-6,Tornado Lizard,1,0,0,0.0,0,0,0,0,0,0,0,1
+0,Devil Scorpion,5,1,2,0.0,1,1,1,1,1,0,0,1
+1,Wyvern Chick,8,2,4,0.0,1,1,1,1,1,0,0,1
+2,Boss 1,2,0,0,0.0,1,1,1,1,1,1,0,1
+3,Mauler,3,1,1,0.0,1,1,1,1,1,0,0,1
+4,Goblin,5,1,2,0.0,1,1,1,1,1,0,0,1
+5,Nightmare,10,3,4,0.0,1,1,1,1,1,0,0,1
+6,Tornado Lizard,3,0,1,0.0,1,1,1,1,1,0,0,1
 7,Ant Lion,5,1,3,0.2,3,6,3,0,8,0,0,1
 8,Bone Fighter,3,0,1,0.0,1,3,1,0,1,0,0,1
 9,Boss 2,3,1,3,0.0,4,4,1,1,12,1,0,1
