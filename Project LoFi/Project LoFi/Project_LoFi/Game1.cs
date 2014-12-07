@@ -414,7 +414,7 @@ namespace Project_LoFi
                                     if (selected == SelectState.Selected)
                                     {
                                         selected = SelectState.NotSelected;
-                                        
+                                        selectedUnit = null;
                                     }
                                 }
                             }
