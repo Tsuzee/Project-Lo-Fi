@@ -250,16 +250,23 @@ namespace Project_LoFi
         public bool equipItem(Item equipment)
         {
             bool resultFlag = true;                 //Assume they'll equip successfully
-            if (equipment.ItemType == "weapon")
+            if (equipment != null && equipment.ItemType == "weapon")
             {
-                unequipItem(equipment);
+                unequipItem(equippedWeapon);
                 EquippedWeapon = equipment;
+                this.Strength += equipment.StrengthMod;
+                this.Dexterity += equipment.DexterityMod;
+                this.Magic += equipment.MagicMod;
                 this.AttackModifier += equipment.DmgMod;
+                this.CritChance += equipment.CritMod;
             }
-            else if (equipment.ItemType == "armor")
+            else if (equipment != null && equipment.ItemType == "armor")
             {
                 unequipItem(equipment);
                 EquippedArmor = equipment;
+                this.Strength += equipment.StrengthMod;
+                this.Dexterity += equipment.DexterityMod;
+                this.Magic += equipment.MagicMod;
                 this.DefenseModifier += equipment.ArmorMod;
             }
 
@@ -274,14 +281,21 @@ namespace Project_LoFi
         private bool unequipItem(Item equipment)
         {
             bool resultFlag = false;                                // Assume there will be problems
-            if (equipment == EquippedWeapon)
+            if (equipment != null && equipment == EquippedWeapon)
             {
-                this.AttackModifier -= EquippedWeapon.DmgMod;
+                this.Strength -= equipment.StrengthMod;
+                this.Dexterity -= equipment.DexterityMod;
+                this.Magic -= equipment.MagicMod;
+                this.AttackModifier -= equipment.DmgMod;
+                this.CritChance -= equipment.CritMod;
                 EquippedWeapon = null;
                 resultFlag = true;
             }
-            else if (equipment == EquippedArmor)
+            else if (equipment != null && equipment == EquippedArmor)
             {
+                this.Strength -= equipment.StrengthMod;
+                this.Dexterity -= equipment.DexterityMod;
+                this.Magic -= equipment.MagicMod;
                 this.DefenseModifier -= EquippedArmor.ArmorMod;
                 EquippedArmor = null;
                 resultFlag = true;

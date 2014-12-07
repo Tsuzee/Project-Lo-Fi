@@ -1,8 +1,20 @@
 ﻿* Data, in the order it appears: item index (doubles as txtrIndex), item name, strMod, dexMod, magMod, amrMod, dmgMod, critMod, type, desc
-0,monster weapon,0,0,0,0,0,0.0,weapon,A placeholder weapon for monsters.
-1,monster armor,0,0,0,0,0,0.0,armor,A placeholder armor for monsters.
-2,Sword,0,0,0,0,3,0.1,weapon,A basic sword.
-3,Dagger,0,0,0,0,2,0.3,weapon,A basic dagger.
-4,Staff,0,0,0,0,1,0.08,weapon,A basic staff.
-5,Leather Tunic,0,0,0,1,0,0.0,weapon,A basic leather tunic.
+0;monster weapon;0;0;0;0;0;0.0;weapon;A placeholder weapon for monsters.
+1;monster armor;0;0;0;0;0;0.0;armor;A placeholder armor for monsters.
+*Weapons
+2;Sword;0;0;0;0;3;0.01;weapon;A basic sword.
+3;Dagger;0;0;0;0;2;0.30;weapon;A basic dagger.
+4;Staff;0;0;0;0;1;0.08;weapon;A basic staff.
+5;Claymore;0;0;0;0;5;0.02;weapon;A proper warrior's weapon.
+6;Dirk;0;0;0;0;2;0.40;weapon;A long thrusting dagger.
+7;Naginata;0;0;0;0;4;0.18;weapon;A long staff with a blade at the end.
+*Armor
+8;Leather Jacket;0;0;0;1;0;0.0;armor;A stylish black leather jacket. Looks super cool, but isn't particularly protective.
+9;Brigandine;0;0;0;3;0;0.0;armor;A cuirass with reinforced lether over a light chain shirt.
+10;Plate mail;0;-2;0;5;0;0.0;armor;Heavy plate armor. Provides superior defense, but restricts movement.
+*Relics
+11;Nyarlathotep;-1;-1;-1;0;7;0.0;weapon;A strange, indestinguishable device that drains the strength of those who wield it.
+12;The King in Yellow;-3;-1;4;2;0;0.0;armor;A tattered yellow cloak. Those who wear it gain otherwordly understanding, but at great physical cost.
+13;Yig;-2;1;0;0;3;0.90;weapon;A dagger, crafted in the shape of a snake. The blade seems to whisper things.
+14;Cthulu;8;0;-8;4;0;0.0;armor;A strangely weightless cuirass embossed with symbols of dragons and sea creatures. Those who wear it feel great strength, but are said to go insane.
 * End File

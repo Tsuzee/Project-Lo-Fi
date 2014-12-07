@@ -1,14 +1,13 @@
-﻿// Aliaksandr Shumski
-// Level class creates level for the game. 
-// Has AddTextureToTheList method and Draw method
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
+
+/// Orig. class author: Aliaksandr Shumski
+/// Most recent edit: 12/07/14, by J. Cooper
 
 namespace Project_LoFi
 {
@@ -103,7 +102,7 @@ namespace Project_LoFi
                 {
                     if (currentLine.Contains('*') == false)     // If it's not a comment line
                     {
-                        string[] splitItemData = currentLine.Split(',');
+                        string[] splitItemData = currentLine.Split(';');
                         int itemTextureNum = Int32.Parse(splitItemData[0]);     // Currently unused
                         string name = splitItemData[1];
                         int strMod = Int32.Parse(splitItemData[2]);
@@ -175,11 +174,13 @@ namespace Project_LoFi
                         int dex = Int32.Parse(splitPlayerData[8]);
                         int mag = Int32.Parse(splitPlayerData[9]);
                         int curXP = Int32.Parse(splitPlayerData[10]);
-                        int eqpWpn = Int32.Parse(splitPlayerData[11]);      // Currently unused
-                        int eqpAmr = Int32.Parse(splitPlayerData[12]);      // Currently unused
+                        int eqpWpn = Int32.Parse(splitPlayerData[11]);
+                        int eqpAmr = Int32.Parse(splitPlayerData[12]);
 
                         PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, curXP);
                         pUnit.Img = charTextures[playerTextureNum];
+                        pUnit.equipItem(itemList[eqpWpn]);
+                        pUnit.equipItem(itemList[eqpAmr]);
 
                         //add player to the list
                         playerList.Add(pUnit);
@@ -239,11 +240,13 @@ namespace Project_LoFi
                         int mag = Int32.Parse(splitEnemyData[9]);
                         int xpDrop = Int32.Parse(splitEnemyData[10]);
                         int boss = Int32.Parse(splitEnemyData[11]);
-                        int wpnIndex = Int32.Parse(splitEnemyData[12]);     // Currently unused
-                        int amrIndex = Int32.Parse(splitEnemyData[13]);     // Currently unused
+                        int wpnIndex = Int32.Parse(splitEnemyData[12]);
+                        int amrIndex = Int32.Parse(splitEnemyData[13]);
 
                         EnemyUnit eUnit = new EnemyUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, xpDrop, boss);
                         eUnit.Img = enemyTextures[enemyTextureNum];
+                        eUnit.equipItem(itemList[wpnIndex]);
+                        eUnit.equipItem(itemList[amrIndex]);
 
                         //add enemy to the list
                         enemyDataBase.Add(eUnit);
