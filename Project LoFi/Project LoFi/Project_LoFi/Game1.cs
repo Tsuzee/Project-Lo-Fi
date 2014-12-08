@@ -248,7 +248,9 @@ namespace Project_LoFi
                 case GameState.Playing:
                     {
                         enemyList = scenario.enemyList;
-                        characterSheet.UpdateCharSheet(characterList[0], characterList[1], characterList[2]);
+
+                        characterSheet.UpdateCharSheet(characterList);
+
                         //screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
                         //players turn
@@ -388,8 +390,9 @@ namespace Project_LoFi
                                             textLog[6] = selectedUnit.Attack(target).ToString();
                                             if (target.IsDead() == true)
                                             {
-                                                
-                                                map[target.X, target.Y] = target.OccupiedSpace;
+                                                //remove monster corpse
+                                                target.RemoveCorpse(map);
+
                                                 enemyList.Remove(target);
                                                 if(target.IsBoss)
                                                 {
@@ -749,6 +752,12 @@ namespace Project_LoFi
                         textLog[7] = enemy.Name;
                         textLog[8] = player.Name;
                         screenDrawer.updateTextLog(textLog);
+
+                        if(player.IsDead())
+                        {
+                            player.RemoveCorpse(map);
+                            characterList.Remove(player);
+                        }
                     }
                     else if (enemyAI.RunAway(enemy, player)) //should they run away
                     {

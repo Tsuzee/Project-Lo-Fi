@@ -117,37 +117,6 @@ namespace Project_LoFi
             }// And we're done, because units can only move into passable terrain spaces
 
             return resultFlag;
-
-            /*
-             * I personally hold an irrational hatred for switch statements, but here's one of those
-             * if you'd prefer that for the test on dir's value
-             *
-                switch (dir)
-                {
-                    case 0:
-                        {
-                            testY -= 1;         // Go up 1 (remember our map starts at the top-left corner
-                            break;
-                        }
-                    case 1:
-                        {
-                            testY += 1;         // Go down 1
-                            break;
-                        }
-                    case 2:
-                        {
-                            testX -= 1;         // Go left 1
-                            break;
-                        }
-                    case 3:
-                        {
-                            testX += 1;         // Go right 1
-                            break;
-                        }
-                }//End of switch
-             * 
-             * Yeah. Tell me you prefer that to an 8 line if
-             */
             
         }//End of Move method
 
@@ -157,7 +126,8 @@ namespace Project_LoFi
         /// <param name="map"></param>
         public virtual void RemoveCorpse(GridOccupant[ , ] map)
         {
-            // Removal logic here - this method should be overwritten by derived classes
+
+            map[this.X, this.Y] = this.OccupiedSpace;
         }
 
         /// --  End of Methods

@@ -50,49 +50,62 @@ namespace Project_LoFi
 
         }
 
-        public void UpdateCharSheet(PlayerUnit player1, PlayerUnit player2, PlayerUnit player3)
+        public void UpdateCharSheet(List<PlayerUnit> charList)
         {
             //Player 1
-            P1groupBox.Text = player1.Name.ToString();
-            //P1pictureBox.Image = player1.Img;
-            P1LevelLabel.Text = player1.Level.ToString();
-            P1HealthLabel.Text = player1.Health.ToString();
-            P1StrengthLabel.Text = player1.Strength.ToString();
-            P1DexterityLabel.Text = player1.Dexterity.ToString();
-            P1MagicLabel.Text = player1.Magic.ToString();
-            P1AttModLabel.Text = player1.AttackModifier.ToString();
-            P1DefModLabel.Text = player1.DefenseModifier.ToString();
-            P1CritChanceLabel.Text = player1.CritChance.ToString();
-            //P1WeaponLabel.Text = player1.EquippedWeapon.ToString();
-            //P1ArmorLabel.Text = player1.EquippedArmor.ToString();
+            if (charList[0] != null)
+            {
+                P1groupBox.Text = charList[0].Name.ToString();
+                //P1pictureBox.Image = charList[0].Img;
+                P1LevelLabel.Text = charList[0].Level.ToString();
+                P1HealthLabel.Text = charList[0].Health.ToString();
+                P1StrengthLabel.Text = charList[0].Strength.ToString();
+                P1DexterityLabel.Text = charList[0].Dexterity.ToString();
+                P1MagicLabel.Text = charList[0].Magic.ToString();
+                P1AttModLabel.Text = charList[0].AttackModifier.ToString();
+                P1DefModLabel.Text = charList[0].DefenseModifier.ToString();
+                P1CritChanceLabel.Text = charList[0].CritChance.ToString();
+                //P1WeaponLabel.Text = charList[0].EquippedWeapon.ToString();
+                //P1ArmorLabel.Text = charList[0].EquippedArmor.ToString();
+            }
 
             //player 2
-            P2groupBox.Text = player2.Name.ToString();
-            //P2pictureBox.Image = player2.Img;
-            P2LevelLabel.Text = player2.Level.ToString();
-            P2HealthLabel.Text = player2.Health.ToString();
-            P2StrengthLabel.Text = player2.Strength.ToString();
-            P2DexterityLabel.Text = player2.Dexterity.ToString();
-            P2MagicLabel.Text = player2.Magic.ToString();
-            P2AttModLabel.Text = player2.AttackModifier.ToString();
-            P2DefModLabel.Text = player2.DefenseModifier.ToString();
-            P2CritChanceLabel.Text = player2.CritChance.ToString();
-            //P2WeaponLabel.Text = player2.EquippedWeapon.ToString();
-            //P2ArmorLabel.Text = player2.EquippedArmor.ToString();
+            if (charList[1] != null)
+            {
+                P2groupBox.Text = charList[1].Name.ToString();
+                //P2pictureBox.Image = charList[1].Img;
+                P2LevelLabel.Text = charList[1].Level.ToString();
+                P2HealthLabel.Text = charList[1].Health.ToString();
+                P2StrengthLabel.Text = charList[1].Strength.ToString();
+                P2DexterityLabel.Text = charList[1].Dexterity.ToString();
+                P2MagicLabel.Text = charList[1].Magic.ToString();
+                P2AttModLabel.Text = charList[1].AttackModifier.ToString();
+                P2DefModLabel.Text = charList[1].DefenseModifier.ToString();
+                P2CritChanceLabel.Text = charList[1].CritChance.ToString();
+                //P2WeaponLabel.Text = charList[1].EquippedWeapon.ToString();
+                //P2ArmorLabel.Text = charList[1].EquippedArmor.ToString();
+            }
 
             //player 3
-            P3groupBox.Text = player3.Name.ToString();
-            //P3pictureBox.Image = player3.Img;
-            P3LevelLabel.Text = player3.Level.ToString();
-            P3HealthLabel.Text = player3.Health.ToString();
-            P3StrengthLabel.Text = player3.Strength.ToString();
-            P3DexterityLabel.Text = player3.Dexterity.ToString();
-            P3MagicLabel.Text = player3.Magic.ToString();
-            P3AttModLabel.Text = player3.AttackModifier.ToString();
-            P3DefModLabel.Text = player3.DefenseModifier.ToString();
-            P3CritChanceLabel.Text = player3.CritChance.ToString();
-            //P3WeaponLabel.Text = player3.EquippedWeapon.ToString();
-            //P3ArmorLabel.Text = player3.EquippedArmor.ToString();
+            try
+            {
+                if (charList[2] != null)
+                {
+                    P3groupBox.Text = charList[2].Name.ToString();
+                    //P3pictureBox.Image = charList[2].Img;
+                    P3LevelLabel.Text = charList[2].Level.ToString();
+                    P3HealthLabel.Text = charList[2].Health.ToString();
+                    P3StrengthLabel.Text = charList[2].Strength.ToString();
+                    P3DexterityLabel.Text = charList[2].Dexterity.ToString();
+                    P3MagicLabel.Text = charList[2].Magic.ToString();
+                    P3AttModLabel.Text = charList[2].AttackModifier.ToString();
+                    P3DefModLabel.Text = charList[2].DefenseModifier.ToString();
+                    P3CritChanceLabel.Text = charList[2].CritChance.ToString();
+                    //P3WeaponLabel.Text = charList[2].EquippedWeapon.ToString();
+                    //P3ArmorLabel.Text = charList[2].EquippedArmor.ToString();
+                }
+            }
+            catch { }
         }
 
     }//end class
