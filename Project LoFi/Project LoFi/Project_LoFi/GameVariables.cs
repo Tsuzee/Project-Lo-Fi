@@ -80,7 +80,7 @@ namespace Project_LoFi
             battleHighLighter = myContent.Load<Texture2D>("battlehighlight");
 
             //game screens
-            screens[0] = myContent.Load<Texture2D>("Main Menu");
+            screens[0] = myContent.Load<Texture2D>("Main Menu2");
             screens[1] = myContent.Load<Texture2D>("Next Level");
             screens[2] = myContent.Load<Texture2D>("Win");
             screens[3] = myContent.Load<Texture2D>("Credits");

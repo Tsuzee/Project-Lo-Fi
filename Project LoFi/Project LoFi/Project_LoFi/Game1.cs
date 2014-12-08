@@ -353,6 +353,10 @@ namespace Project_LoFi
                                                     //update text log info to be drawn to screen
                                                     textLog[1] = "true";
                                                     textLog[2] = selectedUnit.Name;
+                                                    textLog[5] = "false";
+                                                    textLog[6] = "";
+                                                    textLog[7] = "";
+                                                    textLog[8] = "";
                                                     screenDrawer.updateTextLog(textLog);
 
                                                     // Deselect the unit, they've moved
