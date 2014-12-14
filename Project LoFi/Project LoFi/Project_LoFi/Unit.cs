@@ -302,6 +302,47 @@ namespace Project_LoFi
             }
             return resultFlag;
         }
+
+        public void setStats()
+        {
+
+            health = (int)((double)(strength) * 2 + (double)(dexterity) * 1 + (double)(magic) * 0.75);
+            defenseModifier = (int)((double)(strength) * 1 + (double)(dexterity) * 0.5 + (double)(magic) * 0.25);
+
+            if (dexterity == 0)
+            {
+                critChance = 1;
+            }
+            else
+            {
+                critChance = (int)Math.Round(((double)dexterity * 2.5)); // formula for crit chance;
+            }
+
+            //If strength is the main attribute - characters is a strength based.  He is getting more health, defense and attack
+            if ((strength > dexterity) && (strength > magic))
+            {
+                attackModifier = (int)Math.Round((double)(strength / 2));
+            }
+
+            // If dexterity is the main attribute - character is a dexterity based. He is getting less health and defense but higher crit chance
+            else if ((dexterity > strength) && (dexterity > magic))
+            {
+                attackModifier = (int)Math.Round((double)(dexterity / 2.5));
+            }
+
+            // If magic is the main attribute - character is a magic based.  He is getting less health and defense but has higher attack.
+            else if ((magic > strength) && (magic > dexterity))
+            {
+                attackModifier = (int)Math.Round((double)(magic) / 1.3);
+            }
+
+            //If character has equal attributes, he is getting "middle attributes"
+            else
+            {
+                attackModifier = (int)Math.Round((double)(strength / 2) + (double)(dexterity / 2) + (double)(magic / 2));
+            } 
+
+        }
        /// <summary>
        /// Check if critical strike occured or not. 
        /// </summary>
