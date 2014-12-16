@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -53,6 +54,7 @@ namespace Project_LoFi
          */
         public Texture2D[] enemyTextures;
         public Texture2D[] charTextures;
+        public Image[] charImages;
        
         /// --  Constructors    --
 
@@ -62,6 +64,7 @@ namespace Project_LoFi
 
             terrainTextures = new Texture2D[130];        // Default size of 20 - adjust as necessary
             charTextures = new Texture2D[6];
+            charImages = new Image[6];
             enemyTextures = new Texture2D[21];
             screens = new Texture2D[4];
         }
@@ -243,6 +246,10 @@ namespace Project_LoFi
             charTextures[0] = myContent.Load<Texture2D>("Textures\\indianajones");
             charTextures[1] = myContent.Load<Texture2D>("Textures\\grannyweatherwax");
             charTextures[2] = myContent.Load<Texture2D>("Textures\\tremel");
+            
+            charImages[0] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/indianajones.png");
+            charImages[1] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/grannyweatherwax.png");
+            charImages[2] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/tremel.png");
         }
 
 

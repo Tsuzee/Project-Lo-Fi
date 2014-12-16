@@ -464,6 +464,21 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
+                            if (keyState.IsKeyDown(Keys.C))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.C))
+                                {
+                                    if (characterSheet.IsOpen())
+                                    {
+                                        gamePlay.CloseCharacterSheet(characterSheet);
+                                    }
+                                    else if (!characterSheet.IsOpen())
+                                    {
+                                        gamePlay.OpenCharacterSheet(characterSheet);
+                                    }
+                                }
+                            }
+
                             textLog[0] = numOfTurns.ToString();
                             textLog[1] = "false";
                             screenDrawer.updateTextLog(textLog);

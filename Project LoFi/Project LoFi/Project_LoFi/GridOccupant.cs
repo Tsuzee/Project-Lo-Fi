@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -21,6 +22,7 @@ namespace Project_LoFi
         private int x;
         private int y;
         private Texture2D img;
+        private Image charImage;
         ///  --  End of Instance Variables   --
 
 
@@ -42,6 +44,12 @@ namespace Project_LoFi
         {
             set { img = value; }
             get { return img; }
+        }
+
+        public Image CharImg
+        {
+            set { charImage = value; }
+            get { return charImage; }
         }
         /// --  End of Properties   --
 

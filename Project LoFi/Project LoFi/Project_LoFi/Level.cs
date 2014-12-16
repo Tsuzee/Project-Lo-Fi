@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
@@ -19,6 +20,7 @@ namespace Project_LoFi
         private List<Texture2D> mapTextures;            // Store textures for maps
         private List<Texture2D> enemyTextures;          // Store textures for maps
         private List<Texture2D> charTextures;           // Store textures for maps
+        private List<Image> charImages;
         private List<PlayerUnit> playerList;            // Store the players, so Game1 knows who the human can control
         public List<EnemyUnit> enemyList;
         public List<Item> itemList;
@@ -51,6 +53,7 @@ namespace Project_LoFi
         {
             mapTextures = new List<Texture2D>();
             charTextures = new List<Texture2D>();
+            charImages = new List<Image>();
             enemyTextures = new List<Texture2D>();
             playerList = new List<PlayerUnit>();
             enemyList = new List<EnemyUnit>();
@@ -179,6 +182,7 @@ namespace Project_LoFi
 
                         PlayerUnit pUnit = new PlayerUnit(xCoord, yCoord, name, health, defense, attack, crit, lvl, str, dex, mag, curXP);
                         pUnit.Img = charTextures[playerTextureNum];
+                        pUnit.CharImg = charImages[playerTextureNum];
                         pUnit.equipItem(itemList[eqpWpn]);
                         pUnit.equipItem(itemList[eqpAmr]);
 
@@ -376,6 +380,8 @@ namespace Project_LoFi
 
             for (int i = 0; i < gv.charTextures.Length; i++)
                 charTextures.Add(gv.charTextures[i]);
+            for (int i = 0; i < gv.charImages.Length; i++)
+                charImages.Add(gv.charImages[i]);
         }
 
         /*
