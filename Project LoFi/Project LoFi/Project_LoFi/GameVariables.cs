@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -246,10 +247,26 @@ namespace Project_LoFi
             charTextures[0] = myContent.Load<Texture2D>("Textures\\indianajones");
             charTextures[1] = myContent.Load<Texture2D>("Textures\\grannyweatherwax");
             charTextures[2] = myContent.Load<Texture2D>("Textures\\tremel");
+
+            // Fancy way to load charactr textures to images for the character sheet without needing file paths.
             
-            charImages[0] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/indianajones.png");
-            charImages[1] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/grannyweatherwax.png");
-            charImages[2] = Image.FromFile("Z:/IGMProfile/Documents/temp/Project LoFi/Project LoFi/Project_LoFiContent/Textures/tremel.png");
+            //player 1
+            MemoryStream mem = new MemoryStream();
+            charTextures[0].SaveAsPng(mem, 50, 60);
+            Image temp = Image.FromStream(mem);
+            charImages[0] = temp;
+
+            //player 2
+            mem = new MemoryStream();
+            charTextures[1].SaveAsPng(mem, 45, 60);
+            temp = Image.FromStream(mem);
+            charImages[1] = temp;
+
+            //player 3
+            mem = new MemoryStream();
+            charTextures[2].SaveAsPng(mem, 50, 60);
+            temp = Image.FromStream(mem);
+            charImages[2] = temp;
         }
 
 

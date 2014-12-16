@@ -249,7 +249,13 @@ namespace Project_LoFi
                     {
                         enemyList = scenario.enemyList;
 
-                        characterSheet.UpdateCharSheet(characterList);
+                        if (frameNum % 30 == 0)
+                        {
+                            characterSheet.UpdateCharSheet(characterList);
+                            
+                            if (frameNum > 3000) { frameNum = 0; }
+                        }
+                        frameNum++;
 
                         //screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -612,7 +618,7 @@ namespace Project_LoFi
                         GraphicsDevice.Clear(Color.Black);
 
                         screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
-
+                        frameNum = 0;
                         break;
                     }
                 case GameState.Playing:

@@ -79,6 +79,7 @@ namespace Project_LoFi
             catch 
             {
                 P1groupBox.Text = "Dead Player";
+                P1pictureBox.Image = null;
                 P1LevelLabel.Text = "0";
                 P1HealthLabel.Text = "0";
                 P1StrengthLabel.Text = "0";
@@ -111,6 +112,7 @@ namespace Project_LoFi
             catch 
             {
                 P2groupBox.Text = "Dead Player";
+                P2pictureBox.Image = null;
                 P2LevelLabel.Text = "0";
                 P2HealthLabel.Text = "0";
                 P2StrengthLabel.Text = "0";
@@ -143,6 +145,7 @@ namespace Project_LoFi
             catch 
             {
                 P3groupBox.Text = "Dead Player";
+                P3pictureBox.Image = null;
                 P3LevelLabel.Text = "0";
                 P3HealthLabel.Text = "0";
                 P3StrengthLabel.Text = "0";
