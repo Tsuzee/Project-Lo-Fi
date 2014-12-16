@@ -145,27 +145,33 @@ namespace Project_LoFi
         public PlayerUnit ClosestPlayer(EnemyUnit enemy)
         {
             //set x, y coordinates to some number that could never be on the map
-            double x;
-            double y;
-            double z;
+            double x = double.MaxValue;
+            double y = double.MaxValue;
+            double z = double.MaxValue;
             int pNum = 0;
 
             //check how close the player is to the enemy and store new x,y coords
-            x = Math.Sqrt(  Math.Pow(((characterList[0].X - enemy.X)), 2) + Math.Pow(((characterList[0].Y - enemy.Y)),2) );
-            y = Math.Sqrt(Math.Pow(((characterList[1].X - enemy.X)), 2) + Math.Pow(((characterList[1].Y - enemy.Y)), 2));
-            z = Math.Sqrt(Math.Pow(((characterList[2].X - enemy.X)), 2) + Math.Pow(((characterList[2].Y - enemy.Y)), 2));
+            if (characterList.Count > 0)
+                x = Math.Sqrt(Math.Pow(((characterList[0].X - enemy.X)), 2) + Math.Pow(((characterList[0].Y - enemy.Y)), 2));
+            if (characterList.Count > 1)
+                y = Math.Sqrt(Math.Pow(((characterList[1].X - enemy.X)), 2) + Math.Pow(((characterList[1].Y - enemy.Y)), 2));
+            if (characterList.Count > 2)
+                z = Math.Sqrt(Math.Pow(((characterList[2].X - enemy.X)), 2) + Math.Pow(((characterList[2].Y - enemy.Y)), 2));
 
             if( x <= y && x <= z)
             {
-                return characterList[0];
+                if (characterList.Count > 0)
+                    return characterList[0];
             }
             else if (y <= z && y <= z)
             {
-                return characterList[1];
+                if (characterList.Count > 1)
+                    return characterList[1];
             }
             else if (z <= x && z <= y)
             {
-                return characterList[2];
+                if (characterList.Count > 0)
+                    return characterList[2];
             }
             //return character closest to the enemy
             return characterList[pNum];

@@ -215,15 +215,15 @@ namespace Project_LoFi
         /// <param name="dmg"> dmg should be a positive number </param>
         public int TakeDamage(int dmg)
         {
-            if (dmg > 0)                // As long as they're doing *some* damage
-            {
-                Health -= (dmg - DefenseModifier);  // Subtract your defense from the dmg, then apply the dmg)
-                return (dmg - DefenseModifier);
-            }
-            else if (dmg < 0)           // If they did "negative" damage (healed)
+            if (dmg < 0)                // If they did "negative" damage (healed)
             {
                 Health -= dmg;          // then don't include the defense modifier
                 return dmg;
+            }
+            else if (dmg - DefenseModifier > 0)     // As long as they're doing *some* damage
+            {
+                Health -= (dmg - DefenseModifier);  // Subtract your defense from the dmg, then apply the dmg)
+                return (dmg - DefenseModifier);
             }
             else
             {
