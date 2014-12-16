@@ -20,7 +20,7 @@ namespace Project_LoFi
         /// --  Instance Variables  --
         private int expDrop;                    // Variable to track how much experience an enemy gives upon death
                                                 // We can also handle this with methods, if we change a couple things
-        private bool isBoss;
+        
         /// --  End of Instance Variables   --
 
 

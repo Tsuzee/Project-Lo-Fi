@@ -19,6 +19,8 @@ namespace Project_LoFi
         private bool selected;
         public Texture2D texture;
         private Texture2D selTexture;
+        private Unit unit = null;
+
         public bool Selected
         {
             get { return selected; }
@@ -43,7 +45,7 @@ namespace Project_LoFi
         /// Draw the map
         /// </summary>
         /// <param name="drawTexture"></param>
-        public void Draw(SpriteBatch drawTexture)
+        public void Draw(SpriteBatch drawTexture, GridOccupant[,] map, GameVariables gameVars)
         {
             // draw that texture if it is the players turn
             if (isVisible && !selected)
@@ -51,8 +53,42 @@ namespace Project_LoFi
                 drawTexture.Draw(texture, new Rectangle(cursorPos.X * GameVariables.textureWidth,
                     cursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,
                     GameVariables.textureHeight), Color.White);
+
+                //draw unit information if cursor is over them
+                if (map[cursorPos.X, cursorPos.Y] is EnemyUnit || map[cursorPos.X, cursorPos.Y] is PlayerUnit)
+                {
+                    if (map[cursorPos.X, cursorPos.Y] is EnemyUnit)
+                    {
+                        unit = (EnemyUnit)map[cursorPos.X, cursorPos.Y];
+                    }
+                    else if (map[cursorPos.X, cursorPos.Y] is PlayerUnit)
+                    {
+                        unit = (PlayerUnit)map[cursorPos.X, cursorPos.Y];
+                    }
+
+                    if (unit != null)
+                    {
+                        //unit name
+                        drawTexture.DrawString(gameVars.Font1, unit.Name, new Vector2(850, 653),
+                    Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+                        //unit HP, Attack, Defense
+                        if (unit.isBoss)
+                        {
+                            drawTexture.DrawString(gameVars.Font1, "IMPOSSIBLE TO GAUGE!!", new Vector2(850, 680),
+                           Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+                        }
+                        else
+                        {
+                            drawTexture.DrawString(gameVars.Font1, "HP:" + unit.Health + " Att:" + unit.AttackModifier + " Def:" + unit.DefenseModifier, new Vector2(850, 680),
+                           Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+                        }
+                    }
+                }
+
+
             }
-            else if(isVisible && selected)
+            else if (isVisible && selected)
             {
                 drawTexture.Draw(selTexture, new Rectangle(cursorPos.X * GameVariables.textureWidth,
                     cursorPos.Y * GameVariables.textureHeight, GameVariables.textureWidth,

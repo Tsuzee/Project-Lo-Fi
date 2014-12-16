@@ -45,13 +45,15 @@ namespace Project_LoFi
         //  --  Methods --
 
         public void updateTextLog(string[] info)
-        {// 0:Number of turns, 1:did player move, 2:player name, 3: did enemy move, 4:enemy name, 5:was attack called, 6:dmg delt, 7:Attacker, 8:Target
+        {// 0:Number of turns, 1:did player move, 2:player name, 3: did enemy move, 4:enemy name, 
+         // 5:was attack called, 6:dmg delt, 7:Attacker, 8:Target, 9:Level Objective
             log[0] = info[0];
             log[2] = info[2];
             log[4] = info[4];
             log[6] = info[6];
             log[7] = info[7];
             log[8] = info[8];
+            log[9] = info[9];
 
             if( info[1] == "true")
             {
@@ -271,17 +273,20 @@ namespace Project_LoFi
         //draw text information for player
         public void DrawGameInfo(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, TurnState turn)
         {
-            spriteBatch.DrawString(gameVars.Font1, "Turns remaining: " + log[0], new Vector2(10, 660), 
+            spriteBatch.DrawString(gameVars.Font1, "Level Objective: " + log[9], new Vector2(10, 653),
+                Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+            spriteBatch.DrawString(gameVars.Font1, "Turns remaining: " + log[0], new Vector2(10, 680), 
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             if(pMoved)
             {
-                spriteBatch.DrawString(gameVars.Font1, log[2] + " moved", new Vector2(10, 680),
+                spriteBatch.DrawString(gameVars.Font1, log[2] + " moved", new Vector2(10, 700),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
 
             if (eMoved)
             {
-                spriteBatch.DrawString(gameVars.Font1, log[4] + " moved", new Vector2(10, 680),
+                spriteBatch.DrawString(gameVars.Font1, log[4] + " moved", new Vector2(10, 700),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
 
@@ -289,12 +294,10 @@ namespace Project_LoFi
             {
                 string combat = log[7] + " attacks " + log[8] + " and deals " + log[6] + " damage.";
 
-                spriteBatch.DrawString(gameVars.Font1, combat, new Vector2(10, 680),
+                spriteBatch.DrawString(gameVars.Font1, combat, new Vector2(10, 700),
                 Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             }
         }//end draw gameinfo
-
-
 
     }//End of Draw class
 }

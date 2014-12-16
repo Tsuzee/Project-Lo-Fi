@@ -231,10 +231,10 @@ namespace Project_LoFi
                                     level = 1;
                                 }
                                 currentState = GameState.Playing;
-                                //setup level
-                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
-                                
+                                //setup level
+                                level = 3; //test code to force a level not 1 to start first
+                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
                                 currentTurn = TurnState.Player;
                             }
@@ -249,7 +249,13 @@ namespace Project_LoFi
                     {
                         enemyList = scenario.enemyList;
 
-                        characterSheet.UpdateCharSheet(characterList);
+                        if (frameNum % 30 == 0)
+                        {
+                            characterSheet.UpdateCharSheet(characterList);
+                            
+                            if (frameNum > 3000) { frameNum = 0; }
+                        }
+                        frameNum++;
 
                         //screenDrawer.enemyList = enemyList;
                         /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -464,6 +470,21 @@ namespace Project_LoFi
                         //npc's turn
                         if(currentTurn == TurnState.NPC)
                         {
+                            if (keyState.IsKeyDown(Keys.C))
+                            {
+                                if (SingleKeyPress(keyState, previousKeyState, Keys.C))
+                                {
+                                    if (characterSheet.IsOpen())
+                                    {
+                                        gamePlay.CloseCharacterSheet(characterSheet);
+                                    }
+                                    else if (!characterSheet.IsOpen())
+                                    {
+                                        gamePlay.OpenCharacterSheet(characterSheet);
+                                    }
+                                }
+                            }
+
                             textLog[0] = numOfTurns.ToString();
                             textLog[1] = "false";
                             screenDrawer.updateTextLog(textLog);
@@ -597,7 +618,7 @@ namespace Project_LoFi
                         GraphicsDevice.Clear(Color.Black);
 
                         screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
-
+                        frameNum = 0;
                         break;
                     }
                 case GameState.Playing:
@@ -606,7 +627,7 @@ namespace Project_LoFi
                         screenDrawer.DrawMap(map, spriteBatch, gameVars);
                         if (selectedUnit != null)
                             screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
-                        cursor.Draw(spriteBatch);
+                        cursor.Draw(spriteBatch, map, gameVars);
                         screenDrawer.DrawGameInfo(gameVars, spriteBatch, GraphicsDevice, currentTurn);
                         break;
                     }
@@ -642,6 +663,8 @@ namespace Project_LoFi
                 case 1:
                     {
                         scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the Red Devil";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 case 2:
@@ -649,6 +672,8 @@ namespace Project_LoFi
                         ResetGameForNextLevel();
                         //scenario.ResetGameForNextLevel();
                         scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the Rock Golem";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 case 3:
@@ -656,6 +681,8 @@ namespace Project_LoFi
                         ResetGameForNextLevel();
                         //scenario.ResetGameForNextLevel();
                         scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the evil master Dead Beard";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 default:

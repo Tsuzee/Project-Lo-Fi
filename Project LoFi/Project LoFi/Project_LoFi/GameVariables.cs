@@ -5,6 +5,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Drawing;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -53,6 +55,7 @@ namespace Project_LoFi
          */
         public Texture2D[] enemyTextures;
         public Texture2D[] charTextures;
+        public Image[] charImages;
        
         /// --  Constructors    --
 
@@ -62,6 +65,7 @@ namespace Project_LoFi
 
             terrainTextures = new Texture2D[130];        // Default size of 20 - adjust as necessary
             charTextures = new Texture2D[6];
+            charImages = new Image[6];
             enemyTextures = new Texture2D[21];
             screens = new Texture2D[4];
         }
@@ -243,6 +247,26 @@ namespace Project_LoFi
             charTextures[0] = myContent.Load<Texture2D>("Textures\\indianajones");
             charTextures[1] = myContent.Load<Texture2D>("Textures\\grannyweatherwax");
             charTextures[2] = myContent.Load<Texture2D>("Textures\\tremel");
+
+            // Fancy way to load charactr textures to images for the character sheet without needing file paths.
+            
+            //player 1
+            MemoryStream mem = new MemoryStream();
+            charTextures[0].SaveAsPng(mem, 50, 60);
+            Image temp = Image.FromStream(mem);
+            charImages[0] = temp;
+
+            //player 2
+            mem = new MemoryStream();
+            charTextures[1].SaveAsPng(mem, 45, 60);
+            temp = Image.FromStream(mem);
+            charImages[1] = temp;
+
+            //player 3
+            mem = new MemoryStream();
+            charTextures[2].SaveAsPng(mem, 50, 60);
+            temp = Image.FromStream(mem);
+            charImages[2] = temp;
         }
 
 
