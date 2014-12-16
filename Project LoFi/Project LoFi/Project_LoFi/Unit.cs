@@ -15,6 +15,7 @@ namespace Project_LoFi
    public class Unit : MovableGridOccupant
     {
         /// --  Instance Variables  --
+        public bool isBoss;
         private string name;
         private int health;
         private int defenseModifier;        // Reduces damage taken. This is how terrain/armor works.

@@ -233,7 +233,7 @@ namespace Project_LoFi
                                 currentState = GameState.Playing;
 
                                 //setup level
-                                //level = 3; //test code to force a level not 1 to start first
+                                level = 3; //test code to force a level not 1 to start first
                                 SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
                                 currentTurn = TurnState.Player;
@@ -627,7 +627,7 @@ namespace Project_LoFi
                         screenDrawer.DrawMap(map, spriteBatch, gameVars);
                         if (selectedUnit != null)
                             screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
-                        cursor.Draw(spriteBatch);
+                        cursor.Draw(spriteBatch, map, gameVars);
                         screenDrawer.DrawGameInfo(gameVars, spriteBatch, GraphicsDevice, currentTurn);
                         break;
                     }

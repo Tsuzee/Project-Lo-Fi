@@ -299,7 +299,5 @@ namespace Project_LoFi
             }
         }//end draw gameinfo
 
-
-
     }//End of Draw class
 }
