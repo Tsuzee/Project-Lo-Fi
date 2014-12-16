@@ -145,6 +145,7 @@ namespace Project_LoFi
         public PlayerUnit ClosestPlayer(EnemyUnit enemy)
         {
             //set x, y coordinates to some number that could never be on the map
+
             double x = double.MaxValue;
             double y = double.MaxValue;
             double z = double.MaxValue;
@@ -173,8 +174,16 @@ namespace Project_LoFi
                 if (characterList.Count > 0)
                     return characterList[2];
             }
+
             //return character closest to the enemy
-            return characterList[pNum];
+                if (characterList.Count > 0)
+                {
+                    return characterList[pNum];
+                }
+                else
+                {
+                    return null;
+                }
         }//end ClosestPlayer
 
     }//end class
