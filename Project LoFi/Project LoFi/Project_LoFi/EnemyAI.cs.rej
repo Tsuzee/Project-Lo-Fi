@@ -1,0 +1,76 @@
+diff a/Project LoFi/Project LoFi/Project_LoFi/EnemyAI.cs b/Project LoFi/Project LoFi/Project_LoFi/EnemyAI.cs	(rejected hunks)
+@@ -145,30 +145,55 @@
+         public PlayerUnit ClosestPlayer(EnemyUnit enemy)
+         {
+             //set x, y coordinates to some number that could never be on the map
+-            double x;
+-            double y;
+-            double z;
++            double x = 0;
++            double y = 0;
++            double z = 0;
+             int pNum = 0;
+ 
+             //check how close the player is to the enemy and store new x,y coords
+-            x = Math.Sqrt(  Math.Pow(((characterList[0].X - enemy.X)), 2) + Math.Pow(((characterList[0].Y - enemy.Y)),2) );
+-            y = Math.Sqrt(Math.Pow(((characterList[1].X - enemy.X)), 2) + Math.Pow(((characterList[1].Y - enemy.Y)), 2));
+-            z = Math.Sqrt(Math.Pow(((characterList[2].X - enemy.X)), 2) + Math.Pow(((characterList[2].Y - enemy.Y)), 2));
++                try
++                {
++                    x = Math.Sqrt(Math.Pow(((characterList[0].X - enemy.X)), 2) + Math.Pow(((characterList[0].Y - enemy.Y)), 2));
++                }
++                catch { }
++                try
++                {
++                    y = Math.Sqrt(Math.Pow(((characterList[1].X - enemy.X)), 2) + Math.Pow(((characterList[1].Y - enemy.Y)), 2));
++                }
++                catch { }
+ 
+-            if( x <= y && x <= z)
+-            {
+-                return characterList[0];
+-            }
+-            else if (y <= z && y <= z)
+-            {
+-                return characterList[1];
+-            }
+-            else if (z <= x && z <= y)
+-            {
+-                return characterList[2];
+-            }
++                try
++                {
++                    z = Math.Sqrt(Math.Pow(((characterList[2].X - enemy.X)), 2) + Math.Pow(((characterList[2].Y - enemy.Y)), 2));
++                }
++                catch { }
++
++                try
++                {
++                    if (x <= y && x <= z)
++                    {
++                        return characterList[0];
++                    }
++                    else if (y < z && y <= z)
++                    {
++                        return characterList[1];
++                    }
++                    else if (z < x && z < y)
++                    {
++                        return characterList[2];
++                    }
++                }
++                catch { }
++            
+             //return character closest to the enemy
+-            return characterList[pNum];
++                if (characterList.Count > 0)
++                {
++                    return characterList[pNum];
++                }
++                else
++                {
++                    return null;
++                }
+         }//end ClosestPlayer
+ 
+     }//end class

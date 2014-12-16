@@ -299,5 +299,10 @@ namespace Project_LoFi
             }
         }//end draw gameinfo
 
+        public void DrawGameOver(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        {
+            spriteBatch.Draw(gameVars.screens[4], new Rectangle(0, 0, 1200, 780), Color.White);
+        }
+
     }//End of Draw class
 }

@@ -67,7 +67,7 @@ namespace Project_LoFi
             charTextures = new Texture2D[6];
             charImages = new Image[6];
             enemyTextures = new Texture2D[21];
-            screens = new Texture2D[4];
+            screens = new Texture2D[5];
         }
 
         /// --  End of Constructors --
@@ -88,6 +88,7 @@ namespace Project_LoFi
             screens[1] = myContent.Load<Texture2D>("Next Level");
             screens[2] = myContent.Load<Texture2D>("Win");
             screens[3] = myContent.Load<Texture2D>("Credits");
+            screens[4] = myContent.Load<Texture2D>("Game Over");
 
             // Terrain textures For Level 1
             terrainTextures[0] = myContent.Load<Texture2D>("Textures\\lightGrass");

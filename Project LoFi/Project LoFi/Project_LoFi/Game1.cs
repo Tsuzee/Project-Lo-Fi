@@ -233,7 +233,7 @@ namespace Project_LoFi
                                 currentState = GameState.Playing;
 
                                 //setup level
-                                level = 3; //test code to force a level not 1 to start first
+                                //level = 3; //test code to force a level not 1 to start first
                                 SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
                                 currentTurn = TurnState.Player;
@@ -636,6 +636,11 @@ namespace Project_LoFi
                         screenDrawer.DrawWon(gameVars, spriteBatch, GraphicsDevice, level, maxLevel);
                         break;
                     }
+                case GameState.GameOver:
+                    {
+                        screenDrawer.DrawGameOver(gameVars, spriteBatch, GraphicsDevice);
+                        break;
+                    }
                 case GameState.Credits:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
@@ -763,6 +768,11 @@ namespace Project_LoFi
         {
             PlayerUnit player;
             player = enemyAI.ClosestPlayer(enemy); //get the player closest to the enemy
+            if(player == null && characterList.Count < 1 )
+            {
+                currentState = GameState.GameOver;
+                return;
+            }
             screenDrawer.HighlightCurrentEnemy(true, enemy);
 
             if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
@@ -784,6 +794,10 @@ namespace Project_LoFi
                         {
                             player.RemoveCorpse(map);
                             characterList.Remove(player);
+                            if(characterList.Count < 1)
+                            {
+                                currentState = GameState.GameOver;
+                            }
                         }
                     }
                     else if (enemyAI.RunAway(enemy, player)) //should they run away
