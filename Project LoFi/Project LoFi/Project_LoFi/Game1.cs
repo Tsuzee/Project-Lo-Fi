@@ -231,10 +231,10 @@ namespace Project_LoFi
                                     level = 1;
                                 }
                                 currentState = GameState.Playing;
-                                //setup level
-                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
-                                
+                                //setup level
+                                //level = 3; //test code to force a level not 1 to start first
+                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
 
                                 currentTurn = TurnState.Player;
                             }
@@ -663,6 +663,8 @@ namespace Project_LoFi
                 case 1:
                     {
                         scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the Red Devil";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 case 2:
@@ -670,6 +672,8 @@ namespace Project_LoFi
                         ResetGameForNextLevel();
                         //scenario.ResetGameForNextLevel();
                         scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the Rock Golem";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 case 3:
@@ -677,6 +681,8 @@ namespace Project_LoFi
                         ResetGameForNextLevel();
                         //scenario.ResetGameForNextLevel();
                         scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
+                        textLog[9] = "Defeat the evil master Dead Beard";
+                        screenDrawer.updateTextLog(textLog);
                         break;
                     }
                 default:
