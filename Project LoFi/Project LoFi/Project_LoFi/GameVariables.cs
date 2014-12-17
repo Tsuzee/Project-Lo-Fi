@@ -1,6 +1,37 @@
 ﻿// Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
 // Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
+/*
+Credits: 
+Songs: 
+James Opie 
+http://jamesopiecomposer.com/
+Alone By The Fire
 
+Braiton
+http://braiton.newgrounds.com/
+Heart of Fire
+
+
+Leifthrasir
+http://leifthrasir.newgrounds.com/
+Shui Xian Hua
+
+TravisGladue
+http://travisgladue.newgrounds.com/
+TLOZ Minish - Game Over
+
+alertG
+http://alertg.newgrounds.com/
+Nature Adventure
+
+ZykiaZyoki
+http://zykiazyoki.newgrounds.com/
+gameOver
+
+
+SoundEffects:
+http://www.freesound.org
+*/
 
 using System;
 using System.Collections.Generic;
@@ -36,6 +67,17 @@ namespace Project_LoFi
         public SpriteFont Font1;
         public SpriteFont Font1Bold;
 
+
+        /// -- Sounds --
+        public SoundEffect attackWithSword;
+        public SoundEffect mageAttack;
+        public SoundEffect rogueAttack;
+        public SoundEffect enemyBite;
+        public SoundEffect enemySwordAttack;
+        public SoundEffect levelComplete;
+        public SoundEffect punch;
+        public Song[] inGame;
+
         /// -- Screens --
         public Texture2D[] screens;
 
@@ -68,6 +110,7 @@ namespace Project_LoFi
             charImages = new Image[6];
             enemyTextures = new Texture2D[21];
             screens = new Texture2D[5];
+            inGame = new Song[6];
         }
 
         /// --  End of Constructors --
@@ -276,6 +319,23 @@ namespace Project_LoFi
         {
             Font1 = myContent.Load<SpriteFont>("Font1");
             Font1Bold = myContent.Load<SpriteFont>("Font1Bold");
+        }
+
+        public void setSounds()
+        {
+            attackWithSword = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\209126__lukesharples__sword-swipe6");
+            mageAttack = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\Fireball+3");
+            rogueAttack = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\77611__joelaudio__sfx-attack-sword-001");
+            enemyBite = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\Bite+2");
+            enemySwordAttack = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\52458__audione__sword-01");
+            levelComplete = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\122255__jivatma07__level-complete");
+            punch = myContent.Load<SoundEffect>("Sounds\\SoundEffects\\104183__ekokubza123__punch");
+            inGame[0] = myContent.Load<Song>("Sounds\\Music\\506072_Heart-of-Fire");
+            inGame[1] = myContent.Load<Song>("Sounds\\Music\\479486_Shui-Xian-Hua");
+            inGame[2] = myContent.Load<Song>("Sounds\\Music\\471984_Nature-Adventure");
+            inGame[3] = myContent.Load<Song>("Sounds\\Music\\595489_TLOZ-Minish---Game-");
+            inGame[4] = myContent.Load<Song>("Sounds\\Music\\578830_CS-Game-Over");
+            inGame[5] = myContent.Load<Song>("Sounds\\Music\\05 Alone by the Fire");
         }
     }//end class
 }

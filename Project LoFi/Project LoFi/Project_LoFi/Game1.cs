@@ -1,5 +1,37 @@
 // Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
 // Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
+/*
+Credits: 
+Songs: 
+James Opie 
+http://jamesopiecomposer.com/
+Alone By The Fire
+
+Braiton
+http://braiton.newgrounds.com/
+Heart of Fire
+
+
+Leifthrasir
+http://leifthrasir.newgrounds.com/
+Shui Xian Hua
+
+TravisGladue
+http://travisgladue.newgrounds.com/
+TLOZ Minish - Game Over
+
+alertG
+http://alertg.newgrounds.com/
+Nature Adventure
+
+ZykiaZyoki
+http://zykiazyoki.newgrounds.com/
+gameOver
+
+
+SoundEffects:
+http://www.freesound.org
+*/
 // Logo by Phillip Fowler
 
 using System;
@@ -13,6 +45,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
+
 
 namespace Project_LoFi
 {
@@ -97,6 +131,7 @@ namespace Project_LoFi
         int level;
         int maxLevel = 3;
 
+        bool songStarted = false;
         private Random rand;
 
         public Game1()
@@ -169,6 +204,8 @@ namespace Project_LoFi
             //load fonts
             gameVars.setFont();
 
+            gameVars.setSounds();
+
             cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
             
         }
@@ -200,6 +237,51 @@ namespace Project_LoFi
             //get current keyboard state
             keyState = Keyboard.GetState();
 
+
+            // Play Songs at different stages 
+            if (currentState == GameState.Menu)
+            {
+                if (!songStarted)
+                {
+                    MediaPlayer.IsRepeating = true;
+                    MediaPlayer.Play(gameVars.inGame[5]);
+                    songStarted = true;
+                }
+                if (keyState.IsKeyDown(Keys.Enter))
+                {
+                    MediaPlayer.IsRepeating = false;
+                    songStarted = false;
+                }
+            }
+            else if (currentState == GameState.Credits)
+            {
+                if (!songStarted)
+                {
+                    MediaPlayer.IsRepeating = true;
+                    MediaPlayer.Play(gameVars.inGame[3]);
+                    songStarted = true;
+                }
+                if (keyState.IsKeyDown(Keys.Enter))
+                {
+                    MediaPlayer.IsRepeating = false;
+                    songStarted = false;
+                }
+            }
+            else if (currentState == GameState.GameOver)
+            {
+                if (!songStarted)
+                {
+                    MediaPlayer.IsRepeating = true;
+                    MediaPlayer.Play(gameVars.inGame[4]);
+                    songStarted = true;
+                }
+                if (keyState.IsKeyDown(Keys.Enter))
+                {
+                    MediaPlayer.IsRepeating = false;
+                    songStarted = false;
+                }
+            }
+
             //update certain elements based on gamestate
             switch (currentState)
             {
@@ -209,8 +291,7 @@ namespace Project_LoFi
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
-                                currentState = GameState.Menu;
-                                
+                                currentState = GameState.Menu;    
                             }
                         }
                         if (keyState.IsKeyDown(Keys.Escape))
@@ -221,6 +302,7 @@ namespace Project_LoFi
                     }
                 case GameState.Menu:
                     {
+                    
                         if (keyState.IsKeyDown(Keys.Enter))
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
@@ -247,6 +329,7 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
+                        
                         enemyList = scenario.enemyList;
 
                         if (frameNum % 30 == 0)
@@ -394,6 +477,12 @@ namespace Project_LoFi
                                             screenDrawer.updateTextLog(textLog);
 
                                             textLog[6] = selectedUnit.Attack(target).ToString();
+                                            if (selectedUnit.Name == "replace these textures")
+                                                gameVars.attackWithSword.Play();
+                                            else if (selectedUnit.Name == "some elderly woman")
+                                                gameVars.mageAttack.Play();
+                                            else if (selectedUnit.Name == "I just want to be unique")
+                                                gameVars.rogueAttack.Play();
                                             if (target.IsDead() == true)
                                             {
                                                 //remove monster corpse
@@ -403,6 +492,7 @@ namespace Project_LoFi
                                                 if(target.IsBoss)
                                                 {
                                                     currentState = GameState.Won;
+                                                    gameVars.levelComplete.Play();
                                                 }
                                             }
 
@@ -662,40 +752,45 @@ namespace Project_LoFi
         /// </summary>
         protected void SetupLevel(int level, string itemListName, string pListName, string eListName)
         {
-            // Load map
-            switch(level)
-            {
-                case 1:
-                    {
-                        scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
-                        textLog[9] = "Defeat the Red Devil";
-                        screenDrawer.updateTextLog(textLog);
-                        break;
-                    }
-                case 2:
-                    {
-                        ResetGameForNextLevel();
-                        //scenario.ResetGameForNextLevel();
-                        scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
-                        textLog[9] = "Defeat the Rock Golem";
-                        screenDrawer.updateTextLog(textLog);
-                        break;
-                    }
-                case 3:
-                    {
-                        ResetGameForNextLevel();
-                        //scenario.ResetGameForNextLevel();
-                        scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
-                        textLog[9] = "Defeat the evil master Dead Beard";
-                        screenDrawer.updateTextLog(textLog);
-                        break;
-                    }
-                default:
-                    {
-                        currentState = GameState.Menu;
-                        break;
-                    }
-            }
+            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.IsRepeating = true;
+                // Load map
+                switch (level)
+                {
+                    case 1:
+                        {
+                            MediaPlayer.Play(gameVars.inGame[0]);
+                            scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
+                            textLog[9] = "Defeat the Red Devil";
+                            screenDrawer.updateTextLog(textLog);
+                            break;
+                        }
+                    case 2:
+                        {
+                            ResetGameForNextLevel();
+                            //scenario.ResetGameForNextLevel();
+                            MediaPlayer.Play(gameVars.inGame[1]);
+                            scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
+                            textLog[9] = "Defeat the Rock Golem";
+                            screenDrawer.updateTextLog(textLog);
+                            break;
+                        }
+                    case 3:
+                        {
+                            ResetGameForNextLevel();
+                            //scenario.ResetGameForNextLevel();
+                            MediaPlayer.Play(gameVars.inGame[2]);
+                            scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
+                            textLog[9] = "Defeat the evil master Dead Beard";
+                            screenDrawer.updateTextLog(textLog);
+                            break;
+                        }
+                    default:
+                        {
+                            currentState = GameState.Menu;
+                            break;
+                        }
+                }
             
             characterList = scenario.PlayerList;
             map = scenario.MapGrid;
@@ -789,7 +884,26 @@ namespace Project_LoFi
                         textLog[7] = enemy.Name;
                         textLog[8] = player.Name;
                         screenDrawer.updateTextLog(textLog);
-
+                        if (enemy.Name == "Devil Scorpion"
+                            || enemy.Name == "Mauler"
+                            || enemy.Name == "Tornado Lizard"
+                            || enemy.Name == "Ant Lion"
+                            || enemy.Name == "Zombie"
+                            || enemy.Name == "Wyvern Chick"
+                            || enemy.Name == "Nightmare"
+                            )
+                            gameVars.enemyBite.Play();
+                        else if (enemy.Name == "Bone Fighter"
+                            || enemy.Name == "Living Armor"
+                            || enemy.Name == "Sentinel"
+                            || enemy.Name == "Dead Beard"
+                            || enemy.Name == "Evil Armor"
+                            || enemy.Name == "White Knight"
+                            || enemy.Name == "Satrage")
+                            gameVars.enemySwordAttack.Play();
+                        else if (enemy.Name == "Rock Golem"
+                            || enemy.Name == "Red Devil")
+                            gameVars.punch.Play();
                         if(player.IsDead())
                         {
                             player.RemoveCorpse(map);
