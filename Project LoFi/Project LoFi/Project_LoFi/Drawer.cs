@@ -23,6 +23,8 @@ namespace Project_LoFi
         int unitWidth = 60;
         int unitHeight = 60;
         int frameNum = 0;
+        int textFrameNum = 0;
+        float textAlpha = 0.1f;
         bool pMoved;
         bool eMoved;
         bool attacked;
@@ -299,6 +301,49 @@ namespace Project_LoFi
             }
         }//end draw gameinfo
 
+
+        public void DrawStory(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        {
+            if (textFrameNum < 150)
+            {
+                spriteBatch.DrawString(gameVars.Font1, "The call for adventure draws you to action. . .", new Vector2(100, 150),
+                    Color.DarkRed * textAlpha, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+                textAlpha += 0.01f;
+                textFrameNum++;
+            }
+            
+            if (textFrameNum == 150 ) { textAlpha = 0.1f; }
+
+            if(textFrameNum > 149 && textFrameNum < 300)
+            {
+                spriteBatch.DrawString(gameVars.Font1, "The call for adventure draws you to action. . .", new Vector2(100, 150),
+                    Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+                spriteBatch.DrawString(gameVars.Font1, "Go now, heroes, and let your fighting spirit drive you onward! \n\n-- Nyarlothotep, circa the elder times", new Vector2(100, 300),
+                    Color.DarkRed * textAlpha, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+                textAlpha += 0.01f;
+                textFrameNum++;
+            }
+
+            if (textFrameNum > 299)
+            {
+                spriteBatch.DrawString(gameVars.Font1, "The call for adventure draws you to action. . .", new Vector2(100, 150),
+                    Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+
+                spriteBatch.DrawString(gameVars.Font1, "Go now, heroes, and let your fighting spirit drive you onward! \n\n-- Nyarlothotep, circa the elder times", new Vector2(100, 300),
+                    Color.DarkRed, 0.0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            }
+        }
+
+
+        /// <summary>
+        /// Draw the horrifying try agian screen
+        /// </summary>
+        /// <param name="gameVars"></param>
+        /// <param name="spriteBatch"></param>
+        /// <param name="graphicsDevice"></param>
         public void DrawGameOver(GameVariables gameVars, SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
         {
             spriteBatch.Draw(gameVars.screens[4], new Rectangle(0, 0, 1200, 780), Color.White);

@@ -114,6 +114,7 @@ namespace Project_LoFi
         //Lists
         List<PlayerUnit> characterList;
         List<EnemyUnit> enemyList;
+        List<PlayerUnit> activePList;
         
         //Arrays
         // 0:Number of turns, 1:did player move, 2:player name, 3: did enemy move, 4:enemy name, 5:was attack called, 6:dmg delt
@@ -130,6 +131,7 @@ namespace Project_LoFi
         int frameNum;
         int level;
         int maxLevel = 3;
+        bool winSound = false;
 
         bool songStarted = false;
         private Random rand;
@@ -281,6 +283,8 @@ namespace Project_LoFi
                     songStarted = false;
                 }
             }
+
+
 
             //update certain elements based on gamestate
             switch (currentState)
@@ -464,45 +468,54 @@ namespace Project_LoFi
                                         }
                                         else if (map[cursorX, cursorY] is EnemyUnit)
                                         {
-                                            EnemyUnit target = (EnemyUnit)map[cursorX, cursorY];
-                                            //pop up pre-attack info here (e.g. tell them the expected result)
-                                            //Will also need to mess with adding more states again, to see if
-                                            //they press Z to confirm the attack or X to cancel
-
-                                            //update text log info to be drawn to screen
-                                            textLog[1] = "false";
-                                            textLog[7] = selectedUnit.Name;
-                                            textLog[8] = target.Name;
-                                            textLog[5] = "true";
-                                            screenDrawer.updateTextLog(textLog);
-
-                                            textLog[6] = selectedUnit.Attack(target).ToString();
-                                            if (characterList[0].Name == selectedUnit.Name)
-                                                gameVars.attackWithSword.Play();
-                                            else if (characterList[1].Name == selectedUnit.Name)
-                                                gameVars.mageAttack.Play();
-                                            else if (characterList[2].Name == selectedUnit.Name)
-                                                gameVars.rogueAttack.Play();
-                                            if (target.IsDead() == true)
+                                            if (MovementValid(cursorX, cursorY, selectedUnit.X, selectedUnit.Y) == true)
                                             {
-                                                //remove monster corpse
-                                                target.RemoveCorpse(map);
+                                                EnemyUnit target = (EnemyUnit)map[cursorX, cursorY];
+                                                //pop up pre-attack info here (e.g. tell them the expected result)
+                                                //Will also need to mess with adding more states again, to see if
+                                                //they press Z to confirm the attack or X to cancel
 
-                                                enemyList.Remove(target);
-                                                if(target.IsBoss)
+                                                //update text log info to be drawn to screen
+                                                textLog[1] = "false";
+                                                textLog[7] = selectedUnit.Name;
+                                                textLog[8] = target.Name;
+                                                textLog[5] = "true";
+                                                screenDrawer.updateTextLog(textLog);
+
+                                                textLog[6] = selectedUnit.Attack(target).ToString();
+
+                                                //attack sounds
+                                                int soundNum = DetermineCharcaterAttackSoundAccordingToJesse(selectedUnit);
+
+                                                if (soundNum == 1)
+                                                    gameVars.attackWithSword.Play();
+                                                else if (soundNum == 2)
+                                                    gameVars.rogueAttack.Play();
+                                                else if (soundNum == 3)
+                                                    gameVars.mageAttack.Play();
+
+
+                                                if (target.IsDead() == true)
                                                 {
-                                                    currentState = GameState.Won;
-                                                    gameVars.levelComplete.Play();
+                                                    //remove monster corpse
+                                                    target.RemoveCorpse(map);
+
+                                                    enemyList.Remove(target);
+                                                    if (target.IsBoss)
+                                                    {
+                                                        currentState = GameState.Won;
+                                                        winSound = true;
+                                                    }
                                                 }
+
+                                                // Deselect the unit, they've attacked
+                                                selected = SelectState.NotSelected;
+                                                cursor.Selected = false;
+
+                                                //change cursor back to unselected and decrement their number of turns
+                                                selectedUnit = null;
+                                                numOfTurns--;
                                             }
-
-                                            // Deselect the unit, they've attacked
-                                            selected = SelectState.NotSelected;
-                                            cursor.Selected = false;
-
-                                            //change cursor back to unselected and decrement their number of turns
-                                            selectedUnit = null;
-                                            numOfTurns--;
                                         }
                                     }//End of else
                                 }//End of singleKeyPress
@@ -586,7 +599,7 @@ namespace Project_LoFi
                             {
                                 enemy = enemyList[enemyNum];
                                 EnemyLogic(enemy);
-                                if(enemyNum + 1 < enemyList.Count())
+                                if(enemyNum < enemyList.Count())
                                 {
                                     enemyNum++;
                                 }
@@ -594,7 +607,7 @@ namespace Project_LoFi
                             }
 
                             //change back to players state
-                            if(enemyNum == enemyList.Count() - 1)
+                            if(enemyNum == enemyList.Count())
                             {
                                 currentTurn = TurnState.Player;
                                 timer = 0;
@@ -608,10 +621,38 @@ namespace Project_LoFi
                         {
                             Exit();
                         }
+
+                        foreach (PlayerUnit scrub in characterList)
+                        {
+                            if (scrub.CurrentExp >= scrub.Level * 8) 
+                            { 
+                                scrub.CurrentExp -= scrub.Level * 8;
+                                scrub.Level += 1;
+                                scrub.Dexterity += 2;
+                                scrub.Magic += 2;
+                                scrub.Strength += 2;
+                                scrub.setStats();
+                            }
+                        }
+
+
+                        //secert key to auto win level
+                        if (keyState.IsKeyDown(Keys.NumLock)) //if escape is pressed close game, this is a quick exit for testing 
+                        {
+                            currentState = GameState.Won;
+                            winSound = true;
+                        }
                         break;
                     }
                 case GameState.Won:
                     {
+                      
+                        if( winSound )
+                        {
+                            gameVars.levelComplete.Play();
+                            winSound = false;
+                        }
+
                         if (keyState.IsKeyDown(Keys.Enter))
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
@@ -707,7 +748,8 @@ namespace Project_LoFi
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
 
-                        screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
+                        //screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
+                        screenDrawer.DrawStory(gameVars, spriteBatch, GraphicsDevice);
                         frameNum = 0;
                         break;
                     }
@@ -763,6 +805,8 @@ namespace Project_LoFi
                             scenario = new Level("map1alt.txt", itemListName, pListName, eListName, gameVars);
                             textLog[9] = "Defeat the Red Devil";
                             screenDrawer.updateTextLog(textLog);
+                            characterList = scenario.PlayerList;
+                            activePList = characterList;
                             break;
                         }
                     case 2:
@@ -770,9 +814,10 @@ namespace Project_LoFi
                             ResetGameForNextLevel();
                             //scenario.ResetGameForNextLevel();
                             MediaPlayer.Play(gameVars.inGame[1]);
-                            scenario = new Level("map2alt.txt", itemListName, pListName, eListName, gameVars);
+                            scenario.ConstructMap("map2alt.txt");
                             textLog[9] = "Defeat the Rock Golem";
                             screenDrawer.updateTextLog(textLog);
+                            enemyList = scenario.enemyList;
                             break;
                         }
                     case 3:
@@ -780,9 +825,10 @@ namespace Project_LoFi
                             ResetGameForNextLevel();
                             //scenario.ResetGameForNextLevel();
                             MediaPlayer.Play(gameVars.inGame[2]);
-                            scenario = new Level("map3alt.txt", itemListName, pListName, eListName, gameVars);
+                            scenario.ConstructMap("map3alt.txt");
                             textLog[9] = "Defeat the evil master Dead Beard";
                             screenDrawer.updateTextLog(textLog);
+                            enemyList = scenario.enemyList;
                             break;
                         }
                     default:
@@ -791,8 +837,7 @@ namespace Project_LoFi
                             break;
                         }
                 }
-            
-            characterList = scenario.PlayerList;
+
             map = scenario.MapGrid;
 
             //setup AI for enemies
@@ -964,5 +1009,24 @@ namespace Project_LoFi
             }
         }
 
+        protected int DetermineCharcaterAttackSoundAccordingToJesse(Unit selectedUnit)
+        {
+            if (selectedUnit.Strength > selectedUnit.Dexterity && selectedUnit.Strength > selectedUnit.Magic)
+            {
+                return 1;
+            }
+
+            if (selectedUnit.Dexterity > selectedUnit.Strength && selectedUnit.Dexterity > selectedUnit.Magic)
+            {
+                return 2;
+            }
+
+            if (selectedUnit.Magic > selectedUnit.Strength && selectedUnit.Magic > selectedUnit.Dexterity)
+            {
+                return 3;
+            }
+
+            return 1;
+        }
     }//end class
 }

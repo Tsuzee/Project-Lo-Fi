@@ -56,7 +56,6 @@ namespace Project_LoFi
             charImages = new List<Image>();
             enemyTextures = new List<Texture2D>();
             playerList = new List<PlayerUnit>();
-            enemyList = new List<EnemyUnit>();
             itemList = new List<Item>();
             enemyDataBase = new List<EnemyUnit>();
 
@@ -285,6 +284,7 @@ namespace Project_LoFi
         {
             Stream input = null;
             StreamReader inStream = null;
+            
             try
             {
                 input = File.OpenRead(mapName);
@@ -298,6 +298,7 @@ namespace Project_LoFi
                 mapHeight = Int32.Parse(inStream.ReadLine());
 
                 mapGrid = new GridOccupant[mapWidth, mapHeight];
+                enemyList = new List<EnemyUnit>();
 
                 for (int j = 0; j < mapHeight; j++)
                 {
