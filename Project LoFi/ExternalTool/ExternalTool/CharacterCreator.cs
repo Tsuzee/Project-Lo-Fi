@@ -170,7 +170,7 @@ namespace ExternalTool
 
                         data = charactersCount + "," + UnitName.Text + "," + health + "," + defense + "," + 
                         attack + "," + crit + "," + level + "," + StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + 
-                        "," + currentExp;
+                        "," + currentExp + ",2,8";
                       //  data = StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value + "," + UnitName.Text + "," + charactersCount;
                         dataForChar[charCount] = data;
                         saved[charCount] = true;
@@ -264,14 +264,14 @@ namespace ExternalTool
         {
             SaveFileDialog safeWindow = new SaveFileDialog();
             safeWindow.Filter = "Lo-Fi Project|*.LFP"; // file extension
-            safeWindow.FileName = "Characters"; // default file name
+            safeWindow.FileName = "players"; // default file name
             safeWindow.Title = "Save Lo-Fi Character File"; // title for the save dialog window
 
 
             calculateAttributes();
             data = charactersCount + "," + UnitName.Text + "," + health + "," + defense + "," +
             attack + "," + crit + "," + level + "," + StrengthStat.Value + "," + DexterityStat.Value + "," + MagicStat.Value +
-            "," + currentExp;
+            "," + currentExp + ",2,8";
             dataForChar[charCount] = data;
 
             if (safeWindow.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -283,6 +283,8 @@ namespace ExternalTool
                     {
                         write.WriteLine(s);
                     }
+
+                    write.Write("* End file");
                 }
 
                 MessageBox.Show("All your data has been saved");

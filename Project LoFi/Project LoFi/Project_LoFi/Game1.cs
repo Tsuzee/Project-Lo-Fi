@@ -55,6 +55,7 @@ namespace Project_LoFi
     {
         Intro,
         Menu,
+        Menu2,
         Playing,
         Won,
         Credits,
@@ -150,7 +151,7 @@ namespace Project_LoFi
             gameVars = new GameVariables(this.Content);
 
             //set initial game state
-            currentState = GameState.Menu;
+            currentState = GameState.Intro;
             selected = SelectState.NotSelected;
 
             //set the cursor
@@ -255,6 +256,20 @@ namespace Project_LoFi
                     songStarted = false;
                 }
             }
+            else if (currentState == GameState.Menu2)
+            {
+                if (!songStarted)
+                {
+                    MediaPlayer.IsRepeating = true;
+                    MediaPlayer.Play(gameVars.inGame[5]);
+                    songStarted = true;
+                }
+                if (keyState.IsKeyDown(Keys.Enter))
+                {
+                    MediaPlayer.IsRepeating = false;
+                    songStarted = false;
+                }
+            }
             else if (currentState == GameState.Credits)
             {
                 if (!songStarted)
@@ -311,20 +326,43 @@ namespace Project_LoFi
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
-                                if(level > 3)
+                                
+                                currentState = GameState.Menu2;
+
+                            }
+                        }
+
+
+
+                        if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
+                        {
+                            Exit();
+                        }
+                        break;
+                    }
+
+                case GameState.Menu2:
+                    {
+
+                        if (keyState.IsKeyDown(Keys.Enter))
+                        {
+                            if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
+                            {
+                                if (level > 3)
                                 {
                                     ResetGameForNextLevel();
                                     level = 1;
                                 }
+                                currentTurn = TurnState.Player;
                                 currentState = GameState.Playing;
-
                                 //setup level
                                 //level = 3; //test code to force a level not 1 to start first
-                                SetupLevel(level, "ItemDatabase.txt", "players.LPF", "MonsterDatabase.txt");
-
-                                currentTurn = TurnState.Player;
+                                SetupLevel(level, "ItemDatabase.txt", "players.LFP", "MonsterDatabase.txt");
                             }
                         }
+
+
+
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
@@ -667,7 +705,7 @@ namespace Project_LoFi
                                 {
                                     currentState = GameState.Playing;
                                     //setup level
-                                    SetupLevel(level, "ItemDatabase.txt", "players.LPF", "MonsterDatabase.txt");
+                                    SetupLevel(level, "ItemDatabase.txt", "players.LFP", "MonsterDatabase.txt");
 
                                     currentTurn = TurnState.Player;
                                 }
@@ -748,7 +786,17 @@ namespace Project_LoFi
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
 
-                        //screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
+                        screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
+
+                        frameNum = 0;
+                        break;
+                    }
+
+
+                case GameState.Menu2:
+                    {
+                        GraphicsDevice.Clear(Color.Black);
+
                         screenDrawer.DrawStory(gameVars, spriteBatch, GraphicsDevice);
                         frameNum = 0;
                         break;

@@ -160,7 +160,7 @@ namespace Project_LoFi
                 string currentLine = inStream.ReadLine();
                 while (inStream.EndOfStream == false)      // While there's still stuff in the file
                 {
-                    if (currentLine.Contains('*') == false)     // If it's not a comment line
+                    if (currentLine.Contains('*') == false || currentLine != "")     // If it's not a comment line
                     {
                         int xCoord = 0;
                         int yCoord = 0;
