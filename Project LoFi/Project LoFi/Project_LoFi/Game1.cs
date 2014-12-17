@@ -477,11 +477,11 @@ namespace Project_LoFi
                                             screenDrawer.updateTextLog(textLog);
 
                                             textLog[6] = selectedUnit.Attack(target).ToString();
-                                            if (selectedUnit.Name == "replace these textures")
+                                            if (characterList[0].Name == selectedUnit.Name)
                                                 gameVars.attackWithSword.Play();
-                                            else if (selectedUnit.Name == "some elderly woman")
+                                            else if (characterList[1].Name == selectedUnit.Name)
                                                 gameVars.mageAttack.Play();
-                                            else if (selectedUnit.Name == "I just want to be unique")
+                                            else if (characterList[2].Name == selectedUnit.Name)
                                                 gameVars.rogueAttack.Play();
                                             if (target.IsDead() == true)
                                             {
@@ -891,6 +891,7 @@ namespace Project_LoFi
                             || enemy.Name == "Zombie"
                             || enemy.Name == "Wyvern Chick"
                             || enemy.Name == "Nightmare"
+                            || enemy.Name == "Foul Mummy"
                             )
                             gameVars.enemyBite.Play();
                         else if (enemy.Name == "Bone Fighter"
