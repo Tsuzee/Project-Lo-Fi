@@ -320,7 +320,7 @@ namespace Project_LoFi
 
                                 //setup level
                                 //level = 3; //test code to force a level not 1 to start first
-                                SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+                                SetupLevel(level, "ItemDatabase.txt", "players.LPF", "MonsterDatabase.txt");
 
                                 currentTurn = TurnState.Player;
                             }
@@ -667,7 +667,7 @@ namespace Project_LoFi
                                 {
                                     currentState = GameState.Playing;
                                     //setup level
-                                    SetupLevel(level, "ItemDatabase.txt", "players.txt", "MonsterDatabase.txt");
+                                    SetupLevel(level, "ItemDatabase.txt", "players.LPF", "MonsterDatabase.txt");
 
                                     currentTurn = TurnState.Player;
                                 }
