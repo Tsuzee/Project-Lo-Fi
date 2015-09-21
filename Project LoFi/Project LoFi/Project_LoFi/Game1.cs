@@ -1,39 +1,3 @@
-// Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
-// Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
-/*
-Credits: 
-Songs: 
-James Opie 
-http://jamesopiecomposer.com/
-Alone By The Fire
-
-Braiton
-http://braiton.newgrounds.com/
-Heart of Fire
-
-
-Leifthrasir
-http://leifthrasir.newgrounds.com/
-Shui Xian Hua
-
-TravisGladue
-http://travisgladue.newgrounds.com/
-TLOZ Minish - Game Over
-
-alertG
-http://alertg.newgrounds.com/
-Nature Adventure
-
-ZykiaZyoki
-http://zykiazyoki.newgrounds.com/
-gameOver
-
-
-SoundEffects:
-http://www.freesound.org
-*/
-// Logo by Phillip Fowler
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -96,12 +60,12 @@ namespace Project_LoFi
         //class declarations
         Level scenario;
         GamePlay gamePlay;
-        GameVariables gameVars;
+        GameVariables gameVars;         //Darren Farr
         CharacterSheet characterSheet;
         Cursor cursor;
         PlayerUnit selectedUnit;
-        Drawer screenDrawer;
-        EnemyAI enemyAI;
+        Drawer screenDrawer;            //Jesse Cooper
+        EnemyAI enemyAI;                //Darren Farr
 
         //States
         GameState currentState;
@@ -137,10 +101,11 @@ namespace Project_LoFi
         bool songStarted = false;
         private Random rand;
 
+        //Get this game started
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            //set window size(need to settle on a size)
+            //set window size
             graphics.PreferredBackBufferHeight = 780;
             graphics.PreferredBackBufferWidth = 1200;
 
@@ -187,7 +152,6 @@ namespace Project_LoFi
             characterSheet.Hide();
             rand = new Random();
             frameNum = 0;
-            
             base.Initialize();
         }
 
@@ -206,11 +170,8 @@ namespace Project_LoFi
 
             //load fonts
             gameVars.setFont();
-
             gameVars.setSounds();
-
             cursor.setCursorTextures(gameVars.cursor, gameVars.selCursor);
-            
         }
 
         /// <summary>
@@ -229,7 +190,7 @@ namespace Project_LoFi
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
+            // Allows the game to exit, pressing escape while playing closes game
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
@@ -240,7 +201,8 @@ namespace Project_LoFi
             //get current keyboard state
             keyState = Keyboard.GetState();
 
-
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            //Move to it's own class to keep with current coding form
             // Play Songs at different stages 
             if (currentState == GameState.Menu)
             {
@@ -298,10 +260,12 @@ namespace Project_LoFi
                     songStarted = false;
                 }
             }
+            //end of chunk to move ///////////////////////////////////////////////////////
 
 
-
-            //update certain elements based on gamestate
+            /*///////////////////////////////////////////////////////////////////////////////////////////////////
+            --------------------------------------Main Game Loop-----------------------------------------------
+            ///////////////////////////////////////////////////////////////////////////////////////////////////*/
             switch (currentState)
             {
                 case GameState.Intro:
@@ -321,18 +285,13 @@ namespace Project_LoFi
                     }
                 case GameState.Menu:
                     {
-                    
                         if (keyState.IsKeyDown(Keys.Enter))
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
                             {
-                                
                                 currentState = GameState.Menu2;
-
                             }
                         }
-
-
 
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
@@ -340,10 +299,8 @@ namespace Project_LoFi
                         }
                         break;
                     }
-
                 case GameState.Menu2:
                     {
-
                         if (keyState.IsKeyDown(Keys.Enter))
                         {
                             if (SingleKeyPress(keyState, previousKeyState, Keys.Enter))
@@ -360,9 +317,6 @@ namespace Project_LoFi
                                 SetupLevel(level, "ItemDatabase.txt", "players.LFP", "MonsterDatabase.txt");
                             }
                         }
-
-
-
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
                             Exit();
@@ -371,7 +325,6 @@ namespace Project_LoFi
                     }
                 case GameState.Playing:
                     {
-                        
                         enemyList = scenario.enemyList;
 
                         if (frameNum % 30 == 0)
@@ -382,9 +335,10 @@ namespace Project_LoFi
                         }
                         frameNum++;
 
-                        //screenDrawer.enemyList = enemyList;
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////
-                        //players turn
+                        /*///////////////////////////////////////////////////////////////////////////////////////////////////
+                        --------------------------------------Start of PC TURN-----------------------------------------------
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////*/
+
                         if (currentTurn == TurnState.Player)
                         {
                             screenDrawer.HighlightCurrentEnemy(false, null);
@@ -398,7 +352,6 @@ namespace Project_LoFi
                             }
                             cursor.isVisible = true;
                             screenDrawer.updateTextLog(textLog);
-                            
                             
                             //check for cursor movement
                             if (keyState.IsKeyDown(Keys.Up))
@@ -459,7 +412,6 @@ namespace Project_LoFi
                                         {
                                             cursor.Selected = true;
                                             selectedUnit = (PlayerUnit)map[cursorX, cursorY]; // Cast the unit
-                                            //screenDrawer.SelectedUnit = selectedUnit;
                                             selected = SelectState.Selected;
                                         }
                                     }
@@ -500,7 +452,6 @@ namespace Project_LoFi
                                                     //screenDrawer.SelectedUnit = null;
                                                     selectedUnit = null;
                                                     numOfTurns--;
-                                                    
                                                 }
                                             }
                                         }
@@ -588,7 +539,6 @@ namespace Project_LoFi
                                 }
                             }
 
-
                             if (Keyboard.GetState().GetPressedKeys().Length > 0)
                             {
                                 gamePlay.MoveCursor(keyState);
@@ -604,12 +554,12 @@ namespace Project_LoFi
                                 cursor.isVisible = false;
                             }
                         }
-                        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        
-
-                        ////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        //npc's turn
-                        if(currentTurn == TurnState.NPC)
+                        /*/////////////////////////////////////////////////////////////////////////////////////////////////////
+                        --------------------------------------------------End of PC TURN--------------------------------------
+                        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+                        --------------------------------------------------Start of NPC TURN-----------------------------------
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////*/
+                        if (currentTurn == TurnState.NPC)
                         {
                             if (keyState.IsKeyDown(Keys.C))
                             {
@@ -652,8 +602,10 @@ namespace Project_LoFi
                             }
                             
                             
-                        }//end NPC turns
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        }
+                        /*/////////////////////////////////////////////////////////////////////////////////////////////////////
+                        --------------------------------------------------End of NPC TURN--------------------------------------
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
                         if (keyState.IsKeyDown(Keys.Escape)) //if escape is pressed close game, this is a quick exit for testing 
                         {
@@ -753,6 +705,9 @@ namespace Project_LoFi
             previousKeyState = keyState;//set previous state for next update
             base.Update(gameTime);
         }
+        /*///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        --------------------------------------------------End of Update--------------------------------------------------------------
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -765,7 +720,7 @@ namespace Project_LoFi
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             
-
+            //draw based on the games current state
             switch(currentState)
             {
                 case GameState.Intro:
@@ -776,34 +731,26 @@ namespace Project_LoFi
                             break;
                         }
                         GraphicsDevice.Clear(Color.White);
-
                         screenDrawer.DrawIntro(gameVars, spriteBatch, GraphicsDevice); //draws the game intro
-
                         frameNum++;
                         break;
                     }
                 case GameState.Menu:
                     {   //stubs for menu code, will need graphics and such here
                         GraphicsDevice.Clear(Color.Black);
-
                         screenDrawer.DrawMenu(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
-
                         frameNum = 0;
                         break;
                     }
-
-
                 case GameState.Menu2:
                     {
                         GraphicsDevice.Clear(Color.Black);
-
                         screenDrawer.DrawStory(gameVars, spriteBatch, GraphicsDevice);
                         frameNum = 0;
                         break;
                     }
                 case GameState.Playing:
                     {
-                        
                         screenDrawer.DrawMap(map, spriteBatch, gameVars);
                         if (selectedUnit != null)
                             screenDrawer.DrawHighlighter(map, selectedUnit, gameVars, spriteBatch);
@@ -822,24 +769,25 @@ namespace Project_LoFi
                         break;
                     }
                 case GameState.Credits:
-                    {   //stubs for menu code, will need graphics and such here
+                    {
                         GraphicsDevice.Clear(Color.Black);
-
                         screenDrawer.DrawCredits(gameVars, spriteBatch, GraphicsDevice); //draws the game menu
-
                         break;
                     }
             }//end switch
             spriteBatch.End();
             base.Draw(gameTime);
-        }
+        }//end draw
 
 
 
         /// <summary>
-        /// Will need information passed in to determine which level to setup.
-        /// Currently only contains test code.
+        /// Setup the game level for play.
         /// </summary>
+        /// <param name="level"></param>
+        /// <param name="itemListName"></param>
+        /// <param name="pListName"></param>
+        /// <param name="eListName"></param>
         protected void SetupLevel(int level, string itemListName, string pListName, string eListName)
         {
             MediaPlayer.Volume = 0.2f;
@@ -860,7 +808,6 @@ namespace Project_LoFi
                     case 2:
                         {
                             ResetGameForNextLevel();
-                            //scenario.ResetGameForNextLevel();
                             MediaPlayer.Play(gameVars.inGame[1]);
                             scenario.ConstructMap("map2alt.txt");
                             textLog[9] = "Defeat the Rock Golem";
@@ -871,7 +818,6 @@ namespace Project_LoFi
                     case 3:
                         {
                             ResetGameForNextLevel();
-                            //scenario.ResetGameForNextLevel();
                             MediaPlayer.Play(gameVars.inGame[2]);
                             scenario.ConstructMap("map3alt.txt");
                             textLog[9] = "Defeat the evil master Dead Beard";
@@ -893,9 +839,7 @@ namespace Project_LoFi
         }//end setup level
 
         /// <summary>
-        /// Alternate method for new map format
-        /// Will need information passed in to determine which level to setup.
-        /// Currently only contains test code.
+        /// Resets variables and the onscreen log to prepare for the next level.
         /// </summary>
         protected void ResetGameForNextLevel()
         {
@@ -928,10 +872,10 @@ namespace Project_LoFi
             {
                 return false;
             }
-        }
+        }//end single keypress
 
         /// <summary>
-        /// 
+        /// Check to see if movement is valid.
         /// </summary>
         /// <param name="cX"> cursor.CursorPos.X </param>
         /// <param name="cY"> cursor.CursorPos.Y </param>
@@ -946,10 +890,10 @@ namespace Project_LoFi
                 resultFlag = true;
 
             return resultFlag;
-        }
+        }//end movementValid
 
         /// <summary>
-        /// Decides what the enemy will do on their move
+        /// Decides what the enemy will do on their move.
         /// </summary>
         /// <param name="enemy"></param>
         private void EnemyLogic(EnemyUnit enemy)
@@ -965,7 +909,6 @@ namespace Project_LoFi
 
             if (enemyAI.IsPlayerVisible(enemy, player)) //can the enemy see/hear that player
             {
-
                 if (enemyAI.IsNextTo(enemy, player)) //is the player next to them
                 {
                     if (enemyAI.AttackPlayer(enemy, player)) //check to see if they should attack
@@ -1055,8 +998,13 @@ namespace Project_LoFi
             {
                 enemy.Move(map, rand.Next(0, 5));
             }
-        }
+        }//end enemy logic
 
+        /// <summary>
+        /// Determine which sound effect to play.
+        /// </summary>
+        /// <param name="selectedUnit"></param>
+        /// <returns>int value of sound effect</returns>
         protected int DetermineCharcaterAttackSoundAccordingToJesse(Unit selectedUnit)
         {
             if (selectedUnit.Strength > selectedUnit.Dexterity && selectedUnit.Strength > selectedUnit.Magic)
@@ -1075,6 +1023,6 @@ namespace Project_LoFi
             }
 
             return 1;
-        }
+        }//end determine sound effect
     }//end class
 }

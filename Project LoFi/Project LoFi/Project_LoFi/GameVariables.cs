@@ -1,39 +1,4 @@
-﻿// Terrain textures were taking from http://opengameart.org/textures/ just for testing purposes.
-// Characters and Monsters texture were taking from http://untamed.wild-refuge.net/rmxpresources.php?characters just for testing purposes.
-/*
-Credits: 
-Songs: 
-James Opie 
-http://jamesopiecomposer.com/
-Alone By The Fire
-
-Braiton
-http://braiton.newgrounds.com/
-Heart of Fire
-
-
-Leifthrasir
-http://leifthrasir.newgrounds.com/
-Shui Xian Hua
-
-TravisGladue
-http://travisgladue.newgrounds.com/
-TLOZ Minish - Game Over
-
-alertG
-http://alertg.newgrounds.com/
-Nature Adventure
-
-ZykiaZyoki
-http://zykiazyoki.newgrounds.com/
-gameOver
-
-
-SoundEffects:
-http://www.freesound.org
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
@@ -95,6 +60,7 @@ namespace Project_LoFi
          * [3] = flower
          * [4] = road
          */
+
         public Texture2D[] enemyTextures;
         public Texture2D[] charTextures;
         public Image[] charImages;

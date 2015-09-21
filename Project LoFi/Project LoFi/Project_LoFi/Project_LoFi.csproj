@@ -99,6 +99,7 @@
     <Compile Include="Unit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Citation.txt" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
